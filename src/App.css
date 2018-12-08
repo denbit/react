@@ -1,0 +1,82 @@
+.root{
+  position: relative;
+  top: 0px;
+}
+@font-face{
+  font-family:Agency FB;
+  src:url('/fonts/2492.ttf');
+}
+
+.App {
+  text-align: center;
+  font-family:Consolas;
+  background-image:  url(/imgs/chemr-min.png);
+  background-position: 0 0;
+  background-size: 100% 100%;
+  min-height: 800px;
+}
+.panel{
+  text-align: end;
+}
+.lang{
+  display: inline-block;
+  margin: 0 5px;
+}
+.blank{
+  height: 35px;
+  width: auto;
+}
+.title{
+  font-size: 102px;
+  width: 100%;
+}
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.header {
+  position: relative;
+  min-height: 125px;
+  margin: 0px 5px 50px 5px;
+  text-align: center;
+  font-family:Agency FB;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  background-color: white;
+  color: #04b87f;
+}
+.body{
+  min-height: 800px;
+}
+.menu{
+  width: 100%;
+  min-height: 30px;
+  background: #fff;
+  text-align: center;
+  color: #07859f;
+  padding: 5px 35px;
+}
+.menu_item {
+  margin-top: 5px;
+  float: left;
+  cursor: pointer;
+  color: #07859f;
+  font-size: 20px;
+  padding: 0 5%;
+  text-decoration: none;
+}
+.menu_item a{
+  cursor: pointer;
+  color: #07859f;
+  text-decoration: none;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
