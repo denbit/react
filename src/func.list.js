@@ -1,3 +1,3 @@
 export function changeLang() {
-    return 0;
+   console.log(this);
 }
