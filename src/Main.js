@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-
+import Rotator from './Rotator'
 function updateText(text) {
     this.setState(text)
 }
@@ -30,25 +30,6 @@ class Nav extends Component{
         </nav>);
 
     }
-}
-class Rotator extends Component{
-
-    render() {
-        return (
-                <div className="slides">
-                    <button className="slick-prev slick-arrow" >Previous</button>
-                    <div className="slider">
-                        <div className="ssl">
-                    <div><img src="imgs/img_a.jpg"/><h3>your content</h3></div>
-                    <div><img src="imgs/img_b.jpg"/><h3>your content</h3></div>
-                    <div><img src="imgs/img_c.jpg"/><h3>your content</h3></div>
-                        </div>
-                    </div>
-                    <button className="slick-next slick-arrow" >Next</button>
-                </div>
-        );
-    }
-
 }
 
 class Screen extends Component{
