@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 import {LanguageList} from './Languages'
 import Header from './Header'
@@ -7,8 +7,8 @@ import Main from './Main'
 import Footer from './Footer'
 export const menulist=new Array("UA","PL","EN","RU");
 export const title_text="Chemistry CODE";
-const Language=React.createContext({});
-
+const Language=React.createContext(LanguageList.ua);
+console.log(LanguageList);
 
 
 

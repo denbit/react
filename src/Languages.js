@@ -1,22 +1,18 @@
 import ini from './ini';
+
 export const LanguageList=function () {
     let list={ua:{},pl:{},en:{}};
-    var ua='';
-    window.fetch('/languages/ua.ini').then(function(response) {
-       // alert(response.headers.get('Content-Type')); // application/json; charset=utf-8
-       // alert(response.status); // 200
 
-        return response.text();
-    }).then(function (text) {
+    window.fetch('/languages/ua.ini').then(function(response) {
+       return response.text();
+    }).then( (text) =>{let
         ua=text;
         ua=ini.parse(ua);
-        console.log(ua);
-        return ua;
+
+        list.ua=ua;
+        console.log(list);
     });
-    console.log(ua);
     return list;
-
-
 }();
 
 
