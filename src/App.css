@@ -111,10 +111,10 @@
 }
 .ssl>div{
   float: left;
-  width:calc(100%/3);
+  width:calc(100%/4);
 }
 .slides img{
-  width: 70%;
+  width: 90%;
 }
 .slick-arrow{
   border: none;
@@ -147,6 +147,8 @@
 }
 .ssl{
   position: relative;
+  width: 2000px;
+  /*margin-left: -1030px;
   /*animation-duration: 7s;
   animation-name: slidein;
   animation-iteration-count: infinite;*/

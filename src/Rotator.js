@@ -4,33 +4,42 @@ class Arrow extends Component{
 
     render() {
         return (
-            <button onClick={(event)=>this.props.ArrowClick(event)} className={'slick-arrow '+this.props.direction} >{this.props.children}</button>
+            <button onClick={(event)=>this.props.ArrowClick(event,this.props.direction)} className={'slick-arrow '+this.props.direction} >{this.props.children}</button>
         );
     }
 
 }
+function Slide(props) {
+    return(<div><h3>{props.text}</h3><img src={props.src}/></div>)
+
+}
+function Slider(props) {
+    return(<div className="slider">{}
+        <div className="ssl" style={{marginLeft:+props.position+'px'}}>
+            <Slide src="imgs/img_a.jpg" text="your content"/>
+            <Slide src="imgs/img_b.jpg" text="your content"/>
+            <Slide src="imgs/img_c.jpg" text="your content"/>
+            <Slide src="imgs/img_a.jpg" text="your content"/>
+        </div>
+    </div>)
+}
 class Rotator extends Component{
+
     constructor(props) {
         super(props);
-        this.state={currentPos:0};
+        this.state={currentPos:-200};
     }
 
 
-    handleClick(e){
-        console.log(e);
+    handleClick(e,...arg){
+        console.log(arg);
     }
     render() {
         return (
             <div className="slides">
-                <Arrow ArrowClick={(target)=>this.handleClick(target)}  direction="slick-prev"> Previous</Arrow>
-                <div className="slider">
-                    <div className="ssl">
-                        <div><img src="imgs/img_a.jpg"/><h3>your content</h3></div>
-                        <div><img src="imgs/img_b.jpg"/><h3>your content</h3></div>
-                        <div><img src="imgs/img_c.jpg"/><h3>your content</h3></div>
-                    </div>
-                </div>
-                <Arrow ArrowClick={(target)=>this.handleClick(target)} direction="slick-next">Next</Arrow>
+                <Arrow ArrowClick={(target,arg)=>this.handleClick(target,arg)}  direction="slick-prev"> Previous</Arrow>
+                <Slider position={this.state.currentPos}/>
+                <Arrow ArrowClick={(target,arg)=>this.handleClick(target,arg)} direction="slick-next">Next</Arrow>
             </div>
         );
     }
