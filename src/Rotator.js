@@ -31,7 +31,17 @@ class Rotator extends Component{
     }
 
 
-    handleClick(e,...arg){
+    handleClick(e,arg){
+        const pos=this.state.currentPos;
+        switch (arg) {
+            case 'slick-prev':
+                this.setState({currentPos:(pos-200)})
+                break;
+            case 'slick-next':
+                this.setState({currentPos:(pos+200)})
+                break;
+
+        }
         console.log(arg);
     }
     render() {
