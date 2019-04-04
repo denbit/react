@@ -9,7 +9,7 @@ export const Language=React.createContext();
 export const menulist=new Array("UA","PL","EN","RU");
 export const title_text="Chemistry CODE";
 
-console.log(LanguageList);
+//console.log(LanguageList);
 
 
 class Blank extends Component{
@@ -28,16 +28,18 @@ class Blank extends Component{
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state={language:LanguageList.ua}
+        this.state={language:{}}
+        this.loadLangs=LanguageList.bind(this);
     }
 
-    componentDidMount() {
-        setTimeout(()=>this.setState({language:LanguageList['ua']}),100);
+    componentWillMount() {
+        this.loadLangs();
+       // setTimeout(()=>this.setState({language:LanguageList['ua']}),100);
     }
 
     render() {
     return (
-        <Language.Provider value={ this.state.language} >
+        <Language.Provider value={this.state.language} >
       <div className="App">
           <Blank filler="&nbsp;"/>
         <Header/>
