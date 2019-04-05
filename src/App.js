@@ -28,13 +28,21 @@ class Blank extends Component{
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state={language:{}}
+        this.state={
+            language:{},
+            selectedLang:'ua'
+        }
         this.loadLangs=LanguageList.bind(this);
+        this.changeLang = this.changeLang.bind(this);
     }
 
     componentWillMount() {
         this.loadLangs();
        // setTimeout(()=>this.setState({language:LanguageList['ua']}),100);
+    }
+    changeLang(e){
+    //alert(e.target.innerHTML);
+        this.loadLangs(e.target.innerHTML);
     }
 
     render() {
@@ -42,7 +50,7 @@ class App extends Component {
         <Language.Provider value={this.state.language} >
       <div className="App">
           <Blank filler="&nbsp;"/>
-        <Header/>
+        <Header switcher={this.changeLang}/>
         <Main/>
         <Footer/>
       </div>

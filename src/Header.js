@@ -9,7 +9,7 @@ class Title  extends Component{
 class Lang extends Component{
 
     render(){
-        return(<div className="lang" onMouseOver={() => console.log("Hovered!")} onClick={changeLang}>{this.props.lang.toLowerCase()}</div>);
+        return(<div className="lang" onMouseOver={() => console.log("Hovered!")} onClick={(e)=>this.props.switcher(e)}>{this.props.lang.toLowerCase()}</div>);
     }
 }
 class DateTicker extends Component{
@@ -40,7 +40,7 @@ class LangPanel extends Component{
         let td=<div><DateTicker date={new Date()}/></div>;
         return (
             <div className="panel">{td}
-                {menulist.map((lang,i)=><Lang key={lang.toString()} lang={lang} some={i} />)}
+                {menulist.map((lang,i)=><Lang key={lang.toString()} switcher={this.props.switcher} lang={lang} some={i} />)}
             </div> );
     }
 }
@@ -52,7 +52,7 @@ class Header extends Component{
         return (
             <header className="header">
                 <Title/>
-                <LangPanel/>
+                <LangPanel switcher={this.props.switcher}/>
 
             </header>
         );
