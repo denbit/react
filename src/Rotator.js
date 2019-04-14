@@ -27,15 +27,29 @@ class Rotator extends Component{
 
     constructor(props) {
         super(props);
-        this.state={currentPos:-200};
+        this.state={currentPos:-200,interval:''};
     }
 
+    move(t){
+        let pos=this.state.currentPos;
+       let inter= setInterval(()=>{
+           pos-=20;
+            this.setState({currentPos:pos,interval:inter});
+            if(t>this.state.currentPos){
+                clearInterval(this.state.interval);
+            }
+            console.log(this.state.currentPos);},100);
 
+    }
     handleClick(e,arg){
         const pos=this.state.currentPos;
+        console.log(pos);
+        let target=pos-200;
         switch (arg) {
             case 'slick-prev':
-                this.setState({currentPos:(pos-200)});
+                this.move(target);
+
+
                 break;
             case 'slick-next':
                 this.setState({currentPos:(pos+200)});

@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
 import Rotator from './Rotator'
+import {Language} from "./App";
+
 function updateText(text) {
     this.setState(text)
 }
@@ -23,10 +25,18 @@ class NavElement extends Component{
 
 class Nav extends Component{
     render(){
+
         return (<nav className="menu">
-            <NavElement link="about" text="Що таке Chemistry HPC"/>
-            <NavElement link="calculation" text="Розрахунок спектрів"/>
-            <NavElement link="contacts"  text="Контакти"/>
+            <Language.Consumer>
+            {language => {console.log(language);
+            return (
+                <React.Fragment>
+                    <NavElement link="about" text={language.about}/>
+                    <NavElement link="calculation" text={language.calculation}/>
+                    <NavElement link="contacts" text={language.contacts}/>
+            </React.Fragment>)}
+            }
+        </Language.Consumer>
         </nav>);
 
     }
