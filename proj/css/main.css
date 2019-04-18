@@ -1,0 +1,97 @@
+body {
+    background: url(../img/chemr-min.png);
+	font-family:Consolas;
+}
+.header {
+    display: block;
+    position: relative;
+    min-height: 125px;
+    margin: 40px 0 60px 0;
+    text-align: center;
+    color: #04b87f;
+    background: #fff;
+}
+.header .header__title {
+    font-size: 102px;
+}
+.header .header__lang-panel {
+    position: absolute;
+    min-width: 265px;
+    bottom: 0;
+    right: 0;
+}
+.header .header__lang-panel-item {
+    display: block;
+    float: left;
+    font-size: 40px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+.header .header__lang-panel-item:hover {
+    color: #fff;
+    background: #04b87f;
+}
+.main {
+    min-height: 800px;
+}
+.main .main__menu {
+    display: block;
+    width: 100%;
+    min-height: 40px;
+    background: #fff;
+    text-align: center;
+    color: #07859f;
+}
+.main .main__menu-item {
+    float: left;
+    width: 33%;
+    cursor: pointer;
+    color: #07859f;
+    font-size: 30px;
+    text-decoration: none;
+}
+.main .main__menu-item:hover {
+    text-decoration: underline;
+}
+.main .main__menu-item:first-child {
+    text-align: right;
+}
+.main .main__menu-item:last-child {
+    text-align: left;
+}
+.main .main__slider {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+}
+.main__slider h3 {
+    font-size: 20px;
+    color: #fff;
+}
+.main .slick-initialized .slick-slide {
+    margin-right: 20px;
+}
+.main .slick-prev:before, .main .slick-next:before {
+    display: none;
+}
+.main .slick-prev.slick-arrow {
+    display: inline-block;
+    background: url(../img/arrow_left.png);
+    height: 104px;
+    width: 104px;
+    left: -120px;
+}
+.main .slick-next.slick-arrow {
+    display: inline-block;
+    background: url(../img/arrow_right.png);
+    height: 104px;
+    width: 104px;
+    right: -120px;
+}
+.footer {
+    position: relative;
+    bottom: 0;
+    min-height: 200px;
+    background: #07859f;
+}
