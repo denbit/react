@@ -16,6 +16,7 @@ function Slide(props) {
 function Slider(props) {
     return(<div className="slider">{}
         <div className="ssl" style={{marginLeft:+props.position+'px'}}>
+            <Slide src="imgs/img_c.jpg" text="your content"/>
             <Slide src="imgs/img_a.jpg" text="your content"/>
             <Slide src="imgs/img_b.jpg" text="your content"/>
             <Slide src="imgs/img_c.jpg" text="your content"/>
@@ -27,32 +28,50 @@ class Rotator extends Component{
 
     constructor(props) {
         super(props);
-        this.state={currentPos:-200,interval:''};
+        this.state={currentPos:-200,interval:'',step:10,timeout:50};
     }
-
-    move(t){
+    checkLimit(){
+        const pos=this.state.currentPos;
+        if (pos>1200||pos<-1200){
+            this.setState({currentPos:-200});
+        }
+    }
+    moveB(t){
         let pos=this.state.currentPos;
        let inter= setInterval(()=>{
-           pos-=20;
+           pos-=this.state.step;
             this.setState({currentPos:pos,interval:inter});
             if(t>this.state.currentPos){
                 clearInterval(this.state.interval);
             }
-            console.log(this.state.currentPos);},100);
+            console.log(this.state.currentPos);},this.state.timeout);
+
+    }
+    moveF(t){
+        let pos=this.state.currentPos;
+        let inter= setInterval(()=>{
+            pos+=this.state.step;
+            this.setState({currentPos:pos,interval:inter});
+            if(t<this.state.currentPos){
+                clearInterval(this.state.interval);
+            }
+            console.log(this.state.currentPos);},this.state.timeout);
 
     }
     handleClick(e,arg){
         const pos=this.state.currentPos;
         console.log(pos);
-        let target=pos-200;
+        this.checkLimit();
+        let target;
         switch (arg) {
             case 'slick-prev':
-                this.move(target);
-
-
+                 target=pos-200;
+                this.moveB(target);
                 break;
             case 'slick-next':
-                this.setState({currentPos:(pos+200)});
+                target=pos+200;
+                console.log(target,pos);
+                this.moveF(target);
                 break;
 
         }

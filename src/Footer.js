@@ -1,11 +1,11 @@
 import React,{Component} from 'react'
 
 class Footer extends Component{
-
+ static defaultProps={info:"Info place with additional data"}
     render() {
         return (
             <footer>
-            Info place with additional data
+                {this.props.info}
             </footer>
         );
     }
