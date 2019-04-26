@@ -78,7 +78,7 @@
   cursor: pointer;
   color: #07859f;
   padding: 0 10px;
-  font-size: 30px;
+  font-size: 2.2vw;
   text-decoration: none;
 }
 
@@ -111,7 +111,7 @@
 }
 .ssl>div{
   float: left;
-  width:calc(100%/4);
+  width:calc(100%/5);
 }
 .slides img{
   width: 90%;
