@@ -18,7 +18,7 @@ class Blank extends Component{
         return (
             <Language.Consumer>
                 {language => {
-                    if (language.filler==undefined){
+                    if (language.filler===undefined){
                     return <div className="blank" >Loading...</div>
                         }else{
                     return <div className="blank" >{language.filler[this.props.text]}</div>

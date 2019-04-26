@@ -50,9 +50,6 @@ class Screen extends Component{
 
 
     }
-    handleClick(){
-
-    }
     render() {
         return this.state.page;
     }
@@ -63,7 +60,7 @@ class Main extends Component{
         return(
             <div className="body">
                 <Nav/>
-                <p style={{fontFamily:30+'px'}}>About block
+                <p style={{fontSize:30+'px'}}>About block
                 </p>
                 <Rotator/>
                 <Screen page="main"/>
