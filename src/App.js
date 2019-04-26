@@ -9,14 +9,22 @@ export const Language=React.createContext();
 export const menulist=new Array("UA","PL","EN","RU");
 export const title_text="Chemistry CODE";
 
-//console.log(LanguageList);
+console.log(LanguageList);
 
 
 class Blank extends Component{
+    static defaultProps={text:"default"};
     render(){
         return (
             <Language.Consumer>
-                {language => <div className="blank" >{this.props.filler+language.filler}</div> }
+                {language => {
+                    if (language.filler==undefined){
+                    return <div className="blank" >Loading...</div>
+                        }else{
+                    return <div className="blank" >{language.filler[this.props.text]}</div>
+                        }
+                    }
+                }
             </Language.Consumer>
 
         )
@@ -49,7 +57,7 @@ class App extends Component {
     return (
         <Language.Provider value={this.state.language} >
       <div className="App">
-          <Blank filler="&nbsp;"/>
+          <Blank text="head"/>
         <Header switcher={this.changeLang}/>
         <Main/>
         <Footer/>
