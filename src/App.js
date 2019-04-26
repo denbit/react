@@ -66,5 +66,5 @@ class App extends Component {
     );
   }
 }
-
+export  {Blank};
 export default App;

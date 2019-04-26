@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import Rotator from './Rotator'
 import {Language} from "./App";
+import  {Blank} from './App'
 
 function updateText(text) {
     this.setState(text)
@@ -60,7 +61,7 @@ class Main extends Component{
         return(
             <div className="body">
                 <Nav/>
-                <p style={{fontSize:30+'px'}}>About block
+                <p style={{fontSize:30+'px'}}><Blank text={'beforeSlider'}/>
                 </p>
                 <Rotator/>
                 <Screen page="main"/>
