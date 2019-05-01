@@ -1,18 +1,19 @@
-import {changeLang} from "./func.list";
-import React, { Component } from 'react';
-import { title_text , menulist } from "./App";
+import React, {Component} from 'react';
+import {menulist, title_text} from "./App";
+
 class Title  extends Component{
     render(){
         return(<div className="title">{title_text}</div> )
     }
 }
-class Lang extends Component{
 
-    render(){
-        return(<div className="lang" onMouseOver={() => console.log("Hovered!")} onClick={(e)=>this.props.switcher(e)}>{this.props.lang.toLowerCase()}</div>);
+function Lang(props) {
+    return (<div className="lang" onMouseOver={() => console.log("Hovered!")}
+                 onClick={props.switcher}>{props.lang.toLowerCase()}</div>);
     }
-}
-class DateTicker extends Component{
+
+
+class DateTicker extends Component {
     constructor(props) {
         super(props);
         this.state = {date: new Date()};

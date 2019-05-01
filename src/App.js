@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import {LanguageList} from './Languages';
 //import logo from './logo.svg';
 import Header from './Header'
 import Main from './Main'
 import Footer from './Footer';
-export const Language=React.createContext();
+
+export const Language = React.createContext({filler: {}});
 export const menulist=new Array("UA","PL","EN","RU");
 export const title_text="Chemistry CODE";
 

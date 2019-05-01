@@ -1,74 +1,98 @@
-import React,{Component} from 'react'
+import React, {Component} from 'react'
 import Rotator from './Rotator'
-import {Language} from "./App";
-import  {Blank} from './App'
+import {Blank, Language} from "./App";
+import test from './test.json'
 
 function updateText(text) {
-    this.setState(text)
-}
-class NavElement extends Component{
-    constructor(props) {
-        super(props);
-        this.goTo=this.goTo.bind(this);
-    }
-    goTo(e,props){
-        e.preventDefault();
-         updateText({page:props});
-
-    }
-
-    render(){
-        return(<div className="menu_item">
-            <a onClick={(e) => this.goTo(e,this.props.link)} href={this.props.link}> {this.props.text}</a>
-        </div> );
-    }
+	this.setState(text)
 }
 
-class Nav extends Component{
-    render(){
+class NavElement extends Component {
+	constructor(props) {
+		super(props);
+		this.goTo = this.goTo.bind(this);
+	}
 
-        return (<nav className="menu">
-            <Language.Consumer>
-            {language => {console.log(language);
-            return (
-                <React.Fragment>
-                    <NavElement link="about" text={language.about}/>
-                    <NavElement link="calculation" text={language.calculation}/>
-                    <NavElement link="contacts" text={language.contacts}/>
-            </React.Fragment>)}
-            }
-        </Language.Consumer>
-        </nav>);
+	goTo(e, props) {
+		e.preventDefault();
+		updateText({page: props});
 
-    }
+	}
+
+	render() {
+		return (<div className="menu_item">
+			<a onClick={(e) => this.goTo(e, this.props.link)} href={this.props.link}> {this.props.text}</a>
+		</div>);
+	}
 }
 
-class Screen extends Component{
-    constructor(props){
-        super(props);
-        this.state={page:'main'};
-        updateText = updateText.bind(this);
+class Nav extends Component {
+	render() {
+
+		return (<nav className="menu">
+			<Language.Consumer>
+				{language => {
+					console.log(language);
+					return (
+						<React.Fragment>
+							<NavElement link="about" text={language.about}/>
+							<NavElement link="calculation" text={language.calculation}/>
+							<NavElement link="contacts" text={language.contacts}/>
+						</React.Fragment>)
+				}
+				}
+			</Language.Consumer>
+		</nav>);
+
+	}
+}
 
 
-    }
-    render() {
-        return this.state.page;
-    }
+class Screen extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {page: 'main'};
+		this.ref = React.createRef();
+		updateText = updateText.bind(this);
+
+
+	}
+
+	componentDidMount() {
+		this.ref.current.innerHTML = this.props.page;
+		//r--s=
+
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		this.ref.current.innerHTML = this.props.page;
+	}
+
+	render() {
+		return (
+			<div ref={this.ref}>{this.props.page}</div>
+		);
+	}
 
 }
-class Main extends Component{
-    render() {
-        return(
-            <div className="body">
-                <Nav/>
-                <p style={{fontSize:30+'px'}}><Blank text={'beforeSlider'}/>
-                </p>
-                <Rotator/>
-                <Screen page="main"/>
 
-            </div>
-        );
-    }
+class Main extends Component {
+	render() {
+		return (
+			<div className="body">
+				<Nav/>
+				<p style={{fontSize: 30 + 'px'}}>
+					<Blank text={'beforeSlider'}/>
+				</p>
+				<div className={'rotator_place'}>
+					<Rotator/>
+				</div>
+				<Screen page={test.test}></Screen>
+
+			</div>
+		);
+	}
 
 }
+
 export default Main;
