@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import Rotator from './Rotator'
 import {Blank, Language} from "./App";
-import test from './test.json'
+import * as s from './start.json';
+
 
 function updateText(text) {
 	this.setState(text)
@@ -56,11 +57,15 @@ class Screen extends Component {
 		updateText = updateText.bind(this);
 
 
+
+	}
+	load(){
+		console.log("strin is:  "+s.content);
 	}
 
 	componentDidMount() {
 		this.ref.current.innerHTML = this.props.page;
-		//r--s=
+        this.load();
 
 	}
 
@@ -69,6 +74,7 @@ class Screen extends Component {
 	}
 
 	render() {
+
 		return (
 			<div ref={this.ref}>{this.props.page}</div>
 		);
@@ -87,7 +93,7 @@ class Main extends Component {
 				<div className={'rotator_place'}>
 					<Rotator/>
 				</div>
-				<Screen page={test.test}></Screen>
+				<Screen page={"h"}></Screen>
 
 			</div>
 		);
