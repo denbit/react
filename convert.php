@@ -13,6 +13,14 @@ function convert($file_name) {
         ];
         $encoded=json_encode($preencoded);
        return file_put_contents($file_name.".json",$encoded);
+    }else{
+        $name=basename($file_name);
+        $preencoded=[
+            "content"=>"",
+            "name"=>$name
+        ];
+        $encoded=json_encode($preencoded);
+        file_put_contents($file_name.".json",$encoded);
     }
     return false;
 }

@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
 import Rotator from './Rotator'
 import {Blank, Language} from "./App";
-import * as s from './start.json';
+import * as start from './start.html.json';
+import * as price from './price.html.json';
+import * as about from './about.html.json';
+import * as calculation from './calculation.html.json';
+
 
 
 function updateText(text) {
@@ -11,18 +15,11 @@ function updateText(text) {
 class NavElement extends Component {
 	constructor(props) {
 		super(props);
-		this.goTo = this.goTo.bind(this);
-	}
-
-	goTo(e, props) {
-		e.preventDefault();
-		updateText({page: props});
-
 	}
 
 	render() {
 		return (<div className="menu_item">
-			<a onClick={(e) => this.goTo(e, this.props.link)} href={this.props.link}> {this.props.text}</a>
+			<a onClick={(e) => this.props.goTo(e, this.props.link)} href={this.props.link}> {this.props.text}</a>
 		</div>);
 	}
 }
@@ -36,9 +33,9 @@ class Nav extends Component {
 					console.log(language);
 					return (
 						<React.Fragment>
-							<NavElement link="about" text={language.about}/>
-							<NavElement link="calculation" text={language.calculation}/>
-							<NavElement link="contacts" text={language.contacts}/>
+							<NavElement link="about" goTo={this.props.click} text={language.about}/>
+							<NavElement link="calculation" goTo={this.props.click}  text={language.calculation}/>
+							<NavElement link="contacts" goTo={this.props.click}  text={language.contacts}/>
 						</React.Fragment>)
 				}
 				}
@@ -59,14 +56,9 @@ class Screen extends Component {
 
 
 	}
-	load(){
-		console.log("strin is:  "+s.content);
-	}
 
 	componentDidMount() {
 		this.ref.current.innerHTML = this.props.page;
-        this.load();
-
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
@@ -74,7 +66,6 @@ class Screen extends Component {
 	}
 
 	render() {
-
 		return (
 			<div ref={this.ref}>{this.props.page}</div>
 		);
@@ -83,17 +74,36 @@ class Screen extends Component {
 }
 
 class Main extends Component {
+	constructor(props){
+		super(props);
+		this.goTo = this.goTo.bind(this);
+		this.state={options:{
+                start:start.content,
+                price:price.content,
+                about:about.content,
+                calculation:calculation.content,
+			},
+			current:"start"
+
+		}
+	}
+	goTo(e, props) {
+		e.preventDefault();
+		const state=props;
+		this.setState({current:state})
+
+	}
 	render() {
 		return (
 			<div className="body">
-				<Nav/>
+				<Nav click={this.goTo}/>
 				<p style={{fontSize: 30 + 'px'}}>
 					<Blank text={'beforeSlider'}/>
 				</p>
 				<div className={'rotator_place'}>
 					<Rotator/>
 				</div>
-				<Screen page={"h"}></Screen>
+				<Screen page={this.state.options[this.state.current]}></Screen>
 
 			</div>
 		);
