@@ -2,11 +2,11 @@ import React, {Component, Fragment} from 'react';
 import {Language} from "./App";
 
 const slides = [
-    {src: 'imgs/img_c.jpg', text: "C"},
-    {src: 'imgs/img_a.jpg', text: "A"},
+    {src: 'imgs/img_c.png', text: "C"},
+    {src: 'imgs/img_a.png', text: "A"},
     {src: 'imgs/img_b.jpg', text: "B"},
     {src: 'imgs/img_c.jpg', text: "C"},
-    {src: 'imgs/img_a.jpg', text: "A"}
+    {src: 'imgs/img_a.png', text: "A"}
 ];
 class Arrow extends Component{
 

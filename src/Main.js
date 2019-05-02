@@ -64,8 +64,10 @@ class Screen extends Component {
 	}
 
 	render() {
+		let atrs=Object.assign({},this.props);
+		delete atrs.page;
 		return (
-			<div ref={this.ref}>{this.props.page}</div>
+			<div ref={this.ref} {...atrs}>{this.props.page}</div>
 		);
 	}
 
@@ -101,7 +103,7 @@ class Main extends Component {
 				<div className={'rotator_place'}>
 					<Rotator/>
 				</div>
-				<Screen page={this.state.options[this.state.current]}></Screen>
+				<Screen className={'main_screen'} page={this.state.options[this.state.current]}></Screen>
 
 			</div>
 		);

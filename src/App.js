@@ -21,7 +21,7 @@ class Blank extends Component{
                 {language => {
                     if (language.filler===undefined){
                     return <div className="blank" >Loading...</div>
-                        }else{
+                        }else{ console.log(language);
                     return <div className="blank" >{language.filler[this.props.text]}</div>
                         }
                     }
