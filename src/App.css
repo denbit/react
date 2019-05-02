@@ -89,7 +89,15 @@
 .menu_item:hover{
   text-decoration: underline;
 }
-
+.main_screen{
+  word-wrap: break-word;
+  width: 80%;
+  margin: auto;
+  height: auto;
+  min-height: 250px;
+  overflow: auto;
+  color: white;
+}
 .rotator_place {
     background-color: #067B93;
     padding: 25px 0 50px 0;

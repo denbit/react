@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 
 const slides = [
-    {src: 'imgs/img_c.jpg', text: "your C"},
-    {src: 'imgs/img_a.jpg', text: "your A"},
+    {src: 'imgs/img_c.png', text: "your C"},
+    {src: 'imgs/img_a.png', text: "your A"},
     {src: 'imgs/img_b.jpg', text: "your B"},
     {src: 'imgs/img_c.jpg', text: "your C"},
-    {src: 'imgs/img_a.jpg', text: "your A"}
+    {src: 'imgs/img_a.png', text: "your A"}
 ];
 class Arrow extends Component{
 

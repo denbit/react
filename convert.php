@@ -12,7 +12,7 @@ function convert($file_name) {
             "name"=>$name
         ];
         $encoded=json_encode($preencoded);
-       return file_put_contents($file_name.".json",$encoded);
+       return file_put_contents(__DIR__."/src/".$name.".json",$encoded);
     }else{
         $name=basename($file_name);
         $preencoded=[
@@ -20,15 +20,17 @@ function convert($file_name) {
             "name"=>$name
         ];
         $encoded=json_encode($preencoded);
-        file_put_contents($file_name.".json",$encoded);
+        file_put_contents(__DIR__."/src/".$name.".json",$encoded);
     }
     return false;
 }
  if($argc>1){
     $files=array_slice($argv,1);
+
     ob_start();
     array_map(function ($file){
-        echo $file,var_dump(convert($file)),"\n";
+    	$file_addon="src/templates/";
+        echo $file,var_dump(convert($file_addon.$file)),"\n";
     },$files);
     $content=ob_get_contents();
     ob_end_clean();
