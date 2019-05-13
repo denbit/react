@@ -7,7 +7,6 @@ import * as about from './about.html.json';
 import * as calculation from './calculation.html.json';
 
 
-
 function updateText(text) {
 	this.setState(text)
 }
@@ -30,7 +29,6 @@ class Nav extends Component {
 		return (<nav className="menu">
 			<Language.Consumer>
 				{language => {
-					console.log(language);
 					return (
 						<React.Fragment>
 							<NavElement link="about" goTo={this.props.click} text={language.about}/>
