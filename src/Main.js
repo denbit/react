@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import Rotator from './Rotator'
 import {Blank, Language} from "./App";
 import * as start from './start.html.json';
-import * as price from './price.html.json';
 import * as about from './about.html.json';
 import * as calculation from './calculation.html.json';
+import ContactForm from './contacts';
 
 
 function updateText(text) {
@@ -56,19 +56,30 @@ class Screen extends Component {
 	}
 
 	componentDidMount() {
-		this.ref.current.innerHTML = this.props.page;
+		if ((typeof this.props.page)==='string')
+			this.ref.current.innerHTML = this.props.page;
+
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
-		this.ref.current.innerHTML = this.props.page;
+		if ((typeof this.props.page)==='string')
+			this.ref.current.innerHTML = this.props.page;
 	}
 
 	render() {
 		let atrs=Object.assign({},this.props);
+		const page = this.props.page;
 		delete atrs.page;
-		return (
-			<div ref={this.ref} {...atrs}>{this.props.page}</div>
-		);
+		 if ((typeof this.props.page)==='string'){
+			 return (
+				 <div ref={this.ref} {...atrs}></div>
+			 );
+		 } else{
+			 return (
+				 <div {...atrs}>{page}</div>
+			 );
+		 }
+
 	}
 
 }
@@ -79,9 +90,9 @@ class Main extends Component {
 		this.goTo = this.goTo.bind(this);
 		this.state={options:{
                 start:start.content,
-                price:price.content,
                 about:about.content,
                 calculation:calculation.content,
+				contacts:<ContactForm></ContactForm>
 			},
 			current:"start"
 
