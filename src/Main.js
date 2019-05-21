@@ -88,9 +88,12 @@ class Main extends Component {
 		}
 	}
 	goTo(e, props) {
+		const title="Chemistry CODE";
 		e.preventDefault();
 		const state=props;
 		this.setState({current:state})
+		window.history.pushState('', '', '/'+state);
+		document.title = title+' :: '+state[0].toUpperCase()+state.substr(1);
 
 	}
 	render() {
