@@ -8,8 +8,7 @@ class Title  extends Component{
 }
 
 function Lang(props) {
-    return (<div className="lang" onMouseOver={() => console.log("Hovered!")}
-                 onClick={props.switcher}>{props.lang.toLowerCase()}</div>);
+    return (<div className="lang" onClick={props.switcher}>{props.lang.toLowerCase()}</div>);
     }
 
 
