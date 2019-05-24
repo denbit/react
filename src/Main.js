@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import Rotator from './Rotator'
+import ContactForm from './contacts';
 import {Blank, Language} from "./App";
 import * as start from './start.html.json';
 import * as about from './about.html.json';
 import * as calculation from './calculation.html.json';
-import ContactForm from './contacts';
 
 
 function updateText(text) {
