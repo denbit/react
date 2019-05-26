@@ -5,8 +5,7 @@ import * as start from './start.html.json';
 import * as price from './price.html.json';
 import * as about from './about.html.json';
 import * as calculation from './calculation.html.json';
-
-
+import { Switch, Route,  Link } from "react-router-dom";
 
 function updateText(text) {
 	this.setState(text)
@@ -19,7 +18,9 @@ class NavElement extends Component {
 
 	render() {
 		return (<div className="menu_item">
-			<a onClick={(e) => this.props.goTo(e, this.props.link)} href={this.props.link}> {this.props.text}</a>
+			<Link to={'/'+this.props.link} >
+					{this.props.text}
+			</Link>
 		</div>);
 	}
 }
@@ -30,7 +31,6 @@ class Nav extends Component {
 		return (<nav className="menu">
 			<Language.Consumer>
 				{language => {
-					console.log(language);
 					return (
 						<React.Fragment>
 							<NavElement link="about" goTo={this.props.click} text={language.about}/>
@@ -105,7 +105,25 @@ class Main extends Component {
 				<div className={'rotator_place'}>
 					<Rotator/>
 				</div>
-				<Screen className={'main_screen'} page={this.state.options[this.state.current]}></Screen>
+				<Switch>
+					<Route exact={true} path={'/'}
+							   render={(props)=><Screen className={'main_screen'}
+														page={this.state.options['start']}/>}/>
+					<Route path={'/price'}
+							   render={(props)=><Screen className={'main_screen'}
+
+														page={this.state.options['price']}/>}/>
+					<Route path={'/about'}
+						   render={(props)=><Screen className={'main_screen'}
+
+													page={this.state.options['about']}/>}/>
+					<Route path={'/calculation'}
+						   render={(props)=><Screen className={'main_screen'} {...props.match}
+
+													page={this.state.options['calculation']}>{props.match}</Screen>}/>
+
+				</Switch>
+
 
 			</div>
 		);

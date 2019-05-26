@@ -5,7 +5,7 @@ class Footer extends Component{
     render() {
         return (
             <footer>
-                {this.props.info}
+                {this.props.info}{<h2>{this.props.match.params.id?this.props.match.params.id:""}</h2>}
             </footer>
         );
     }

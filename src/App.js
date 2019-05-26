@@ -5,8 +5,9 @@ import {LanguageList} from './Languages';
 import Header from './Header'
 import Main from './Main'
 import Footer from './Footer';
+import { Switch, Route } from "react-router-dom";
 
-export const Language = React.createContext({filler: {}});
+export const Language = React.createContext({filler: {}, slides: {}});
 export const menulist=new Array("UA","PL","EN","RU");
 export const title_text="Chemistry CODE";
 
@@ -61,7 +62,12 @@ class App extends Component {
           <Blank text="head"/>
         <Header switcher={this.changeLang}/>
         <Main/>
-        <Footer/>
+		  <Switch>
+			  <Route exact path='/' component={Footer}/>
+			  <Route path='/calc:id?' component={Footer}/>
+			  <Route path='/schedule' component={Footer}/>
+		  </Switch>
+
       </div>
         </Language.Provider>
     );
