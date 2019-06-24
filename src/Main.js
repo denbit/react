@@ -64,10 +64,14 @@ class Screen extends Component {
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		if ((typeof this.props.page)==='string')
 			this.ref.current.innerHTML = this.props.page;
+		if ( ((typeof this.props.page)==='object') && ((typeof prevProps.page)==='string') ){
+			console.log(" thanging type of content ");
+}
+
 	}
 
 	render() {
-		let atrs=Object.assign({},this.props);
+		const atrs=Object.assign({},this.props);
 		const page = this.props.page;
 		delete atrs.page;
 		 if ((typeof this.props.page)==='string'){
@@ -75,6 +79,7 @@ class Screen extends Component {
 				 <div ref={this.ref} {...atrs}></div>
 			 );
 		 } else{
+			 this.ref.current.innerHTML ='';
 			 return (
 				 <div {...atrs}>{page}</div>
 			 );
