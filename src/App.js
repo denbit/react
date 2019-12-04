@@ -10,7 +10,7 @@ import { Switch, Route } from "react-router-dom";
 export const Language = React.createContext({filler: {}, slides: {}});
 export const menulist=new Array("UA","PL","EN","RU");
 export const title_text="Chemistry CODE";
-
+const LanguageCache = {};
 console.log(LanguageList);
 
 
@@ -36,7 +36,7 @@ class Blank extends Component{
 
 
 class App extends Component {
-    constructor(props) {
+     constructor (props) {
         super(props);
         this.state={
             language:{},
@@ -46,11 +46,12 @@ class App extends Component {
         this.changeLang = this.changeLang.bind(this);
     }
 
-    componentWillMount() {
-        this.loadLangs();
+   async componentWillMount() {
+      await  this.loadLangs();
+       LanguageCache.ua = this.state.language;
        // setTimeout(()=>this.setState({language:LanguageList['ua']}),100);
     }
-    changeLang(e){
+     changeLang(e){
     //alert(e.target.innerHTML);
         this.loadLangs(e.target.innerHTML);
     }

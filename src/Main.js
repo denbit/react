@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Rotator from './Rotator'
+import ContactForm from './contacts';
 import {Blank, Language} from "./App";
 import * as start from './start.html.json';
 import * as price from './price.html.json';

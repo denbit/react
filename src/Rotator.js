@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
+import {Language} from "./App";
 
 const slides = [
-    {src: 'imgs/img_c.png', text: "your C"},
-    {src: 'imgs/img_a.png', text: "your A"},
-    {src: 'imgs/img_b.jpg', text: "your B"},
-    {src: 'imgs/img_c.jpg', text: "your C"},
-    {src: 'imgs/img_a.png', text: "your A"}
+    {src: 'imgs/img_c.png', text: "C"},
+    {src: 'imgs/img_a.png', text: "A"},
+    {src: 'imgs/img_b.jpg', text: "B"},
+    {src: 'imgs/img_c.jpg', text: "C"},
+    {src: 'imgs/img_a.png', text: "A"}
 ];
 class Arrow extends Component{
 
@@ -20,18 +21,45 @@ class Arrow extends Component{
     }
 
 }
-function Slide(props) {
-    return(<div><h3>{props.text}</h3><img src={props.src}/></div>)
 
+class Slide extends Component {
+    constructor(props, context) {
+        super(props, context);
+
+    }
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return this.context != nextContext;
+    }
+
+    render() {
+        return (<Fragment>
+            <Language.Consumer>
+                {language => {
+                    console.log(language);
+                    if (language.slides === undefined) {
+                        return <div><h3>Loading...</h3><img src={this.props.src}/></div>
+                    } else {
+                        return <div><h3>{language.slides[this.props.text]}</h3><img src={this.props.src}/></div>
+                    }
+                }
+                }
+            </Language.Consumer>
+        </Fragment>);
+    }
 }
+
+
 function Slider(props) {
     return(<div className="slider">{}
         <div className="ssl" style={{marginLeft:+props.position+'px'}}>
             {slides.map((slide, i) => {
-                return <Slide key={i} src={slide.src} text={slide.text}/>
+
+                return (<Slide key={i} src={slide.src} text={slide.text}/>)
+
             })}
         </div>
-    </div>)
+    </div>);
 }
 class Rotator extends Component{
 

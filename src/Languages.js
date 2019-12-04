@@ -1,10 +1,10 @@
 import ini from './ini';
 
-export const LanguageList=function ( lang='ua') {
+export const LanguageList= async function ( lang='ua') {
     const list={ua:{},pl:{},en:{}};
 
-    window.fetch('/languages/'+lang+'.ini').then(function(response) {
-       return response.text();
+   await window.fetch('/languages/'+lang+'.ini').then(  function  (response) {
+       return  response.text();
     }).then( (text) =>{
 
         list[lang]=ini.parse(text);
