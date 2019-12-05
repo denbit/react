@@ -53,7 +53,12 @@ class App extends Component {
     }
      changeLang(e){
     //alert(e.target.innerHTML);
+        if ( e.target.innerHTML in LanguageCache){
+            this.setState({language:LanguageCache[e.target.innerHTML]});
+        }else
         this.loadLangs(e.target.innerHTML);
+         LanguageCache[e.target.innerHTML] = this.state.language;
+        console.log(LanguageCache);
     }
 
     render() {

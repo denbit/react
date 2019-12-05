@@ -59,19 +59,35 @@ class Screen extends Component {
 	}
 
 	componentDidMount() {
-		this.ref.current.innerHTML = this.props.page;
+		if ((typeof this.props.page)==='string')
+			this.ref.current.innerHTML = this.props.page;
+
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
-		this.ref.current.innerHTML = this.props.page;
+		if ((typeof this.props.page)==='string')
+			this.ref.current.innerHTML = this.props.page;
+		if ( ((typeof this.props.page)==='object') && ((typeof prevProps.page)==='string') ){
+			console.log(" thanging type of content ");
+}
+
 	}
 
 	render() {
-		let atrs=Object.assign({},this.props);
+		const atrs=Object.assign({},this.props);
+		const page = this.props.page;
 		delete atrs.page;
-		return (
-			<div ref={this.ref} {...atrs}>{this.props.page}</div>
-		);
+		 if ((typeof this.props.page)==='string'){
+			 return (
+				 <div ref={this.ref} {...atrs}></div>
+			 );
+		 } else{
+			 this.ref.current.innerHTML ='';
+			 return (
+				 <div {...atrs}>{page}</div>
+			 );
+		 }
+
 	}
 
 }
@@ -82,15 +98,16 @@ class Main extends Component {
 		this.goTo = this.goTo.bind(this);
 		this.state={options:{
                 start:start.content,
-                price:price.content,
                 about:about.content,
                 calculation:calculation.content,
+				contacts:<ContactForm></ContactForm>
 			},
 			current:"start"
 
 		}
 	}
 	goTo(e, props) {
+		const title="Chemistry CODE";
 		e.preventDefault();
 		const state=props;
 		this.setState({current:state})
@@ -110,10 +127,6 @@ class Main extends Component {
 					<Route exact={true} path={'/'}
 							   render={(props)=><Screen className={'main_screen'}
 														page={this.state.options['start']}/>}/>
-					<Route path={'/price'}
-							   render={(props)=><Screen className={'main_screen'}
-
-														page={this.state.options['price']}/>}/>
 					<Route path={'/about'}
 						   render={(props)=><Screen className={'main_screen'}
 
