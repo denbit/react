@@ -5,6 +5,9 @@ console.log(Language);
 function InputField(props) {
 	return <input {...props}/>
 }
+InputField.defaultProps = {
+	value: ""
+}
 
 class NameField extends Component {
 	static defaultProps = {
@@ -16,7 +19,7 @@ class NameField extends Component {
 	constructor(props) {
 		super(props);
 		this.change = this.change.bind(this);
-		this.state = {value: null}
+		this.state = {value: undefined}
 	}
 
 	change(e) {
@@ -37,9 +40,7 @@ class NameField extends Component {
 class ContactForm extends Component {
 	constructor(props) {
 		super(props);
-
 	}
-
 	render() {
 		const {Consumer: Translator} = Language;
 		return (
