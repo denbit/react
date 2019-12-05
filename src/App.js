@@ -22,7 +22,7 @@ class Blank extends Component{
                 {language => {
                     if (language.filler===undefined){
                     return <div className="blank" >Loading...</div>
-                        }else{ console.log(language);
+                        }else{
                     return <div className="blank" >{language.filler[this.props.text]}</div>
                         }
                     }
@@ -32,7 +32,6 @@ class Blank extends Component{
         )
     }
 }
-
 
 
 class App extends Component {
@@ -51,13 +50,16 @@ class App extends Component {
        LanguageCache.ua = this.state.language;
        // setTimeout(()=>this.setState({language:LanguageList['ua']}),100);
     }
-     changeLang(e){
-    //alert(e.target.innerHTML);
-        if ( e.target.innerHTML in LanguageCache){
-            this.setState({language:LanguageCache[e.target.innerHTML]});
-        }else
-        this.loadLangs(e.target.innerHTML);
-         LanguageCache[e.target.innerHTML] = this.state.language;
+      changeLang(e){
+    alert(e.target.innerHTML);
+    const targetLanguage = e.target.innerHTML;
+        if ( targetLanguage in LanguageCache){
+            this.setState({language:LanguageCache[targetLanguage]});
+        }else{
+            this.loadLangs(targetLanguage).then(()=>LanguageCache[targetLanguage] = {...this.state.language});
+
+        }
+
         console.log(LanguageCache);
     }
 
@@ -68,11 +70,11 @@ class App extends Component {
           <Blank text="head"/>
         <Header switcher={this.changeLang}/>
         <Main/>
-		  <Switch>
-			  <Route exact path='/' component={Footer}/>
-			  <Route path='/calc:id?' component={Footer}/>
-			  <Route path='/schedule' component={Footer}/>
-		  </Switch>
+		  {/*<Switch>*/}
+			{/*  <Route exact path='/' component={Footer}/>*/}
+			{/*  <Route path='/calc:id?' component={Footer}/>*/}
+			{/*  <Route path='/schedule' component={Footer}/>*/}
+		  {/*</Switch>*/}
 
       </div>
         </Language.Provider>

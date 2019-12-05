@@ -3,7 +3,6 @@ import Rotator from './Rotator'
 import ContactForm from './contacts';
 import {Blank, Language} from "./App";
 import * as start from './start.html.json';
-import * as price from './price.html.json';
 import * as about from './about.html.json';
 import * as calculation from './calculation.html.json';
 import { Switch, Route,  Link } from "react-router-dom";
@@ -13,10 +12,6 @@ function updateText(text) {
 }
 
 class NavElement extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return (<div className="menu_item">
 			<Link to={'/'+this.props.link} >
@@ -54,8 +49,6 @@ class Screen extends Component {
 		this.ref = React.createRef();
 		updateText = updateText.bind(this);
 
-
-
 	}
 
 	componentDidMount() {
@@ -74,12 +67,12 @@ class Screen extends Component {
 	}
 
 	render() {
-		const atrs=Object.assign({},this.props);
+		const atrs = Object.assign({},this.props);
 		const page = this.props.page;
 		delete atrs.page;
 		 if ((typeof this.props.page)==='string'){
 			 return (
-				 <div ref={this.ref} {...atrs}></div>
+				 <div ref={this.ref} ></div>
 			 );
 		 } else{
 			 this.ref.current.innerHTML ='';
@@ -107,9 +100,8 @@ class Main extends Component {
 		}
 	}
 	goTo(e, props) {
-		const title="Chemistry CODE";
 		e.preventDefault();
-		const state=props;
+		const state= props;
 		this.setState({current:state})
 
 	}
@@ -129,12 +121,13 @@ class Main extends Component {
 														page={this.state.options['start']}/>}/>
 					<Route path={'/about'}
 						   render={(props)=><Screen className={'main_screen'}
-
 													page={this.state.options['about']}/>}/>
 					<Route path={'/calculation'}
 						   render={(props)=><Screen className={'main_screen'} {...props.match}
-
 													page={this.state.options['calculation']}>{props.match}</Screen>}/>
+					<Route path={'/contacts'}
+						   render={(props)=><Screen className={'main_screen'} {...props.match}
+													page={this.state.options['contacts']}>{props.match}</Screen>}/>
 
 				</Switch>
 

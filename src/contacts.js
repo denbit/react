@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import {Language} from './App';
-
 console.log(Language);
 
 function InputField(props) {
@@ -8,19 +7,16 @@ function InputField(props) {
 }
 
 class NameField extends Component {
-
 	static defaultProps = {
 		labelText: "Label for Name",
 		name: 'input_name',
 		labelClassName: '',
-
 	}
 
 	constructor(props) {
 		super(props);
 		this.change = this.change.bind(this);
 		this.state = {value: null}
-
 	}
 
 	change(e) {
@@ -28,7 +24,6 @@ class NameField extends Component {
 	}
 
 	render() {
-
 		return <Fragment>
 			<div><label className={this.props.labelClassName} htmlFor={this.props.name}>{this.props.labelText}</label>
 				<InputField type='text' onChange={this.change} value={this.state.value} name={this.props.name}
@@ -50,10 +45,11 @@ class ContactForm extends Component {
 		return (
 			<Translator>
 				{(value) => {
-					return (<Fragment>
-						<h2>Contact form</h2>
-						<NameField name={'email'} className={'mail_fl'} labelText={'Enter name please'}/>
-					</Fragment>)
+					return (
+						<Fragment>
+							<h2>Contact form</h2>
+							<NameField name={'email'} className={'mail_fl'} labelText={'Enter name please'}/>
+						</Fragment>)
 				}}
 			</Translator>);
 	}

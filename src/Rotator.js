@@ -36,7 +36,6 @@ class Slide extends Component {
         return (<Fragment>
             <Language.Consumer>
                 {language => {
-                    console.log(language);
                     if (language.slides === undefined) {
                         return <div><h3>Loading...</h3><img src={this.props.src}/></div>
                     } else {

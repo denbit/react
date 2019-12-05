@@ -97,6 +97,7 @@
   min-height: 250px;
   overflow: auto;
   color: white;
+  background-color: rgba(128, 128, 128, 0.6);
 }
 .rotator_place {
     background-color: #067B93;
@@ -131,7 +132,14 @@
 }
 .ssl>div{
   float: left;
-  width:calc(100%/5);
+  width:calc(100%/5 - 10px);
+  background-color:rgba(255, 255, 255, 0.9); ;
+/*rgba(4, 208, 255, 0.09);*/
+  box-shadow: 5px 5px 1px rgba(0,0,0,0.1);
+  margin: 0 5px;
+  /*border-radius: 5px;*/
+  max-height: 210px;
+  color:#16BC85;
 }
 .slides img{
   width: 90%;
@@ -182,12 +190,14 @@
   margin: 0;
   width: 80%;
   float: left;
+  padding-bottom: 10px;
 
 }
 
 .ssl{
   position: relative;
   width: 2000px;
+  padding: 10px 0;
   /*margin-left: -1030px;
   /*animation-duration: 7s;
   animation-name: slidein;
