@@ -68,16 +68,17 @@ class Screen extends Component {
 
 	render() {
 		const atrs = Object.assign({},this.props);
-		const page = this.props.page;
+		const Page = this.props.page;
 		delete atrs.page;
 		 if ((typeof this.props.page)==='string'){
 			 return (
-				 <div ref={this.ref} ></div>
+				 <div ref={this.ref} className={atrs.className}></div>
 			 );
 		 } else{
-			 this.ref.current.innerHTML ='';
+			  if (this.ref.current)
+			  	this.ref.current.innerHTML ='';
 			 return (
-				 <div {...atrs}>{page}</div>
+				 <div className={atrs.className}>{Page}</div>
 			 );
 		 }
 
@@ -93,7 +94,7 @@ class Main extends Component {
                 start:start.content,
                 about:about.content,
                 calculation:calculation.content,
-				contacts:<ContactForm></ContactForm>
+				contacts:<ContactForm/>
 			},
 			current:"start"
 
@@ -101,7 +102,7 @@ class Main extends Component {
 	}
 	goTo(e, props) {
 		e.preventDefault();
-		const state= props;
+		const state = props;
 		this.setState({current:state})
 
 	}
