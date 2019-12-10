@@ -1,5 +1,10 @@
 import React, {Component, Fragment} from 'react';
+import PropTypes from 'prop-types';
+import classNames from "classnames";
+
 import {Language} from './App';
+import styles from "./ContactForm.css";
+const loadText = "Loading";
 console.log(Language);
 
 function InputField(props) {
@@ -8,13 +13,54 @@ function InputField(props) {
 InputField.defaultProps = {
 	value: ""
 }
+const getTranslation = (container, value) =>container &&container[value] || loadText;
+class SmallTextField extends Component {
+	static defaultProps = {
+		labelText: "Label for Name",
+		name: 'input_name',
+		labelClassName: ''
+	};
+	static propTypes = {
+		name: PropTypes.string,
+		labelClassName: PropTypes.string,
+		labelText: PropTypes.string,
+		placeholder: PropTypes.string,
+	};
 
-class NameField extends Component {
+	constructor(props) {
+		super(props);
+		this.change = this.change.bind(this);
+		this.state = {value: undefined}
+	}
+
+	change(e) {
+		this.setState({value: e.target.value})
+	}
+
+	render() {
+		const placeholder = this.props.placeholder ? {placeholder: ' '.repeat(3) + this.props.placeholder} :{};
+		return <Fragment>
+			<div className={styles.line}>
+				<label className={this.props.labelClassName} htmlFor={this.props.name}>{this.props.labelText}</label>
+				<InputField type='text' onChange={this.change} value={this.state.value} name={this.props.name}
+							className={classNames(styles.field, this.props.className) } {...placeholder}/>
+			</div>
+		</Fragment>
+	}
+
+}
+class BigTextField extends Component {
 	static defaultProps = {
 		labelText: "Label for Name",
 		name: 'input_name',
 		labelClassName: '',
-	}
+		className: '',
+	};
+	static propTypes = {
+		name: PropTypes.string,
+		labelClassName: PropTypes.string,
+		labelText: PropTypes.string,
+	};
 
 	constructor(props) {
 		super(props);
@@ -28,9 +74,10 @@ class NameField extends Component {
 
 	render() {
 		return <Fragment>
-			<div><label className={this.props.labelClassName} htmlFor={this.props.name}>{this.props.labelText}</label>
-				<InputField type='text' onChange={this.change} value={this.state.value} name={this.props.name}
-							className={this.props.className}/>
+			<div className={styles.line}>
+				<label className={this.props.labelClassName} htmlFor={this.props.name}>{this.props.labelText}</label>
+				<textarea onChange={this.change} value={this.state.value} name={this.props.name}
+							className={classNames(styles.field, this.props.className)}/>
 			</div>
 		</Fragment>
 	}
@@ -38,19 +85,21 @@ class NameField extends Component {
 }
 
 class ContactForm extends Component {
-	constructor(props) {
-		super(props);
-	}
 	render() {
 		const {Consumer: Translator} = Language;
+
 		return (
 			<Translator>
-				{(value) => {
+				{({contact_form}) => {
+					console.log(contact_form);
 					return (
-						<Fragment>
-							<h2>Contact form</h2>
-							<NameField name={'email'} className={'mail_fl'} labelText={'Enter name please'}/>
-						</Fragment>)
+						<div className={styles.container}>
+							<h1 className={styles.title}> {getTranslation(contact_form, 'title')}</h1>
+							<SmallTextField name={'email'} className={'mail_fl'} labelClassName={styles.input} placeholder={getTranslation(contact_form, 'email_placeholder')} labelText={getTranslation(contact_form, 'email')}/>
+							<SmallTextField name={'name'} labelClassName={styles.input} placeholder={getTranslation(contact_form, 'name_placeholder')} labelText={getTranslation(contact_form, 'name')} />
+							<SmallTextField name={'phone'} labelClassName={styles.input} placeholder={getTranslation(contact_form, 'phone_placeholder')} labelText={getTranslation(contact_form, 'name')} />
+							<BigTextField name={'message'} labelClassName={styles.input}  labelText={getTranslation(contact_form, 'message')} />
+						</div>)
 				}}
 			</Translator>);
 	}
