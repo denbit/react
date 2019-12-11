@@ -13,7 +13,7 @@ function InputField(props) {
 InputField.defaultProps = {
 	value: ""
 }
-const getTranslation = (container, value) =>container &&container[value] || loadText;
+const getTranslation = (container, value) =>container && container[value] || loadText;
 class SmallTextField extends Component {
 	static defaultProps = {
 		labelText: "Label for Name",
@@ -47,8 +47,8 @@ class SmallTextField extends Component {
 			</div>
 		</Fragment>
 	}
-
 }
+
 class BigTextField extends Component {
 	static defaultProps = {
 		labelText: "Label for Name",
@@ -83,22 +83,44 @@ class BigTextField extends Component {
 	}
 
 }
-
+const Button = (props)=>{
+	return (<button onClick={props.onClick}>{props.text}</button>)
+};
 class ContactForm extends Component {
+	constructor(props){
+		super(props);
+		this.state = {sent: undefined};
+		this.form = React.createRef();
+		this.send = this.send.bind(this);
+	}
+	send(){
+		fetch("/send_question.c",{body: new FormData(this.form.current), method:'POST'})
+			.then(r=>r.json())
+			.then(response=>{
+				this.setState({...response});
+			});
+	}
 	render() {
 		const {Consumer: Translator} = Language;
 
+		const unsent = <Fragment>
+			<h1 className={styles.title}> {getTranslation(contact_form, 'title')}</h1>
+			<form ref={this.form}>
+				<SmallTextField name={'email'} className={'mail_fl'} labelClassName={styles.input} placeholder={getTranslation(contact_form, 'email_placeholder')} labelText={getTranslation(contact_form, 'email')}/>
+				<SmallTextField name={'name'} labelClassName={styles.input} placeholder={getTranslation(contact_form, 'name_placeholder')} labelText={getTranslation(contact_form, 'name')} />
+				<SmallTextField name={'phone'} labelClassName={styles.input} placeholder={getTranslation(contact_form, 'phone_placeholder')} labelText={getTranslation(contact_form, 'name')} />
+				<BigTextField name={'message'} labelClassName={styles.input}  labelText={getTranslation(contact_form, 'message')} />
+			</form>
+			<Button onClick={this.send} text={getTranslation(contact_form, 'send')}/>
+		</Fragment>;
+		const sent =<Fragment> your message was sent@!</Fragment>
 		return (
 			<Translator>
 				{({contact_form}) => {
 					console.log(contact_form);
 					return (
 						<div className={styles.container}>
-							<h1 className={styles.title}> {getTranslation(contact_form, 'title')}</h1>
-							<SmallTextField name={'email'} className={'mail_fl'} labelClassName={styles.input} placeholder={getTranslation(contact_form, 'email_placeholder')} labelText={getTranslation(contact_form, 'email')}/>
-							<SmallTextField name={'name'} labelClassName={styles.input} placeholder={getTranslation(contact_form, 'name_placeholder')} labelText={getTranslation(contact_form, 'name')} />
-							<SmallTextField name={'phone'} labelClassName={styles.input} placeholder={getTranslation(contact_form, 'phone_placeholder')} labelText={getTranslation(contact_form, 'name')} />
-							<BigTextField name={'message'} labelClassName={styles.input}  labelText={getTranslation(contact_form, 'message')} />
+							{this.state.sent?sent:unsent}
 						</div>)
 				}}
 			</Translator>);

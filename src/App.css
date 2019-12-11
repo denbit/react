@@ -151,6 +151,9 @@
   max-height: 350px;
   color:#16BC85;
 }
+.ssl>div>h3{
+  margin-bottom: 6px;
+}
 .slides img{
   width: 90%;
 }
