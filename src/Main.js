@@ -131,7 +131,7 @@ class Main extends Component {
 
 	render() {
 		return (
-			<div className="body">
+			<section className="body">
 				<Nav navigateTo={this.goTo}/>
 				<p style={{fontSize: 30 + 'px'}}>
 					<Blank text={'beforeSlider'}/>
@@ -149,7 +149,7 @@ class Main extends Component {
 					<Route path={'/contacts'}
 						   render={this.renderRouteComponent('contacts')}/>
 				</Switch>
-			</div>
+			</section>
 		);
 	}
 

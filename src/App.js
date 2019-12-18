@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import './App.css';
+import style from './App.css';
 import {LanguageList} from './Languages';
 import Header from './Header'
 import Main from './Main'
+import Footer from "./Footer";
 
 export const Language = React.createContext({filler: {}, slides: {}});
 export const menulist = new Array("UA", "PL", "EN", "RU");
@@ -17,9 +18,9 @@ const Blank = (props) => {
 				(
 					language.filler === undefined
 						?
-						(<div className="blank">Loading...</div>)
+						(<p className="blank">Loading...</p>)
 						:
-						(<div className="blank">{language.filler[props.text]}</div>)
+						(<p className="blank">{language.filler[props.text]}</p>)
 				)
 			}
 		</Language.Consumer>
@@ -60,10 +61,11 @@ class App extends Component {
 	render() {
 		return (
 			<Language.Provider value={this.state.language}>
-				<div className="App">
+				<div className={style.App}>
 					<Blank text="head"/>
 					<Header languageSwitcher={this.changeLang}/>
 					<Main/>
+					<Footer/>
 				</div>
 			</Language.Provider>
 		);

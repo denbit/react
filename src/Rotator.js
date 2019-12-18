@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Language} from "./App";
-
+import PropTypes from 'prop-types';
 const slides = [
 	{src: 'imgs/im_c.jpg', text: "C"},
 	{src: 'imgs/im_a.jpg', text: "A"},
@@ -11,6 +11,10 @@ const slides = [
 
 class Arrow extends Component {
 
+	static propTypes={
+		direction:PropTypes.oneOf(['slick-prev','slick-next']),
+		ArrowClick:PropTypes.func.isRequired
+	}
 	render() {
 		return (
 			<div className={'slick'}>
@@ -26,8 +30,11 @@ class Arrow extends Component {
 class Slide extends Component {
 	constructor(props, context) {
 		super(props, context);
-
 	}
+	static propTypes ={
+		src:PropTypes.string,
+		text:PropTypes.string
+	};
 
 	shouldComponentUpdate(nextProps, nextState, nextContext) {
 		return this.context != nextContext;
@@ -40,7 +47,7 @@ class Slide extends Component {
 					if (language.slides === undefined) {
 						return <div><h3>Loading...</h3><img src={this.props.src}/></div>
 					} else {
-						return <div><h3>{language.slides[this.props.text]}</h3><img src={this.props.src}/></div>
+						return <div><h3>{language.slides[this.props.text]}{this.props.text}</h3><img src={this.props.src}/></div>
 					}
 				}
 				}
@@ -70,19 +77,27 @@ class Rotator extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			currentPos: -550,
+			currentPos: -800,
 			interval: '',
 
 			target: null
 		};
 	}
 
-	checkLimit() {
+	checkLimitF() {
 		const pos = this.state.currentPos;
+// let initTarget = this.state.target;
 
 		if (pos >= 0) {
+			this.setState({currentPos: -1200, target: -1200});
+		}
+	}
+	checkLimitB() {
+		const pos = this.state.currentPos;
+
+		if (pos <= 1060) {
 			console.log("Limit:" + pos);
-			this.setState({currentPos: -1200, target: -1100});
+			this.setState({currentPos: -100, target: -100});
 		}
 	}
 
@@ -95,7 +110,7 @@ class Rotator extends Component {
 
 			this.setState({currentPos: pos, interval: inter});
 
-			this.checkLimit();
+			this.checkLimitB();
 
 			if (this.state.target > this.state.currentPos) {
 				clearInterval(this.state.interval);
@@ -114,9 +129,9 @@ class Rotator extends Component {
 
 				this.setState({currentPos: pos, interval: inter});
 
-				this.checkLimit();
+				this.checkLimitF();
 
-				if (this.state.target < this.state.currentPos) {
+				if (this.state.target <= this.state.currentPos) {
 					clearInterval(this.state.interval);
 				}
 				console.log(this.state.currentPos);
@@ -126,17 +141,18 @@ class Rotator extends Component {
 	}
 
 	handleClick(e, arg) {
+		const move = 400;
 		const pos = this.state.currentPos;
 		console.log(pos);
 		let target;
 		switch (arg) {
 			case 'slick-prev':
-				target = pos - 200;
+				target = pos - move;
 				this.setState({target: target});
 				this.moveB();
 				break;
 			case 'slick-next':
-				target = pos + 200;
+				target = pos + move;
 				this.setState({target: target});
 				this.moveF();
 				break;
