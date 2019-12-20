@@ -86,7 +86,6 @@ class Rotator extends Component {
 
 	checkLimitF() {
 		const pos = this.state.currentPos;
-// let initTarget = this.state.target;
 
 		if (pos >= 0) {
 			this.setState({currentPos: -1200, target: -1200});
@@ -95,9 +94,9 @@ class Rotator extends Component {
 	checkLimitB() {
 		const pos = this.state.currentPos;
 
-		if (pos <= 1060) {
+		if (pos <= -1200) {
 			console.log("Limit:" + pos);
-			this.setState({currentPos: -100, target: -100});
+			this.setState({currentPos: 0, target: 0});
 		}
 	}
 
@@ -112,7 +111,7 @@ class Rotator extends Component {
 
 			this.checkLimitB();
 
-			if (this.state.target > this.state.currentPos) {
+			if (this.state.target >= this.state.currentPos) {
 				clearInterval(this.state.interval);
 			}
 			console.log(this.state.currentPos);
