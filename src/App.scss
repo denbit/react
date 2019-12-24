@@ -32,18 +32,18 @@
     margin: 0 5px;
     font-size: 40px;
     cursor: pointer;
-    border-top: 3px solid $white;
+    border-top: 3px solid $app_border_color;
 
     &:hover {
-        color: $white;
-        background: $ownGreen;
-        border-top: 3px solid $ownBlue;
+        color: $font_color;
+        background: $lang_hover_background;
+        border-top: 3px solid $lang_hover_border;
     }
 }
 
 .blank {
   height: 35px;
-  color: $white;
+  color: $font_color;
   width: auto;
   margin: 0;
   line-height: 35px;
@@ -65,8 +65,8 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  background-color: $white;
-  color: $ownGreen;
+  background-color: $header_background_color;
+  color: $header_font_color;
 
   > .title {
     font-size: 102px;
@@ -88,9 +88,9 @@ section.body {
 
   > nav.menu {
     width: 100%;
-    background: $white;
+    background: $nav_menu_font_color;
     text-align: center;
-    color: $navMenu;
+    color: $nav_menu_font_color;
     padding: 5px 35px;
     min-height: 40px;
     overflow: auto;
@@ -102,7 +102,7 @@ section.body {
   margin-top: 5px;
   display: inline-block;
   cursor: pointer;
-  color: $navMenu;
+  color: $menu_item_font_color;
   padding: 0 10px;
   font-size: 2.2vw;
   text-decoration: none;
@@ -115,7 +115,7 @@ section.body {
     }
     a {
         cursor: pointer;
-        color: $navMenu;
+        color: $link_font_color;
         text-decoration: none;
     }
   &:hover {
@@ -130,12 +130,12 @@ section.body {
   height: auto;
   min-height: 250px;
   overflow: auto;
-  color: $white;
+  color: $main_screen_font_color;
   background-color: rgba(128, 128, 128, 0.6);
 }
 
 .rotator_place {
-  background-color: $ownBlue;
+  background-color: $rotator_place_background;
   padding: 25px 0 50px 0;
 }
 
@@ -228,7 +228,7 @@ section.body {
         margin: 0 5px;
         /*border-radius: 5px;*/
         max-height: 350px;
-        color: $ownGreen;
+        color: $ssl_font_color;
 
         > h3 {
             margin-bottom: 6px;
@@ -240,7 +240,7 @@ footer {
   position: relative;
   bottom: 0;
   min-height: 200px;
-  background: $ownBlue;
+  background: $footer_background;
 }
 
 @keyframes slidein {

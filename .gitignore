@@ -1,0 +1,11 @@
+# production
+/build
+
+# misc
+.idea
+.idea/
+
+# dependencies
+/node_modules
+package-lock.json
+
