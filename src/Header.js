@@ -7,8 +7,7 @@ const Title = () => (<div className="title">{title_text}</div> );
 
 
 function Lang(props) {
-    return (<div className="lang" onMouseOver={() => console.log("Hovered!")}
-                 onClick={props.switcher}>{props.lang.toLowerCase()}</div>);
+    return (<div className="lang" onClick={props.switcher}>{props.lang.toLowerCase()}</div>);
     }
 
 class DateTicker extends Component {
