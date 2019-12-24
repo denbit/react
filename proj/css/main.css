@@ -72,7 +72,7 @@ body {
 .main .slick-initialized .slick-slide {
     margin-right: 20px;
 }
-.main .slick-prev:before, .main .slick-next:before {
+.main .slick-prev:before, .main .arrow-next:before {
     display: none;
 }
 .main .slick-prev.slick-arrow {
@@ -82,7 +82,7 @@ body {
     width: 104px;
     left: -120px;
 }
-.main .slick-next.slick-arrow {
+.main .arrow-next.slick-arrow {
     display: inline-block;
     background: url(../img/arrow_right.png);
     height: 104px;

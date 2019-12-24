@@ -7,7 +7,7 @@ exports.unsafe = unsafe
 
 var eol = typeof process !== 'undefined' &&
   process.platform === 'win32' ? '\r\n' : '\n'
-
+/* eslint-disable */
 function encode (obj, opt) {
   var children = []
   var out = ''

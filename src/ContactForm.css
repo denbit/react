@@ -1,0 +1,44 @@
+:local(.input) {
+    width: 250px;
+
+    display: inline-block;
+
+    text-align: left;
+    vertical-align: top;
+}
+:local(.line){
+    padding: 10px;
+}
+:local(.field){
+    width: 300px;
+    border: none;
+    line-height: 25px;
+}
+
+:local(.container){
+    padding: 20px;
+    margin: auto;
+    position: relative;
+    right: 100px;
+    width: 70%;
+}
+:local(.title){
+    font-family: "Agency FB";
+}
+.container-success,.container-error{
+    width: 100%;
+    min-height: 250px;
+}
+.container-success{
+    background-color: #067b93d1;
+}
+.container-error{
+    background-color: #ce3838e3;
+}
+
+.container-success,.container-error h1.message {
+    padding-top: 100px;
+}
+
+
+
