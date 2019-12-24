@@ -12,7 +12,7 @@ const slides = [
 class Arrow extends Component {
 
 	static propTypes={
-		direction:PropTypes.oneOf(['slick-prev','slick-next']),
+		direction:PropTypes.oneOf(['arrow-prev','arrow-next']),
 		ArrowClick:PropTypes.func.isRequired
 	}
 	render() {
@@ -145,12 +145,12 @@ class Rotator extends Component {
 		console.log(pos);
 		let target;
 		switch (arg) {
-			case 'slick-prev':
+			case 'arrow-prev':
 				target = pos - move;
 				this.setState({target: target});
 				this.moveB();
 				break;
-			case 'slick-next':
+			case 'arrow-next':
 				target = pos + move;
 				this.setState({target: target});
 				this.moveF();
@@ -164,12 +164,12 @@ class Rotator extends Component {
 		return (
 			<div className="slides">
 				<Arrow ArrowClick={(target, arg) => this.handleClick(target, arg)}
-					   direction="slick-prev"> Previous</Arrow>
+					   direction="arrow-prev"> Previous</Arrow>
 
 				<Slider position={this.state.currentPos}/>
 
 				<Arrow ArrowClick={(target, arg) => this.handleClick(target, arg)}
-                       direction="slick-next">Next</Arrow>
+                       direction="arrow-next">Next</Arrow>
 			</div>
 		);
 	}

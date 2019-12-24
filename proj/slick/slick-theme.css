@@ -17,7 +17,7 @@
 }
 /* Arrows */
 .slick-prev,
-.slick-next
+.arrow-next
 {
     font-size: 0;
     line-height: 0;
@@ -43,8 +43,8 @@
 }
 .slick-prev:hover,
 .slick-prev:focus,
-.slick-next:hover,
-.slick-next:focus
+.arrow-next:hover,
+.arrow-next:focus
 {
     color: transparent;
     outline: none;
@@ -52,19 +52,19 @@
 }
 .slick-prev:hover:before,
 .slick-prev:focus:before,
-.slick-next:hover:before,
-.slick-next:focus:before
+.arrow-next:hover:before,
+.arrow-next:focus:before
 {
     opacity: 1;
 }
 .slick-prev.slick-disabled:before,
-.slick-next.slick-disabled:before
+.arrow-next.slick-disabled:before
 {
     opacity: .25;
 }
 
 .slick-prev:before,
-.slick-next:before
+.arrow-next:before
 {
     font-family: 'slick';
     font-size: 20px;
@@ -95,20 +95,20 @@
     content: '→';
 }
 
-.slick-next
+.arrow-next
 {
     right: -25px;
 }
-[dir='rtl'] .slick-next
+[dir='rtl'] .arrow-next
 {
     right: auto;
     left: -25px;
 }
-.slick-next:before
+.arrow-next:before
 {
     content: '→';
 }
-[dir='rtl'] .slick-next:before
+[dir='rtl'] .arrow-next:before
 {
     content: '←';
 }

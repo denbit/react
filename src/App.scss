@@ -1,0 +1,257 @@
+@import "constants";
+@import "fonts";
+
+
+:local(.App) {
+  text-align: center;
+  font-family: Consolas;
+  background-image: url($background-image);
+  background-position: 0 0;
+  /*background-size: 100% 100%;*/
+  min-height: 800px;
+}
+
+.root {
+  position: relative;
+  top: 0px;
+}
+
+[data-start] {
+  font-family: $content-font;
+
+  text-align: left;
+
+  padding: 15px 30px;
+
+  font-size: 20px;
+}
+
+.lang {
+    display: inline-block;
+    margin: 0 5px;
+    font-size: 40px;
+    cursor: pointer;
+    border-top: 3px solid white;
+
+    &:hover {
+        color: #fff;
+        background: #04b87f;
+        border-top: 3px solid #067B93;
+    }
+}
+
+.blank {
+  height: 35px;
+  color: white;
+  width: auto;
+  margin: 0;
+  line-height: 35px;
+  word-wrap: break-spaces;
+}
+
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.header {
+  position: relative;
+  min-height: 125px;
+  margin: 0px 5px 50px 5px;
+  text-align: center;
+  font-family: $header-font;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  background-color: white;
+  color: #04b87f;
+
+  > .title {
+    font-size: 102px;
+    width: 100%;
+  }
+
+  .panel {
+    text-align: end;
+    position: absolute;
+    min-width: 250px;
+    bottom: 0px;
+    right: 20px;
+  }
+}
+
+section.body {
+  min-height: 800px;
+
+
+  > nav.menu {
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    color: #07859f;
+    padding: 5px 35px;
+    min-height: 40px;
+    overflow: auto;
+  }
+}
+
+.menu_item {
+  width: calc(90% / 3);
+  margin-top: 5px;
+  display: inline-block;
+  cursor: pointer;
+  color: #07859f;
+  padding: 0 10px;
+  font-size: 2.2vw;
+  text-decoration: none;
+    &:first-child {
+        text-align: right;
+    }
+
+    &:last-child {
+        text-align: left;
+    }
+    a {
+        cursor: pointer;
+        color: #07859f;
+        text-decoration: none;
+    }
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.main_screen {
+  word-wrap: break-word;
+  width: 80%;
+  margin: auto;
+  height: auto;
+  min-height: 250px;
+  overflow: auto;
+  color: white;
+  background-color: rgba(128, 128, 128, 0.6);
+}
+
+.rotator_place {
+  background-color: #067B93;
+  padding: 25px 0 50px 0;
+}
+
+.slides {
+  margin: 0 auto;
+  width: 1002px;
+  text-align: center;
+  display: block;
+  position: relative;
+  min-height: 200px;
+  overflow: auto;
+    $arrow-position:-120px;
+    %arrow{
+
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: transparent;
+        height: 52px;
+        padding: 50px;
+        width: 52px;
+        display: inline-block;
+        margin-top: 5%;
+        &::after {
+            content: " ";
+            display: block;
+        }
+    }
+    @mixin arrow-icon($name, $left-or-right, $image) {
+        .arrow-#{$name} {
+            background: url($image);
+            background-size: contain;
+            @extend %arrow;
+            #{$left-or-right}: $arrow-position;
+        }
+    }
+
+    @include arrow-icon("next", right, $arrow-right);
+  @include arrow-icon("prev", left, $arrow-left);
+    //.arrow-next{
+    //    background-size: contain;
+    //    background: url($arrow-right);
+    //    @extend %arrow;
+    //    right: $arrow-position;
+    ////}
+    //.slick-prev {
+    //    background: url($arrow-left);
+    //    @extend %arrow;
+    //    left: $arrow-position;
+    //    background-size: contain;
+    //}
+    img {
+        width: 90%;
+    }
+}
+
+
+
+.slick {
+  display: block;
+  float: left;
+}
+
+.arrow-center {
+
+  display: inline-block;
+  height: 190px;
+  width: 1px;
+  vertical-align: text-bottom;
+}
+
+.slider {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  width: 800px;
+  float: left;
+  padding-bottom: 10px;
+
+}
+
+.ssl {
+  position: relative;
+  width: 2000px;
+  padding: 10px 0;
+    > div {
+        float: left;
+        width: calc(100% / 5 - 10px);
+        background-color: rgba(255, 255, 255, 0.9);;
+        /*rgba(4, 208, 255, 0.09);*/
+        box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.1);
+        margin: 0 5px;
+        /*border-radius: 5px;*/
+        max-height: 350px;
+        color: #16BC85;
+
+        > h3 {
+            margin-bottom: 6px;
+        }
+    }
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  min-height: 200px;
+  background: #07859f;
+}
+
+@keyframes slidein {
+  from {
+    /*transform: rotate(0deg);*/
+    left: 70%;
+  }
+  to {
+    left: -70%;
+    /*transform: rotate(360deg);*/
+  }
+}

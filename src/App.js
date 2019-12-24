@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import style from './App.css';
+import style from './App.scss';
 import {LanguageList} from './Languages';
 import Header from './Header'
 import Main from './Main'
