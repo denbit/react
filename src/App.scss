@@ -5,7 +5,7 @@
 
 :local(.App) {
   text-align: center;
-  font-family: Consolas;
+  font-family: $local-font;
   background-image: url($background-image);
   background-position: 0 0;
   /*background-size: 100% 100%;*/
@@ -104,7 +104,7 @@ section.body {
   cursor: pointer;
   color: $menu_item_font_color;
   padding: 0 10px;
-  font-size: 2.2vw;
+  font-size: 22px;
   text-decoration: none;
     &:first-child {
         text-align: right;
@@ -131,7 +131,7 @@ section.body {
   min-height: 250px;
   overflow: auto;
   color: $main_screen_font_color;
-  background-color: rgba(128, 128, 128, 0.6);
+  background-color: $main_screen_bg_color;
 }
 
 .rotator_place {
