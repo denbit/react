@@ -4,29 +4,14 @@ import {LanguageList} from './Languages';
 import Header from './Header'
 import Main from './Main'
 import Footer from "./Footer";
+import Blank from "./Blank"
+import * as Cookies from "js-cookie";
 
 export const Language = React.createContext({filler: {}, slides: {}});
 export const menulist = new Array("UA", "PL", "EN", "RU");
 export const title_text = "Chemistry CODE";
-const LanguageCache = {};
+export const LanguageCache = {};
 console.log(LanguageList);
- console .log(gefwgsegbgcb rgdrtdgdtgtfhgrdexes)
-const Blank = (props) => {
-	return (
-		<Language.Consumer>
-			{language =>
-				(
-					language.filler === undefined
-						?
-						(<p className="blank">Loading...</p>)
-						:
-						(<p className="blank">{language.filler[props.text]}</p>)
-				)
-			}
-		</Language.Consumer>
-	)
-};
-Blank.defaultProps = {text: "default"};
 
 class App extends Component {
 	constructor(props) {
@@ -55,7 +40,7 @@ class App extends Component {
 			this.loadLangs(targetLanguage)
 				.then(() => LanguageCache[targetLanguage] = {...this.state.language});
 		}
-		console.log(LanguageCache);
+		Cookies.set('lang', targetLanguage, {expires: 30})
 	}
 
 	render() {
@@ -71,5 +56,4 @@ class App extends Component {
 		);
 	}
 }
-export {Blank};
 export default App;

@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import Rotator from './Rotator'
 import ContactForm from './contacts';
-import {Blank, Language} from "./App";
+import {Language} from "./App";
+import Blank from "./Blank"
 import * as start from './start.html.json';
 import * as about from './about.html.json';
 import * as calculation from './calculation.html.json';
-import {Switch, Route, Link} from "react-router-dom";
+import {Link, Route, Switch} from "react-router-dom";
 import PropTypes from "prop-types";
 
 
