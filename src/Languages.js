@@ -6,6 +6,5 @@ export const LanguageList = async function (lang = 'ua') {
 	const inifile = await fetch('/languages/' + lang + '.ini');
 	const text = await inifile.text();
 	list[lang] = ini.parse(text);
-    console.log(list);
 	return  list[lang];
 };

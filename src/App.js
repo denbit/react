@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
 import style from './App.scss';
 import {LanguageList} from './Languages';
-import Header from './Header'
-import Main from './Main'
+import Header from './header/Header'
+import Main from './content/Main'
 import Footer from "./Footer";
-import Blank from "./Blank"
+import Blank from "./content/Blank"
 import * as Cookies from "js-cookie";
+import * as config from './config/index';
 
 export const Language = React.createContext({filler: {}, slides: {}});
-export const menulist = new Array("UA", "PL", "EN", "RU");
-export const title_text = "Chemistry CODE";
+// eslint-disable-next-line no-array-constructor
 const LanguageCache = {};
-console.log(LanguageList);
 
 class App extends Component {
 	constructor(props) {
@@ -44,7 +43,7 @@ class App extends Component {
 			this.loadLangs(targetLanguage)
 				.then(() => LanguageCache[targetLanguage] = {...this.state.language});
 		}
-		Cookies.set('lang', targetLanguage, {expires: 30})
+		Cookies.set('lang', targetLanguage, {expires: config.COOCKIE_EXPIRES})
 	}
 
 	render() {
