@@ -15,7 +15,8 @@ function InputField(props) {
 InputField.defaultProps = {
 	value: ""
 }
-const getTranslation = (container, value) => container && container[value] || loadText;
+
+const getTranslation = (container, value) => (container && container[value]) || loadText;
 
 class SmallTextField extends Component {
 	static defaultProps = {
@@ -111,7 +112,7 @@ class ContactForm extends Component {
 		const {Consumer: Translator} = Language;
 		const withTranslation = <Translator>
 			{({contact_form}) => {
-				const sent = this.state.sent == undefined ? false : true;
+				const sent = this.state.sent === undefined ? false : true;
 				const formComponent = <Fragment>
 					<h1 className={styles.title}> {getTranslation(contact_form, 'title')}</h1>
 					<form ref={this.form}>

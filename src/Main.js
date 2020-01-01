@@ -11,10 +11,6 @@ import PropTypes from "prop-types";
 import {translate} from "./func.list";
 
 
-function updateText(text) {
-	this.setState(text)
-}
-
 class NavElement extends Component {
 	static propTypes = {
 		link: PropTypes.string.isRequired,
@@ -68,7 +64,7 @@ class Screen extends Component {
 			page: 'main'
 		};
 		this.ref = React.createRef();
-		updateText = updateText.bind(this);
+
 	}
 
 	componentDidMount() {

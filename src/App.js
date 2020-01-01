@@ -8,6 +8,7 @@ import Blank from "./Blank"
 import * as Cookies from "js-cookie";
 
 export const Language = React.createContext({filler: {}, slides: {}});
+// eslint-disable-next-line no-array-constructor
 export const menulist = new Array("UA", "PL", "EN", "RU");
 export const title_text = "Chemistry CODE";
 export const LanguageCache = {};

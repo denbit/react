@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {Language} from "./App";
 import PropTypes from 'prop-types';
+import {translate} from "./func.list";
 const slides = [
 	{src: 'imgs/im_c.jpg', text: "C"},
 	{src: 'imgs/im_a.jpg', text: "A"},
@@ -44,10 +45,11 @@ class Slide extends Component {
 		return (<Fragment>
 			<Language.Consumer>
 				{language => {
+					console.log(language);
 					if (language.slides === undefined) {
 						return <div><h3>Loading...</h3><img src={this.props.src}/></div>
 					} else {
-						return <div><h3>{language.slides[this.props.text]}{this.props.text}</h3><img src={this.props.src}/></div>
+						return <div><h3>{translate(language.slides, this.props.text)}</h3><img src={this.props.src}/></div>
 					}
 				}
 				}
