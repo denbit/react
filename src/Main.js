@@ -8,6 +8,7 @@ import * as about from './about.html.json';
 import * as calculation from './calculation.html.json';
 import {Link, Route, Switch} from "react-router-dom";
 import PropTypes from "prop-types";
+import {translate} from "./func.list";
 
 
 function updateText(text) {
@@ -42,9 +43,9 @@ class Nav extends Component {
 			<Language.Consumer>
 				{language => (
 					<React.Fragment>
-						<NavElement link="about" goTo={navigateTo} text={language.about}/>
-						<NavElement link="calculation" goTo={navigateTo} text={language.calculation}/>
-						<NavElement link="contacts" goTo={navigateTo} text={language.contacts}/>
+						<NavElement link="about" goTo={navigateTo} text={translate(language, "about")}/>
+						<NavElement link="calculation" goTo={navigateTo} text={translate(language, "calculation")}/>
+						<NavElement link="contacts" goTo={navigateTo} text={translate(language, "contacts")}/>
 					</React.Fragment>)
 				}
 			</Language.Consumer>
