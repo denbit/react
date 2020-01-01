@@ -28,8 +28,13 @@ class App extends Component {
 	};
 
 	async componentWillMount() {
-		await this.loadLangs();
-		LanguageCache.ua = this.state.language;
+        let lang = Cookies.get('lang');
+			if(!lang){
+                lang = "ua";
+			}
+		await this.loadLangs(lang);
+
+            LanguageCache[lang] = this.state.language;
 	}
 
 	changeLang(event) {
