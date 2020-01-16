@@ -1,12 +1,13 @@
 
-name: Test
+name: Runnint JS tests
 
 on: [push]
 
 jobs:
-  build:
+  build_test:
+    needs: webclient_eslint
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     strategy:
       matrix:
@@ -21,10 +22,34 @@ jobs:
     - name: npm install, build, and test
       run: |
         npm i
-        npm i -g eslint
-        eslint src/**
-         npm ci
+        npm ci
         npm run build --if-present
         npm test
       env:
         CI: false
+  webclient_eslint:
+    runs-on: ubuntu-18.04
+    env:
+      TESTING_ENV: test
+    steps:
+      - uses: actions/checkout@v1
+      - uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install
+        run: npm install
+      - name: npm eslint
+        run: |
+          chmod +x ./scripts/git-diff-lint.sh
+          bash ./scripts/git-diff-lint.sh
+#          npx eslint ./

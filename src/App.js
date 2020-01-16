@@ -10,7 +10,7 @@ export const menulist = new Array("UA", "PL", "EN", "RU");
 export const title_text = "Chemistry CODE";
 const LanguageCache = {};
 console.log(LanguageList);
-
+ console .log(gefwgsegbgcb rgdrtdgdtgtfhgrdexes)
 const Blank = (props) => {
 	return (
 		<Language.Consumer>
