@@ -8,9 +8,4 @@ export const LanguageList = async function (lang = 'ua') {
 	list[lang] = ini.parse(text);
     console.log(list);
 	return  list[lang];
-
-
 };
-
-
-
