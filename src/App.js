@@ -10,7 +10,7 @@ import * as Cookies from "js-cookie";
 export const Language = React.createContext({filler: {}, slides: {}});
 export const menulist = new Array("UA", "PL", "EN", "RU");
 export const title_text = "Chemistry CODE";
-export const LanguageCache = {};
+const LanguageCache = {};
 console.log(LanguageList);
 
 class App extends Component {
@@ -29,12 +29,11 @@ class App extends Component {
 
 	async componentWillMount() {
         let lang = Cookies.get('lang');
-			if(!lang){
-                lang = "ua";
-			}
+		if (!lang) {
+			lang = "ua";
+		}
 		await this.loadLangs(lang);
-
-            LanguageCache[lang] = this.state.language;
+		LanguageCache[lang] = this.state.language;
 	}
 
 	changeLang(event) {
