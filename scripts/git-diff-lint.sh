@@ -10,7 +10,7 @@ then
   npx eslint $JSDIFF
 else
   echo "Running eslint"
-  npx eslint ./src
+  npx eslint $(find -f ./src/ | grep -E "\.(jsx?|graphql)$")
 fi
 
 if [ -n "$CSSDIFF" ]
@@ -19,5 +19,6 @@ then
    npx stylelint $CSSDIFF
 else
   echo "Running stylelint"
-  npx stylelint ./src
+  npx stylelint $(find -f ./src/ | grep -E "\.(s?css)$")
+
 fi
