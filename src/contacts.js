@@ -45,7 +45,6 @@ class ContactForm extends Component {
 					</form>
 					<Button onClick={this.send} text={translate(contact_form, 'send')}/>
 				</Fragment>;
-				s
 
 				let sentStatus = this.state.sent === false ? "error" : "success";
 				const sentComponent = <Fragment>
