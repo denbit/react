@@ -5,9 +5,7 @@ import styles from "./style/ContactForm.css";
 import BigTextField from "./content/contactForm/BigTextField";
 import SmallTextField from "./content/contactForm/SmallTextField";
 import Button from "./content/contactForm/button";
-const loadText = "Loading";
-
-const getTranslation = (container, value) => (container && container[value]) || loadText;
+import {translate} from "./func.list";
 
 class ContactForm extends Component {
 	constructor(props) {
@@ -31,22 +29,23 @@ class ContactForm extends Component {
 			{({contact_form}) => {
 				const sent = this.state.sent === undefined ? false : true;
 				const formComponent = <Fragment>
-					<h1 className={styles.title}> {getTranslation(contact_form, 'title')}</h1>
+					<h1 className={styles.title}> {translate(contact_form, 'title')}</h1>
 					<form ref={this.form}>
 						<SmallTextField name={'email'} className={'mail_fl'} labelClassName={styles.input}
-										placeholder={getTranslation(contact_form, 'email_placeholder')}
-										labelText={getTranslation(contact_form, 'email')}/>
+										placeholder={translate(contact_form, 'email_placeholder')}
+										labelText={translate(contact_form, 'email')}/>
 						<SmallTextField name={'name'} labelClassName={styles.input}
-										placeholder={getTranslation(contact_form, 'name_placeholder')}
-										labelText={getTranslation(contact_form, 'name')}/>
+										placeholder={translate(contact_form, 'name_placeholder')}
+										labelText={translate(contact_form, 'name')}/>
 						<SmallTextField name={'phone'} labelClassName={styles.input}
-										placeholder={getTranslation(contact_form, 'phone_placeholder')}
-										labelText={getTranslation(contact_form, 'name')}/>
+										placeholder={translate(contact_form, 'phone_placeholder')}
+										labelText={translate(contact_form, 'name')}/>
 						<BigTextField name={'message'} labelClassName={styles.input}
-									  labelText={getTranslation(contact_form, 'message')}/>
+									  labelText={translate(contact_form, 'message')}/>
 					</form>
-					<Button onClick={this.send} text={getTranslation(contact_form, 'send')}/>
+					<Button onClick={this.send} text={translate(contact_form, 'send')}/>
 				</Fragment>;
+				s
 
 				let sentStatus = this.state.sent === false ? "error" : "success";
 				const sentComponent = <Fragment>
@@ -55,7 +54,7 @@ class ContactForm extends Component {
 							was{this.state.sent === false ? ' not' : ''} sent.</h1>
 						{this.state.sent ? <h3>You will be contacted soon! Thank you for cooperation.</h3> :
 							<h3> Please check all fields for correctness and try again.</h3>}
-						<span onClick={()=>this.setState({sent:undefined})} style={{textDecoration: 'underline'}}> send another one</span>
+						<span onClick={() => this.setState({sent: undefined})} style={{textDecoration: 'underline'}}> send another one</span>
 					</div>
 				</Fragment>;
 				console.log(contact_form);

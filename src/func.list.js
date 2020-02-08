@@ -16,5 +16,4 @@ function translate(container, value) {
 		return fallback.loading[defaultLanguage]
 	}
 }
-
 export {translate};

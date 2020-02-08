@@ -2,43 +2,40 @@
 @import "style/fonts";
 @import "style/colors";
 
-
 :local(.App) {
   text-align: center;
   font-family: $local-font;
   background-image: url($background-image);
   background-position: 0 0;
-  /*background-size: 100% 100%;*/
+
+  /* background-size: 100% 100%; */
   min-height: 800px;
 }
 
 .root {
   position: relative;
-  top: 0px;
+  top: 0;
 }
 
 [data-start] {
   font-family: $content-font;
-
   text-align: left;
-
   padding: 15px 30px;
-
   font-size: 20px;
 }
 
 .lang {
-    display: inline-block;
-    margin: 0 5px;
-    font-size: 40px;
-    cursor: pointer;
-    border-top: 3px solid $app_border_color;
+  display: inline-block;
+  margin: 0 5px;
+  font-size: 40px;
+  cursor: pointer;
+  border-top: 3px solid $app_border_color;
 
-    &:hover {
-        color: $font_color;
-        background: $lang_hover_background;
-        border-top: 3px solid $lang_hover_border;
-    }
+  &:hover {
+    color: $font_color;
+    background: $lang_hover_background;
+    border-top: 3px solid $lang_hover_border;
+  }
 }
 
 .blank {
@@ -50,7 +47,6 @@
   word-wrap: break-spaces;
 }
 
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -59,7 +55,7 @@
 .header {
   position: relative;
   min-height: 125px;
-  margin: 0px 5px 50px 5px;
+  margin: 0 5px 50px 5px;
   text-align: center;
   font-family: $header-font;
   align-items: center;
@@ -77,14 +73,13 @@
     text-align: end;
     position: absolute;
     min-width: 250px;
-    bottom: 0px;
+    bottom: 0;
     right: 20px;
   }
 }
 
 section.body {
   min-height: 800px;
-
 
   > nav.menu {
     width: auto;
@@ -106,18 +101,21 @@ section.body {
   padding: 0 10px;
   font-size: 22px;
   text-decoration: none;
-    &:first-child {
-        text-align: right;
-    }
 
-    &:last-child {
-        text-align: left;
-    }
-    a {
-        cursor: pointer;
-        color: $link_font_color;
-        text-decoration: none;
-    }
+  &:first-child {
+    text-align: right;
+  }
+
+  &:last-child {
+    text-align: left;
+  }
+
+  a {
+    cursor: pointer;
+    color: $link_font_color;
+    text-decoration: none;
+  }
+
   &:hover {
     text-decoration: underline;
   }
@@ -147,49 +145,53 @@ section.body {
   position: relative;
   min-height: 200px;
   overflow: auto;
-    $arrow-position:-120px;
-    %arrow{
+  $arrow-position: -120px;
 
-        border: none;
-        outline: none;
-        cursor: pointer;
-        color: transparent;
-        height: 52px;
-        padding: 50px;
-        width: 52px;
-        display: inline-block;
-        margin-top: 5%;
-        &::after {
-            content: " ";
-            display: block;
-        }
-    }
-    @mixin arrow-icon($name, $left-or-right, $image) {
-        .arrow-#{$name} {
-            background: url($image);
-            background-size: contain;
-            @extend %arrow;
-            #{$left-or-right}: $arrow-position;
-        }
-    }
+  %arrow {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: transparent;
+    height: 52px;
+    padding: 50px;
+    width: 52px;
+    display: inline-block;
+    margin-top: 5%;
 
-    @include arrow-icon("next", right, $arrow-right);
+    &::after {
+      content: " ";
+      display: block;
+    }
+  }
+
+  @mixin arrow-icon($name, $left-or-right, $image) {
+    .arrow-#{$name} {
+      background: url($image);
+      background-size: contain;
+
+      @extend %arrow;
+
+      #{$left-or-right}: $arrow-position;
+    }
+  }
+
+  @include arrow-icon("next", right, $arrow-right);
   @include arrow-icon("prev", left, $arrow-left);
-    //.arrow-next{
-    //    background-size: contain;
-    //    background: url($arrow-right);
-    //    @extend %arrow;
-    //    right: $arrow-position;
-    ////}
-    //.slick-prev {
-    //    background: url($arrow-left);
-    //    @extend %arrow;
-    //    left: $arrow-position;
-    //    background-size: contain;
-    //}
-    img {
-        width: 90%;
-    }
+  //.arrow-next{
+  //    background-size: contain;
+  //    background: url($arrow-right);
+  //    @extend %arrow;
+  //    right: $arrow-position;
+  ////}
+  //.slick-prev {
+  //    background: url($arrow-left);
+  //    @extend %arrow;
+  //    left: $arrow-position;
+  //    background-size: contain;
+  //}
+  img {
+    width: 90%;
+  }
 }
 
 .slick {
@@ -212,28 +214,30 @@ section.body {
   width: 800px;
   float: left;
   padding-bottom: 10px;
-
 }
 
 .ssl {
   position: relative;
   width: 2000px;
   padding: 10px 0;
-    > div {
-        float: left;
-        width: calc(100% / 5 - 10px);
-        background-color: rgba(255, 255, 255, 0.9);;
-        /*rgba(4, 208, 255, 0.09);*/
-        box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.1);
-        margin: 0 5px;
-        /*border-radius: 5px;*/
-        max-height: 350px;
-        color: $ssl_font_color;
 
-        > h3 {
-            margin-bottom: 6px;
-        }
+  > div {
+    float: left;
+    width: calc(100% / 5 - 10px);
+    background-color: rgba(255, 255, 255, 0.9);
+
+    /* rgba(4, 208, 255, 0.09); */
+    box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.1);
+    margin: 0 5px;
+
+    /* border-radius: 5px; */
+    max-height: 350px;
+    color: $ssl_font_color;
+
+    > h3 {
+      margin-bottom: 6px;
     }
+  }
 }
 
 footer {
@@ -245,11 +249,13 @@ footer {
 
 @keyframes slidein {
   from {
-    /*transform: rotate(0deg);*/
+    /* transform: rotate(0deg); */
     left: 70%;
   }
+
   to {
     left: -70%;
-    /*transform: rotate(360deg);*/
+
+    /* transform: rotate(360deg); */
   }
 }
