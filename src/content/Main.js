@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import Rotator from '../rotator/Rotator';
-import ContactForm from '../contacts';
+import ContactForm from './ContactForm';
 import Blank from "./Blank";
 import * as start from '../start.html.json';
 import * as about from '../about.html.json';
-import * as calculation from '../calculation.html.json';
+import {Calculation} from './Calculation';
 import {Route, Switch} from "react-router-dom";
 import Nav from './Nav';
 import Screen from './Screen';
@@ -17,7 +17,7 @@ class Main extends Component {
 			options: {
 				start: start.content,
 				about: about.content,
-				calculation: calculation.content,
+				calculation: Calculation,
 				contacts: ContactForm
 			},
 			current: "start"

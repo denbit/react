@@ -1,1 +1,4 @@
-{"content":"<div data-start=\"true\">\nStart!\n<\/div>\n","name":"start.html"}
+{
+  "content": "<div data-start=\"true\">\r\nStart!\r\n<\/div>\r\n",
+  "name": "start.html"
+}
