@@ -67,6 +67,9 @@
   > .title {
     font-size: 102px;
     width: 100%;
+    a {
+      color: $header_font_color;
+    }
   }
 
   .panel {

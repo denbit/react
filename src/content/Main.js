@@ -31,8 +31,11 @@ class Main extends Component {
 	};
 
 	async componentDidMount() {
-
-		const path = this.props.location.pathname.substr(1);
+		let path;
+		if (this.props.location.pathname !== "/")
+			 path = this.props.location.pathname.substr(1);
+		else
+			 path = "start";
 		this.setState({});
 		const contentLanguage = await getContentTranslation(path,
 				this.props.language);

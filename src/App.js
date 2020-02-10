@@ -17,7 +17,7 @@ class App extends Component {
 		super(props);
 		this.state = {
 			language: {},
-			contentLanguage: config.DEFAULT_LANGUAGE
+			contentLanguage: Cookies.get('lang')?  Cookies.get('lang'): config.DEFAULT_LANGUAGE
 		};
 		this.changeLang = this.changeLang.bind(this);
 	}
