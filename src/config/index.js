@@ -20,7 +20,7 @@ export const SLIDES = [
     {src: 'imgs/im_a.jpg', text: "A"}
 ];
 
-export const MENULIST = new Array("UA", "PL", "EN", "RU");
+export const MENULIST = new Array("ua", "pl", "en", "ru");
 export const TITLE_TEXT = "Chemistry CODE";
 
 export const COOCKIE_EXPIRES = 30;
