@@ -29,13 +29,18 @@ function convert(string $file_name): string
 }
 
 ob_start();
-$file_addon = __DIR__."/src/templates/";
-$func = fn (string $file): int => (print $file.' '.convert($file)
-	." bytes written "."\n");
+$file_addon = __DIR__ . "/src/templates/";
+$func = function (string $file): ?int {
+	print $file . ' ' . convert($file) .
+		" bytes written " . "\n";
+	return null;
+};
 if ($argc > 1) {
-	$files = array_slice($argv , 1);
-	array_walk($files , fn (string $file): string => $file_addon.$file);
-	array_map($func , $files);
+	$files = array_slice($argv, 1);
+	array_walk($files, function (string $file) use ($file_addon): string {
+		return $file_addon . $file;
+	});
+	array_map($func, $files);
 } else {
 	$it = new FilesystemIterator($file_addon ,
 		FilesystemIterator::CURRENT_AS_PATHNAME

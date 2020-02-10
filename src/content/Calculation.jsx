@@ -12,8 +12,8 @@ export class Calculation extends Component {
 	render() {
 		return (
 			<>
-				<Screen page={calcHeader.content}></Screen>
-				<Screen page={calcTable.content}></Screen>
+				<Screen page={calcHeader.content}/>
+				<Screen page={calcTable.content}/>
 			</>
 		)
 	}
