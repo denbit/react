@@ -12,7 +12,7 @@ class Header extends Component {
     render() {
         return (
             <header className="header">
-                <Title/>
+                <Title goTo />
                 <LangPanel switcher={this.props.languageSwitcher}/>
             </header>
         );

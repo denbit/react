@@ -13,19 +13,16 @@ function convert(string $file_name): string
 			"content" => $content ,
 			"name"    => $name,
 		];
-		$encoded = json_encode($preencoded);
-
-		return file_put_contents(__DIR__."/src/".$name.".json" , $encoded);
 	} else {
 		$name = basename($file_name);
 		$preencoded = [
 			"content" => "" ,
 			"name"    => $name,
 		];
-		$encoded = json_encode($preencoded);
-
-		return file_put_contents(__DIR__."/src/".$name.".json" , $encoded);
 	}
+    $encoded = json_encode($preencoded);
+
+    return file_put_contents(__DIR__."/public/content/".$name.".json" , $encoded);
 }
 
 ob_start();

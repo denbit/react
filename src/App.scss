@@ -19,9 +19,12 @@
 
 [data-start] {
   font-family: $content-font;
-  text-align: left;
+  text-align: justify;
   padding: 15px 30px;
   font-size: 20px;
+  text-indent: 20px;
+  max-width: 1000px;
+  margin: auto;
 }
 
 .lang {
@@ -52,46 +55,6 @@
   height: 40vmin;
 }
 
-.header {
-  position: relative;
-  min-height: 125px;
-  margin: 0 5px 50px 5px;
-  text-align: center;
-  font-family: $header-font;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  background-color: $header_background_color;
-  color: $header_font_color;
-
-  > .title {
-    font-size: 102px;
-    width: 100%;
-  }
-
-  .panel {
-    text-align: end;
-    position: absolute;
-    min-width: 250px;
-    bottom: 0;
-    right: 20px;
-  }
-}
-
-section.body {
-  min-height: 800px;
-
-  > nav.menu {
-    width: auto;
-    background: $nav_menu_font_color;
-    text-align: center;
-    color: $nav_menu_font_color;
-    padding: 5px 35px;
-    min-height: 40px;
-    overflow: auto;
-  }
-}
-
 .menu_item {
   width: calc(90% / 3);
   margin-top: 5px;
@@ -118,6 +81,50 @@ section.body {
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.header {
+  position: relative;
+  min-height: 125px;
+  margin: 0 5px 50px 5px;
+  text-align: center;
+  font-family: $header-font;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  background-color: $header_background_color;
+  color: $header_font_color;
+
+  > .title {
+    font-size: 102px;
+    width: 100%;
+
+    a {
+      color: $header_font_color;
+    }
+  }
+
+  .panel {
+    text-align: end;
+    position: absolute;
+    min-width: 250px;
+    bottom: 0;
+    right: 20px;
+  }
+}
+
+section.body {
+  min-height: 800px;
+
+  > nav.menu {
+    width: auto;
+    background: $nav_menu_font_color;
+    text-align: center;
+    color: $nav_menu_font_color;
+    padding: 5px 35px;
+    min-height: 40px;
+    overflow: auto;
   }
 }
 

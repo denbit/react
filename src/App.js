@@ -6,7 +6,7 @@ import Main from './content/Main'
 import Footer from "./Footer";
 import Blank from "./content/Blank"
 import * as Cookies from "js-cookie";
-import * as config from './config/index';
+import * as config from './config';
 
 export const Language = React.createContext({filler: {}, slides: {}});
 // eslint-disable-next-line no-array-constructor
@@ -16,14 +16,18 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			language: {}
+			language: {},
+			contentLanguage: Cookies.get('lang')?  Cookies.get('lang'): config.DEFAULT_LANGUAGE
 		};
 		this.changeLang = this.changeLang.bind(this);
 	}
 
 	loadLangs = async (language) => {
 		const loadedLanguage = await LanguageList(language);
-		this.setState({language: loadedLanguage});
+		this.setState({
+			language: loadedLanguage,
+			contentLanguage: language,
+		});
 	};
 
 	async componentWillMount() {
@@ -38,7 +42,10 @@ class App extends Component {
 	changeLang(event) {
 		const targetLanguage = event.target.innerHTML;
 		if (targetLanguage in LanguageCache) {
-			this.setState({language: LanguageCache[targetLanguage]});
+			this.setState({
+				language: LanguageCache[targetLanguage],
+				contentLanguage: targetLanguage,
+			});
 		} else {
 			this.loadLangs(targetLanguage)
 				.then(() => LanguageCache[targetLanguage] = {...this.state.language});
@@ -52,7 +59,7 @@ class App extends Component {
 				<div className={style.App}>
 					<Blank text="head"/>
 					<Header languageSwitcher={this.changeLang}/>
-					<Main/>
+					<Main language={this.state.contentLanguage}/>
 					<Footer/>
 				</div>
 			</Language.Provider>
