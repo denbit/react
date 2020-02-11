@@ -5,8 +5,11 @@ class Arrow extends Component {
     static propTypes={
         direction:PropTypes.oneOf(['arrow-prev','arrow-next']),
         ArrowClick:PropTypes.func.isRequired,
-        arrowText: PropTypes.string.isRequired
-    }
+        arrowText: PropTypes.string
+    };
+    static defaultProps ={
+        arrowText:''
+    };
     render() {
         return (
             <div className={'slick'}>

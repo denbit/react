@@ -1,5 +1,9 @@
 import * as config from '../config/index';
-import React from "react";
+import React from 'react';
+import {Link} from 'react-router-dom';
 
-const Title = () => (<div className="title"><a href="/">{config.TITLE_TEXT}</a></div> );
-export default Title
+const Title = () => (<div className="title"><Link
+		to={'/'}>
+	{config.TITLE_TEXT}
+</Link></div>);
+export default Title;

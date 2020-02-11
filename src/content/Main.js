@@ -30,15 +30,20 @@ class Main extends Component {
 		language: PropTypes.oneOf(config.MENULIST),
 	};
 
-	async componentDidMount() {
+	 componentDidMount() {
+		this.updateContent();
+		console.log("language changed");
+	}
+
+	async updateContent (language=''){
 		let path;
 		if (this.props.location.pathname !== "/")
-			 path = this.props.location.pathname.substr(1);
+			path = this.props.location.pathname.substr(1);
 		else
-			 path = "start";
-		this.setState({});
+			path = "start";
+
 		const contentLanguage = await getContentTranslation(path,
-				this.props.language);
+				language ? language : this.props.language);
 		this.setState(({options: prevOptions}) => ({
 			options: {
 				...prevOptions, [path]: contentLanguage.content,
@@ -46,7 +51,13 @@ class Main extends Component {
 			current: path,
 		}));
 	}
-
+	componentWillReceiveProps(nextProps) {
+		// You don't have to do this check first, but it can help prevent an unneeded render
+		if (nextProps.language !== this.props.language) {
+			this.updateContent(nextProps.language);
+			console.log("language chang34636ed");
+		}
+	}
 	async goTo(props) {
 		if (this.state.options[props] === 'null') {
 			const contentLanguage = await getContentTranslation(props,
