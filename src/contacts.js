@@ -10,7 +10,7 @@ import {translate} from "./func.list";
 class ContactForm extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {sent: true};
+		this.state = {sent: undefined};
 		this.form = React.createRef();
 		this.send = this.send.bind(this);
 	}
