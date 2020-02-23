@@ -5,7 +5,7 @@ footer {
     text-align: center;
     color: #0fc48a;
     font-size: 35px;
-    padding:25px 100px 10px 100px;
+    padding: 25px 100px 10px 100px;
     margin-bottom: 0;
   }
 
@@ -16,17 +16,21 @@ footer {
     padding-left: 30px;
     padding-bottom: 10px;
     text-indent: 30px;
-    color:  white;
+    color: white;
     font-size: 18px;
     line-height: 22px;
   }
-  .menu{
+
+  .menu {
     background-color: #000000cf;
     line-height: 75px;
-    .menu_item {
-      a { font-size: 17px;
 
-        color:                #0fc48a;}
+    .menu_item {
+      a {
+        font-size: 17px;
+
+        color: #0fc48a;
+      }
     }
   }
-  }
+}
