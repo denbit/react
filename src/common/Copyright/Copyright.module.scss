@@ -1,4 +1,5 @@
 @import "src/style/colors";
+
 small.copyright {
   font-family: Consolas;
   line-height: 60px;
@@ -9,6 +10,6 @@ small.copyright {
   color: $font_color;
 
   a {
-    color: #0fc48a
+    color: #0fc48a;
   }
 }
