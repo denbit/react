@@ -1,11 +1,12 @@
+@import "src/style/colors";
 small.copyright {
-  font-size: 17px;
+  font-family: Consolas;
   line-height: 60px;
   display: inline;
   vertical-align: bottom;
   position: relative;
   top: 7px;
-  color: white;
+  color: $font_color;
 
   a {
     color: #0fc48a
