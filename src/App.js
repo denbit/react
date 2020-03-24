@@ -3,7 +3,7 @@ import style from './App.scss';
 import {LanguageList} from './Languages';
 import Header from './header/Header'
 import Main from './content/Main'
-import Footer from "./Footer";
+
 import Blank from "./content/Blank"
 import * as Cookies from "js-cookie";
 import * as config from './config';
@@ -54,13 +54,14 @@ class App extends Component {
 	}
 
 	render() {
+
 		return (
 			<Language.Provider value={this.state.language}>
 				<div className={style.App}>
 					<Blank text="head"/>
 					<Header languageSwitcher={this.changeLang}/>
 					<Main language={this.state.contentLanguage}/>
-					<Footer/>
+
 				</div>
 			</Language.Provider>
 		);

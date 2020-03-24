@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-
 import Rotator from '../rotator/Rotator';
 import ContactForm from '../contacts';
 import Blank from './Blank';
@@ -9,7 +8,7 @@ import Nav from './Nav';
 import Screen from './Screen';
 import {getContentTranslation} from '../services/contentService';
 import * as config from '../config';
-
+import Footer from "./Footer";
 class Main extends Component {
 	constructor(props) {
 		super(props);
@@ -85,7 +84,13 @@ class Main extends Component {
 	}
 
 	render() {
-		return (
+		const data = {
+			explain: "When we typically think of a GPU, we usually think of applications or programs that make intensive use of a graphical interface of some sort. Using a graphics card while gaming, for example, is one of the most popular ways to utilize the graphical rendering power of a GPU. A GPGPU (General Purpose Graphics Processing Unit) goes beyond traditional means. All modern GPUs are considered to be GPGPUs because they can be used not only for graphics but also to run calculations and perform tasks, just like CPUs can. When it comes to computational power, GPUs are outpacing even the most potent CPUs because of how they handle parallel processes. This means that they can run multiple operations with higher rates of speed than a CPU can. This makes utilizing a GPGPU the ideal choice for all current and future applications. "
+		};
+		const  text = 'GPUs are not just for games and other rendering services anymore.' +
+			' This page will explain what a HPC is, what makes it different, ' +
+			'and why it is important.';
+		return (<>
 				<section className="body">
 					<Nav navigateTo={this.goTo}/>
 					<p style={{fontSize: 30 + 'px'}}>
@@ -105,6 +110,8 @@ class Main extends Component {
 									 render={this.renderRouteComponent('contacts')}/>
 					</Switch>
 				</section>
+			<Footer contactData={data} forNav={this.goTo} info={text}/>
+			</>
 		);
 	}
 

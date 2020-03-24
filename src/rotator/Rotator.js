@@ -77,6 +77,7 @@ class Rotator extends Component {
 				this.setState({target: target});
 				this.moveF();
 				break;
+			default:
 
 		}
 	}
