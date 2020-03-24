@@ -4,7 +4,7 @@ import {Language} from '../App';
 import styles from "../style/ContactForm.css";
 import BigTextField from "./ContactFormComponents/BigTextField";
 import SmallTextField from "./ContactFormComponents/SmallTextField";
-import Button from "./ContactFormComponents/button";
+import Button from "../commonComponents/Button/Button";
 import {translate} from "../func.list";
 
 class ContactForm extends Component {
