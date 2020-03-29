@@ -1,4 +1,4 @@
-import ini from './ini';
+import ini from 'ini';
 
 export const LanguageList = async function (lang = 'ua') {
 	const list = {ua: {}, pl: {}, en: {}};

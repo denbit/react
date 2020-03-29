@@ -1,0 +1,15 @@
+@import "../../style/colors";
+
+small.copyright {
+  font-family: Consolas;
+  line-height: 60px;
+  display: inline;
+  vertical-align: bottom;
+  position: relative;
+  top: 7px;
+  color: $font_color;
+
+  a {
+    color: #0fc48a;
+  }
+}
