@@ -115,8 +115,8 @@
             "^.+\\.module\\.(css|sass|scss)$"
         ],
         "modulePaths": [
-            "/mnt/dev_store/devs/dip/front/node_modules",
-            "/mnt/dev_store/devs/dip/node_modules"
+            "/mnt/dev_store/devs/chemistry/front/node_modules",
+            "/mnt/dev_store/devs/chemistry/node_modules"
         ],
         "moduleNameMapper": {
             "^react-native$": "react-native-web",
