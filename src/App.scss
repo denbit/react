@@ -2,7 +2,7 @@
 @import "style/fonts";
 @import "style/colors";
 
-:local(.App) {
+.App {
   text-align: center;
   font-family: $local-font;
   background-image: url($background-image);

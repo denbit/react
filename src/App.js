@@ -35,6 +35,7 @@ class App extends Component {
 		if (!lang) {
 			lang = "ua";
 		}
+        console.log(style);
 		await this.loadLangs(lang);
 		LanguageCache[lang] = this.state.language;
 	}
@@ -57,7 +58,7 @@ class App extends Component {
 
 		return (
 			<Language.Provider value={this.state.language}>
-				<div className={style.App}>
+				<div  className={'App'}>
 					<Blank text="head"/>
 					<Header languageSwitcher={this.changeLang}/>
 					<Main language={this.state.contentLanguage}/>
