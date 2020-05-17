@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "../../style/ContactForm.css";
 import classNames from "classnames";
-import React, { Component, Fragment } from "react";
+import React, {Component, Fragment} from "react";
 
 class BigTextField extends Component {
     static defaultProps = {

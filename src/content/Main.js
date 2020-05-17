@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Rotator from '../rotator/Rotator';
-import ContactForm from '../contacts';
+import ContactForm from './ContactForm';
+import {Calculation} from './Calculation';
 import Blank from './Blank';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import Nav from './Nav';
@@ -15,10 +16,10 @@ class Main extends Component {
 		this.goTo = this.goTo.bind(this);
 		this.state = {
 			options: {
+				calculation: Calculation,
+				contacts: ContactForm,
 				start: 'null',
 				about: 'null',
-				calculation: 'null',
-				contacts: ContactForm,
 			},
 			current: 'start',
 
