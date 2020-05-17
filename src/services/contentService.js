@@ -122,12 +122,12 @@ export const getContentTranslation = async (
 		try {
 
 			const fileHandle = await fetch(
-					'/content/'.concat(section, '_', language, '.html.json'));
+					'api/content/'.concat(section, '_', language, '.html.json'));
 			content = await fileHandle.json();
 			console.log(await setToCache(section + '_' + language + '.html', content));
 		} catch (e) {
 			const fileHandle = await fetch(
-					'/content/'.concat(section, '_', config.DEFAULT_LANGUAGE,
+					'api/content/'.concat(section, '_', config.DEFAULT_LANGUAGE,
 							'.html.json'));
 			content = await fileHandle.json();
 		}

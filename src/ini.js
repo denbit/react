@@ -1,10 +1,3 @@
-exports.parse = exports.decode = decode
-
-exports.stringify = exports.encode = encode
-
-exports.safe = safe
-exports.unsafe = unsafe
-
 var eol = typeof process !== 'undefined' &&
   process.platform === 'win32' ? '\r\n' : '\n'
 /* eslint-disable */
@@ -192,3 +185,11 @@ function unsafe (val, doUnesc) {
   }
   return val
 }
+const ini = {};
+ini.parse = ini.decode = decode
+
+ini.stringify = ini.encode = encode
+
+ini.safe = safe
+ini.unsafe = unsafe
+export  {ini}
