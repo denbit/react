@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Button from '../../commonComponents/Button/Button'
 import styles from './UploadFile.module.scss'
-import ModalForm from "../../commonComponents/ModalForm";
+import ModalForm from "../ModalForm";
 
 class UploadFile extends Component {
     constructor(props, context) {
@@ -16,7 +16,7 @@ class UploadFile extends Component {
                 <Button styled={styles['upload-btn']}
                        onClick = {()=>this.setState({isShow:!this.state.isShow})}
                         text='Завантажити' {...this.state}/>
-                       { this.state.isShow && ModalForm}
+                {this.state.isShow && <ModalForm></ModalForm>}
             </>
         )
     }

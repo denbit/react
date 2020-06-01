@@ -61,6 +61,7 @@ class App extends Component {
 					<Header languageSwitcher={this.changeLang}/>
 					<Main language={this.state.contentLanguage}/>
 
+
 				</div>
 			</Language.Provider>
 		);
