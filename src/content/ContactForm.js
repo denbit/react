@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import classNames from 'classnames';
 import {Language} from '../App';
-import styles from '../style/ContactForm.css';
+import styles from '../style/ContactForm.module.scss';
 import BigTextField from './ContactFormComponents/BigTextField';
 import SmallTextField from './ContactFormComponents/SmallTextField';
 import Button from '../commonComponents/Button/Button';
@@ -10,6 +10,7 @@ import {translate} from '../func.list';
 class ContactForm extends Component {
     constructor(props) {
         super(props);
+        console.log(styles);
         this.state = {
             sent: undefined,
             failed: false,
