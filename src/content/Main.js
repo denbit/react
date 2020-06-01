@@ -9,7 +9,7 @@ import Nav from './Nav';
 import Screen from './Screen';
 import {getContentTranslation} from '../services/contentService';
 import * as config from '../config';
-import Footer from "../Footer";
+import Footer from "./Footer";
 class Main extends Component {
 	constructor(props) {
 		super(props);
