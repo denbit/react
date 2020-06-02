@@ -4,23 +4,26 @@ import Rotator from '../rotator/Rotator';
 import ContactForm from './ContactForm';
 import {Calculation} from './Calculation/Calculation';
 import Blank from './Blank';
-import {Route, Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
+import {withUserConsumer} from '../services/UserContext';
 import Nav from './Nav';
 import Screen from './Screen';
 import {getContentTranslation} from '../services/contentService';
 import * as config from '../config';
 import Footer from "./Footer";
-
+import Profile from './Profile/Profile';
+let goTo;
 class Main extends Component {
 	constructor(props) {
 		super(props);
-		this.goTo = this.goTo.bind(this);
+		goTo = this.goTo = this.goTo.bind(this);
 		this.state = {
 			options: {
 				calculation: Calculation,
 				contacts: ContactForm,
 				start: 'null',
 				about: 'null',
+                profile:Profile,
 			},
 			current: 'start',
 
@@ -31,6 +34,22 @@ class Main extends Component {
 		language: PropTypes.oneOf(config.MENULIST),
 	};
 
+    async goTo(props) {
+        if (this.state.options[props] === 'null') {
+            const contentLanguage = await getContentTranslation(props,
+                this.props.language);
+
+            console.log(contentLanguage);
+            this.setState(({options: prevOptions}) => ({
+                options: {
+                    ...prevOptions, [props]: contentLanguage.content,
+                },
+
+            }));
+        }
+        this.setState({current: props});
+
+    }
 	 componentDidMount() {
 		this.updateContent();
 		console.log("language changed");
@@ -59,29 +78,14 @@ class Main extends Component {
 			console.log("language chang34636ed");
 		}
 	}
-	async goTo(props) {
-		if (this.state.options[props] === 'null') {
-			const contentLanguage = await getContentTranslation(props,
-					this.props.language);
 
-			console.log(contentLanguage);
-			this.setState(({options: prevOptions}) => ({
-				options: {
-					...prevOptions, [props]: contentLanguage.content,
-				},
-
-			}));
-		}
-		this.setState({current: props});
-
-	}
 
 	renderRouteComponent(element) {
 
 		return (props) => <Screen
 				className={'main_screen'}
 				page={this.state.options[element]}
-				{...props.match}
+				{...props.match} router={props.history}
 		/>;
 	}
 
@@ -98,9 +102,9 @@ class Main extends Component {
 					<p style={{fontSize: 30 + 'px'}}>
 						<Blank text={'beforeSlider'}/>
 					</p>
-					<div className={'rotator_place'}>
+                    {this.state.current==='start'&&<div className={'rotator_place'}>
 						<Rotator/>
-					</div>
+					</div>}
 					<Switch>
 						<Route exact={true} path={'/'}
 									 render={this.renderRouteComponent('start')}/>
@@ -110,6 +114,9 @@ class Main extends Component {
 									 render={this.renderRouteComponent('calculation')}/>
 						<Route path={'/contacts'}
 									 render={this.renderRouteComponent('contacts')}/>
+                        {this.props.user?<Route path={'/profile'}
+                                render={this.renderRouteComponent('profile')}/>:<Redirect to="/"/> }
+
 					</Switch>
 				</section>
 			<Footer contactData={data} forNav={this.goTo} info={text}/>
@@ -119,4 +126,5 @@ class Main extends Component {
 
 }
 
-export default withRouter(Main);
+export default withUserConsumer(withRouter(Main));
+export {goTo}
