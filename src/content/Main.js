@@ -90,6 +90,7 @@ class Main extends Component {
 	}
 
 	render() {
+        const isStartPage=this.state.current==='start';
 		const data = {
 			explain: "When we typically think of a GPU, we usually think of applications or programs that make intensive use of a graphical interface of some sort. Using a graphics card while gaming, for example, is one of the most popular ways to utilize the graphical rendering power of a GPU. A GPGPU (General Purpose Graphics Processing Unit) goes beyond traditional means. All modern GPUs are considered to be GPGPUs because they can be used not only for graphics but also to run calculations and perform tasks, just like CPUs can. When it comes to computational power, GPUs are outpacing even the most potent CPUs because of how they handle parallel processes. This means that they can run multiple operations with higher rates of speed than a CPU can. This makes utilizing a GPGPU the ideal choice for all current and future applications. "
 		};
@@ -100,9 +101,9 @@ class Main extends Component {
 				<section className="body">
 					<Nav navigateTo={this.goTo}/>
 					<p style={{fontSize: 30 + 'px'}}>
-						<Blank text={'beforeSlider'}/>
+                        {isStartPage&&<Blank text={'beforeSlider'}/>}
 					</p>
-                    {this.state.current==='start'&&<div className={'rotator_place'}>
+                    {isStartPage&&<div className={'rotator_place'}>
 						<Rotator/>
 					</div>}
 					<Switch>

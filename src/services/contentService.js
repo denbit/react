@@ -11,11 +11,12 @@ const getIDBCollection = (): IDBObject => ({
 	transaction: window.IDBTransaction || window.webkitIDBTransaction,
 	keyRange: window.IDBKeyRange || window.webkitIDBKeyRange,
 });
-var dbvers = 4;
+var dbvers = 1;
 
 function getCached(key): ?Object {
 
 	return openDBConnection().then((db) => {
+
 		const storeList = db.objectStoreNames;
 		if (storeList.contains('content')) {
 			let transaction = db.transaction('content', 'readonly');
@@ -34,14 +35,14 @@ function getCached(key): ?Object {
 			}));
 
 		}
-	});
+	}).catch(console.debug);
 }
 
 var createObjectStores = function (db) {
 	console.error(2);
 	const storeList = db.objectStoreNames;
 	if (!storeList.contains('content')) {
-		const contentStore = db.createObjectStore('content', {keyPath: 'name'});
+		const contentStore = db.createObjectStore('content');
 		console.log('Creating objectStore');
 		contentStore.createIndex('name_idx', 'name');
 
@@ -52,7 +53,7 @@ var createObjectStores = function (db) {
 function openDBConnection() {
 	return new Promise(((resolve, reject) => {
 		const {factory} = getIDBCollection();
-		var DBConnection = factory.open('chemDB', 1);
+		var DBConnection = factory.open('chemDB', dbvers);
 		console.info('Trying to open connection');
 		DBConnection.onerror = (e) => reject(e);
 		DBConnection.onupgradeneeded = (event) => {
@@ -91,11 +92,15 @@ async function setToCache(key, value) {
 			transaction.onerror = () => console.error('Aborted proccessing');
 			var contentStore = transaction.objectStore('content');
 			const countRequest = contentStore.count(key);
+            console.info(key, 'setting it', countRequest);
 			return new Promise((resolve, reject) => {
 				countRequest.onsuccess = (e) => {
 					console.log(e.target.result);
 					if (e.target.result === 0) {
-						let putRequest = contentStore.put(value);
+					    if (value.name!==key){
+					        value.name=key
+                        }
+						let putRequest = contentStore.put(value,key);
 						putRequest.onsuccess = (e) => {
 							console.log('put entry');
 							resolve(e.target.result);
@@ -116,7 +121,7 @@ async function setToCache(key, value) {
 export const getContentTranslation = async (
 	section: string, language: string): Object => {
 	let content = await getCached(section + '_' + language + '.html');
-	console.log(content);
+	console.log('cached', section, language);
 	if (content === null) {
 		const token = window.token || 'WVhCcFFHbHY=';
 		const options = {

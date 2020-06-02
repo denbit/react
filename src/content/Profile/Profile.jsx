@@ -11,8 +11,10 @@ import OldOrders from './tabs/OldOrders';
 import PersonalInfo from './tabs/PersonalInfo';
 import Orders from './tabs/Orders';
 import {translate} from '../../func.list';
-import NavElement from '../NavElement';
-import Button from '../../commonComponents/Button/Button';
+import style from './Profile.module.scss';
+
+
+import TabLink from './tabs/TabLink';
 
 const ProfileWrapper = (props) =>
     <HashRouter>
@@ -29,13 +31,19 @@ class Profile extends React.Component {
     }
 
     drawTabs(){
-        return (<>
-            <Link to="/old-orders">{translate(this.props.translation.profile_component,'old_orders')}</Link>
-            <Link to="/personal">{translate(this.props.translation.profile_component,'personal_info')}</Link>
-            <Link to="/orders">{translate(this.props.translation.profile_component,'orders')}</Link>
-            <Link  to={"calculation"}>Cls</Link>
-            <Button text={'Contactme'} onClick={()=>this.props.router.push("/contacts")}/>
-            </>)
+        console.log(style);
+        return (
+            <header className={style['profile-header']}>
+                <h2>{translate(this.props.translation, "profile")}</h2>
+                <div style={style['tab-links__wrapper']}>
+                    <TabLink to="/old-orders">{translate(this.props.translation.profile_component,'old_orders')}</TabLink>
+                    <TabLink to="/personal">{translate(this.props.translation.profile_component,'personal_info')}</TabLink>
+                    <TabLink to="/orders">{translate(this.props.translation.profile_component,'orders')}</TabLink>
+                    <TabLink to="/calculation" router={this.props.router} isParent>Upload new files</TabLink>
+                    <TabLink to="/contacts" router={this.props.router} isParent>{translate(this.props.translation, "contacts")}</TabLink>
+                </div>
+
+            </header>)
     }
     render() {
         return (<div>
@@ -43,7 +51,7 @@ class Profile extends React.Component {
             <Switch>
             <Route path={'/old-orders'} component={OldOrders} />
             <Route path={'/personal'} component={PersonalInfo}/>
-            <Route path={'/order'}  component={Orders}/>
+            <Route path={'/orders'}  component={Orders}/>
              <Route component={PersonalInfo}/>
 
             link to upload new files
