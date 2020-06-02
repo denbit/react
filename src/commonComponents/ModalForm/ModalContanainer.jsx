@@ -8,7 +8,9 @@ export const ModalContainer = (props) => {
 	console.log('rootModal', rootModal);
 	const ModalPortal = ReactDOM.createPortal(
 		<div className={styles.container}>
-			<ModalForm/>
+			<ModalForm>
+				{props.children}
+			</ModalForm>
 		</div>
 		, rootModal);
 

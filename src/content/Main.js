@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Rotator from '../rotator/Rotator';
 import ContactForm from './ContactForm';
-import {Calculation} from './Calculation';
+import {Calculation} from './Calculation/Calculation';
 import Blank from './Blank';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import Nav from './Nav';
@@ -10,6 +10,7 @@ import Screen from './Screen';
 import {getContentTranslation} from '../services/contentService';
 import * as config from '../config';
 import Footer from "./Footer";
+
 class Main extends Component {
 	constructor(props) {
 		super(props);
