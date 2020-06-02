@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import {Language} from "../App";
 import {translate} from "../func.list";
 import React, {Component, Fragment} from 'react';
+import {Language} from '../services/LanguageContext';
 
 class Slide extends Component {
     static propTypes ={

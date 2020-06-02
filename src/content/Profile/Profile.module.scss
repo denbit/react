@@ -1,0 +1,13 @@
+@import '~style/colors';
+.profile-header{
+    h2 {
+        margin: 0;
+        line-height: 55px;
+    }
+    background-color:$header_font_color;
+    margin: auto;
+    width: auto;
+    .tab-links__wrapper{
+
+    }
+}

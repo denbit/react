@@ -13,7 +13,7 @@ class NavElement extends Component {
 
         return (
             <div className="menu_item">
-                <Link onClick={()=> this.props.goTo(this.props.link)} to={'/' + this.props.link}>
+                <Link onClick={() => this.props.goTo(this.props.link)} to={'/' + this.props.link}>
                     {this.props.text}
                 </Link>
             </div>);

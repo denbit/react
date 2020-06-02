@@ -1,11 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import classNames from 'classnames';
-import {Language} from '../App';
 import styles from '../style/ContactForm.css';
 import BigTextField from './ContactFormComponents/BigTextField';
 import SmallTextField from './ContactFormComponents/SmallTextField';
 import Button from '../commonComponents/Button/Button';
 import {translate} from '../func.list';
+import {Language} from '../services/LanguageContext';
 
 class ContactForm extends Component {
     constructor(props) {
