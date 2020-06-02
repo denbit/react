@@ -57,12 +57,11 @@ class App extends Component {
 
 		return (
 			<Language.Provider value={this.state.language}>
-				<div  className={'App'}>
+				<div className={'App'}>
 					<Blank text="head"/>
 					<Header languageSwitcher={this.changeLang}/>
 					<Main language={this.state.contentLanguage}/>
-
-
+					<div id="rootModal"></div>
 				</div>
 			</Language.Provider>
 		);
