@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './form.module.scss';
+import CloseForm from "./CloseForm";
 
-class ModalForm extends React.Component<{}> {
-	render() {
-		return (
-			<div className={styles.modal}>
-				{this.props.children}
-			</div>
-		)
-	}
+function ModalForm(props: {}) {
+	return (
+		<div className={styles.modal}>
+			<CloseForm toggleModal={props.toggleModal}/>
+			{props.children}
+		</div>
+	)
 }
 
 export default ModalForm

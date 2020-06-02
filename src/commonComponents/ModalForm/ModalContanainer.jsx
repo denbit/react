@@ -5,15 +5,14 @@ import React from "react";
 
 export const ModalContainer = (props) => {
 	const rootModal = document.getElementById('rootModal');
-	console.log('rootModal', rootModal);
 	const ModalPortal = ReactDOM.createPortal(
 		<div className={styles.container}>
-			<ModalForm>
+			<ModalForm toggleModal={props.toggleModal}>
 				{props.children}
 			</ModalForm>
 		</div>
 		, rootModal);
 
-	return props.show ? ModalPortal : <></>;
+	return props.isShow ? ModalPortal : <></>;
 
-}
+};
