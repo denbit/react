@@ -18,6 +18,9 @@ class ContactForm extends Component {
         this.form = React.createRef();
         this.send = this.send.bind(this);
         this.handleError = this.handleError.bind(this);
+        this.email = React.createRef();
+        this.phone = React.createRef();
+        this.first_name = React.createRef();
     }
 
     send() {
@@ -36,13 +39,21 @@ class ContactForm extends Component {
 
     }
 
+    componentDidMount() {
+        const user = this.props.router.location.state;
+        if (user) {
+            for (let field in user) {
+                if (field in this) {
+                    console.log(this[field].current.setState({value: user[field], readOnly: true}));
+                }
+            }
+
+        }
+    }
+
     handleError(field) {
         const {validation, failed} = this.state;
-        console.log(field, validation,
-            failed && validation && (field in validation.errors));
-        return failed && validation && (field in validation.errors) ?
-            validation.errors[field] :
-            '';
+        return failed && validation && (field in validation.errors) ? validation.errors[field] : '';
     }
 
     render() {
@@ -56,7 +67,7 @@ class ContactForm extends Component {
                         'title')}</h1>
                     <form ref={this.form}>
                         <h2>{failed ? this.state.validation.message : ''}</h2>
-                        <SmallTextField name={'email'}
+                        <SmallTextField ref={this.email} name={'email'}
                                         error={failed}
                                         onErrorMessage={this.handleError}
                                         className={'mail_fl'}
@@ -65,7 +76,7 @@ class ContactForm extends Component {
                                             'email_placeholder')}
                                         labelText={translate(contact_form,
                                             'email')}/>
-                        <SmallTextField name={'name'}
+                        <SmallTextField ref={this.first_name} name={'name'}
                                         labelClassName={styles.input}
                                         error={failed}
                                         onErrorMessage={this.handleError}
@@ -73,7 +84,7 @@ class ContactForm extends Component {
                                             'name_placeholder')}
                                         labelText={translate(contact_form,
                                             'name')}/>
-                        <SmallTextField name={'phone'}
+                        <SmallTextField ref={this.phone} name={'phone'}
                                         labelClassName={styles.input}
                                         placeholder={translate(contact_form,
                                             'phone_placeholder')}

@@ -11,7 +11,7 @@ import Screen from './Screen';
 import {getContentTranslation} from '../services/contentService';
 import * as config from '../config';
 import Footer from "./Footer";
-import Profile from './Profile/Profile';
+import {WrappedProfile} from './Profile/ProfileWrapper';
 let goTo;
 class Main extends Component {
 	constructor(props) {
@@ -23,7 +23,7 @@ class Main extends Component {
 				contacts: ContactForm,
 				start: 'null',
 				about: 'null',
-                profile:Profile,
+                profile:WrappedProfile,
 			},
 			current: 'start',
 
