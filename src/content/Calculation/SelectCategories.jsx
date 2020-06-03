@@ -1,6 +1,7 @@
 import React from "react";
 import styles from './selectCategories.module.scss'
 import Button from "../../commonComponents/Button/Button";
+import {withTranslationConsumer} from "../../services/LanguageContext";
 
 function MoveToSelected(props) {
 	return <Button small text={props.name} onClick={() => props.moveToSelected(props.category)}
@@ -39,4 +40,4 @@ function SelectCategories({stageActions: {firstStep: {selectedCategories, catego
 	)
 }
 
-export {SelectCategories}
+export default withTranslationConsumer(SelectCategories)

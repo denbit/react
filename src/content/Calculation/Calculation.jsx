@@ -6,7 +6,7 @@ import UploadButton from '../UploadFile/UploadButton'
 import {ModalContainer} from "../../commonComponents/ModalForm/ModalContanainer";
 import {ProgressBar} from "./ProgressBar";
 import {StageControl} from "./StageControl";
-import {SelectCategories} from "./SelectCategories";
+import SelectCategories from "./SelectCategories";
 import FillPersonalData from "./FillPersonalData";
 import UploadFile from "./UploadFile";
 import SuccessModal from "./SuccessModal";
