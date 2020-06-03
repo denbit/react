@@ -123,7 +123,7 @@ export const getContentTranslation = async (
 	let content = await getCached(section + '_' + language + '.html');
 	console.log('cached', section, language);
 	if (content === null) {
-		const token = window.token || 'WVhCcFFHbHY=';
+		const token = window.token;
 		const options = {
 			'headers':
 				{

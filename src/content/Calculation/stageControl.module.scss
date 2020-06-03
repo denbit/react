@@ -1,0 +1,30 @@
+@import "src/style/colors";
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-left {
+  position: absolute;
+  top: 270px;
+  left: 20px;
+}
+
+.button-right {
+  position: absolute;
+  top: 270px;
+  left: 705px;
+}
+
+.bg {
+  background-color: $btn_color;
+  //&:hover {
+  //  background-color: #069e6e;
+  //  color: #e7f1f4;
+  //}
+  &:hover {
+    background-color: $btn_color_text;
+    color: $btn_color;
+  }
+}

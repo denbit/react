@@ -8,8 +8,9 @@ import * as Cookies from "js-cookie";
 import * as config from './config';
 import {withUserProvider} from './services/UserContext';
 import {Language, LanguageCache} from './services/LanguageContext';
+import {mockToken} from "./services/mockService";
 
-
+mockToken();
 
 class App extends Component {
 	constructor(props) {
@@ -60,7 +61,6 @@ class App extends Component {
 					<Blank text="head"/>
 					<Header languageSwitcher={this.changeLang}/>
 					<Main language={this.state.contentLanguage}/>
-					<div id="rootModal"></div>
 				</div>
 			</Language.Provider>
 		);

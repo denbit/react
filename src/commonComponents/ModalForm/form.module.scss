@@ -11,13 +11,13 @@
   vertical-align: middle;
 
   .modal {
-    width: 500px;
-    height: 400px;
+    width: 800px;
+    min-height: 300px;
     background-color: white;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-250px, -50%);
+    transform: translate(-400px, -50%);
     padding: 20px;
   }
 }

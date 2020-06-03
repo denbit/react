@@ -1,8 +1,24 @@
 import React from "react";
 import Button from "../../commonComponents/Button/Button";
+import styles from './stageControl.module.scss'
 
+function PreviousButton({text, onClick}) {
+	return (
+		<div className={styles['button-left']}>
+			<Button text={text} onClick={onClick}/>
+		</div>
+	)
+}
 
-export function StageControl({currentStep, steps, nextStep, previousStep}) {
+function NextButton({text, onClick}) {
+	return (
+		<div className={styles['button-right']}>
+			<Button text={text} onClick={onClick} className={styles.bg}/>
+		</div>
+	)
+}
+
+export function StageControl({currentStep, steps, nextStep, previousStep, stageActions, methods}) {
 	let err;
 	if (currentStep > (steps.length - 1) || (currentStep < 0)) {
 		err = 'Something is wrong';
@@ -10,9 +26,12 @@ export function StageControl({currentStep, steps, nextStep, previousStep}) {
 	const CurrentComponent = steps[currentStep];
 	return (!err ?
 		<div>
-			<CurrentComponent/>
-			{(currentStep !== 0) && (currentStep !== steps.length - 1) &&
-			<Button text='Previous' onClick={previousStep}/>}
-			{currentStep !== steps.length - 1 && <Button text='Next' onClick={nextStep}/>}
+			<div><CurrentComponent stageActions={stageActions} methods={methods}/></div>
+			<div className={styles['buttons-container']}>
+				{(currentStep !== 0) && (currentStep !== steps.length - 1) &&
+				<PreviousButton text='Previous' onClick={previousStep}/>}
+				{currentStep !== steps.length - 1 && <NextButton text='Next' onClick={nextStep}/>}
+			</div>
+
 		</div> : err)
 }

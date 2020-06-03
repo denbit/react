@@ -12,21 +12,19 @@
     position: absolute;
     border-radius: 10px;
     transition: 1s;
-
     &.step-0 {
-      width: 16.25%;
+      width: 16.75%;
+      transition: 1s;
     }
-
     &.step-1 {
-      width: 32.5%;
+      width: 33.5%;
+      transition: 1s;
     }
-
     &.step-2 {
-      width: 48.75%;
+      width: 50.25%;
     }
-
     &.step-3 {
-      width: 65%;
+      width: 67%;
     }
   }
 
