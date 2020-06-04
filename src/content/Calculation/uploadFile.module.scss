@@ -1,0 +1,19 @@
+.title {
+  text-align: center;
+  font-size: 22px;
+  padding: 20px 0 20px;
+}
+
+.category-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.multiselect {
+  border-radius: 30px;
+  font-size: 13px;
+}
+
+.input-file {
+  display: none;
+}

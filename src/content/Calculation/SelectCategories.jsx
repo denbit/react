@@ -2,6 +2,7 @@ import React from "react";
 import styles from './selectCategories.module.scss'
 import Button from "../../commonComponents/Button/Button";
 import {withTranslationConsumer} from "../../services/LanguageContext";
+import {translate} from "../../func.list";
 
 function MoveToSelected(props) {
 	return <Button small text={props.name} onClick={() => props.moveToSelected(props.category)}
@@ -13,10 +14,11 @@ function MoveToAvailableCategories(props) {
 				   className={styles.multiselect}/>;
 }
 
-function SelectCategories({stageActions: {firstStep: {selectedCategories, categories}}, methods: {moveToSelected, moveToAvailableCategories}}) {
+function SelectCategories({stageActions: {firstStep: {selectedCategories, categories}}, methods: {moveToSelected, moveToAvailableCategories}, translation}) {
 
 	return (
 		<>
+			<div className={styles.title}>{translate(translation, 'calculation_section.select_categories')}</div>
 			<div className={styles['select-categories-container']}>
 				<div className={styles['block-left']}>
 					<div className={styles['category-container']}>Available categories:</div>

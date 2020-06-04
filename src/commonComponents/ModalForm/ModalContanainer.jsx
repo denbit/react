@@ -9,6 +9,7 @@ export const ModalContainer = (props) => {
 
 	let ModalPortal;
 	const rootModal = document.getElementById('root');
+	//TODO - create portal
 	// useEffect(()=>()=>document.getElementById('root').removeChild(rootModal))
 	ModalPortal = ReactDOM.createPortal(
 		<div className={styles.container}>

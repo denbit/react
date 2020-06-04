@@ -1,28 +1,21 @@
 @import "src/style/colors";
+@import "../../commonComponents/ModalForm/form.module";
 
 .buttons-container {
   display: flex;
   justify-content: space-between;
 }
 
-.button-left {
-  position: absolute;
-  top: 270px;
-  left: 20px;
+.only-left {
+  justify-content: flex-start;
 }
 
-.button-right {
-  position: absolute;
-  top: 270px;
-  left: 705px;
+.only-right {
+  justify-content: flex-end;
 }
 
 .bg {
   background-color: $btn_color;
-  //&:hover {
-  //  background-color: #069e6e;
-  //  color: #e7f1f4;
-  //}
   &:hover {
     background-color: $btn_color_text;
     color: $btn_color;

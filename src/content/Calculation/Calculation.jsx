@@ -52,20 +52,26 @@ export class Calculation extends Component {
 	toggleModal() {
 
 		if (!this.state.isShow) {
-			fetchCategories().then((res) => {
+			if (!localStorage.getItem('categories')) {
+				fetchCategories().then((res) => {
+					const newState = {...this.state};
+					localStorage.setItem('categories', JSON.stringify(res));
+					newState.stageActions.firstStep.categories = res;
+					this.setState(newState);
+				}).catch((err) => {
+					throw err
+				})
+			} else {
 				const newState = {...this.state};
-				newState.stageActions.firstStep.categories = res;
+				newState.stageActions.firstStep.categories = JSON.parse(localStorage.getItem('categories'))
 				this.setState(newState);
-			}).catch((err) => {
-				throw err
-			})
+			}
+
 		}
 		this.setState({isShow: !this.state.isShow})
 		// if (this.state.currentStep === this.state.steps.length - 1) {
 		// 	this.setState({currentStep: 0})
 		// }
-
-
 	}
 
 	nextStep() {
@@ -99,6 +105,7 @@ export class Calculation extends Component {
 	}
 
 	render() {
+
 		return (
 			<>
 				<Screen page={calcHeader.content}/>

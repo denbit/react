@@ -1,13 +1,91 @@
 import React from "react";
+import styles from "./uploadFile.module.scss";
+import {translate} from "../../func.list";
+import {withTranslationConsumer} from "../../services/LanguageContext";
+import Button from "../../commonComponents/Button/Button";
 
-function UploadFile() {
+
+function CategoryBtn(props) {
 	return (
 		<>
-			<div>Upload file:</div>
+			<div className={styles['category-btn']}>
+				<Button small text={props.name} onClick={() => {
+				}} className={styles.multiselect}/>
+			</div>
+		</>
+	)
+}
 
+function CollectionUploadedFilesBtn(props) {
+	return (
+		<>
+			<div className={styles['collection-uploaded-files-btn']}>
+				<Button small text='some' onClick={() => {
+				}} className={styles.multiselect}/>
+			</div>
+		</>
+	)
+}
+
+function OpenEditorBtn(props) {
+	return (
+		<>
+			<div className={styles['open-editor-btn']}>
+				<Button small text='Open editor' onClick={() => {
+				}} className={styles}/>
+			</div>
+		</>
+	)
+}
+
+function UploadFileBtn(props) {
+	const input = React.createRef();
+	console.log(input)
+	return (
+		<>
+			<div className={styles['upload-file-btn']}>
+				<input type="file" id="input" multiple ref={input} onChange={() => console.log(input.current.files)}
+					   className={styles['input-file']}/>
+				<Button small text='Upload file' onClick={() => input.current.click()} className={styles}/>
+			</div>
+		</>
+	)
+}
+
+function AlreadyUploadedBtn(props) {
+	return (
+		<>
+			<div className={styles['already-uploaded-btn']}>
+				<Button small text='Already uploaded' onClick={() => {
+				}} className={styles}/>
+			</div>
+		</>
+	)
+}
+
+function UploadFile({translation, stageActions: {firstStep: {selectedCategories, categories}}}) {
+	return (
+		<>
+			<div className={styles.title}>{translate(translation, 'calculation_section.upload_file')}</div>
+			<div>
+				{selectedCategories && selectedCategories.map((category) => {
+					return (
+						<div className={styles['category-container']}>
+							<CategoryBtn name={category.name} id={category.id}/>
+							<CollectionUploadedFilesBtn/>
+							<OpenEditorBtn/>
+							<UploadFileBtn/>
+							<AlreadyUploadedBtn/>
+						</div>
+					)
+
+
+				})}
+
+			</div>
 		</>
 	)
 
 }
 
-export default UploadFile
+export default withTranslationConsumer(UploadFile)
