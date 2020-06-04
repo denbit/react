@@ -83,7 +83,6 @@ class Main extends Component {
 
 
 	renderRouteComponent(element) {
-
 		return (props) => <Screen
 				className={'main_screen'}
 				page={this.state.options[element]}
@@ -120,7 +119,7 @@ class Main extends Component {
                         <Route path={'/login'}
                                render={this.renderRouteComponent('login')}/>
                         {this.props.user?<Route path={'/profile'}
-                                render={this.renderRouteComponent('profile')}/>:<Redirect to="/"/> }
+                                render={this.renderRouteComponent('profile')}/>:<Redirect to='/'/> }
 
 					</Switch>
 				</section>

@@ -32,8 +32,9 @@ class Login extends Component {
             })
         .then(r => {
             if (!r.ok && r.status!==301) {
-                console.info(r.status, r.statusText, r.json());
-                throw r.json();
+                const resp=r.json();
+                console.info(r.status, r.statusText, resp);
+                throw resp;
             }
             return r.json();
         })

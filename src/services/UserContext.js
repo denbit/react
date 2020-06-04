@@ -12,21 +12,33 @@ type User = {
 }
 let currentUser: User = null;//{username: 'lalfaf', id: 2, email:'mal@mail',last_name:"ivo",phone:5155,first_name:'bobuli'};
 let set;
+let inited = false;
 
 function getUserFromServer() {
-    const u = {username: 'lalfaf', id: 2, email: 'mal@mail', last_name: 'ivo', phone: 5155, first_name: 'bobuli'};
-    updateUser(u);
-    return u;
+    return fetch(`/profile?t=${window.api_key}`, {
+        method: 'GET',
+        headers: {'Accept': 'application/json'},
+    }).then(r => {
+        if (!r.ok) {
+            const resp = r.json();
+            console.info(r.status, r.statusText, resp);
+            throw resp;
+        }
+        return r.json();
+    }).catch(error => error.then(console.error));
 }
 
 function init() {
+    if (inited) return;
     if (window.api_key && !currentUser) {
-        currentUser = getUserFromServer();
+        getUserFromServer().then(response => {
+            updateUser(response);
+        });
     }
-    if (!window.api_key && currentUser){
+    if (!window.api_key && currentUser) {
         localStorage.removeItem('user');
     }
-
+    inited = true;
 
 }
 

@@ -17,6 +17,7 @@ class Screen extends Component {
         };
         this.ref = React.createRef();
 
+
     }
 
     componentDidMount() {
@@ -37,6 +38,7 @@ class Screen extends Component {
     renderComponent = (Component, attrs) => (<div className={attrs.className}><Component {...attrs}/></div>);
 
     render() {
+        console.log(this.props);
         const atrs = Object.assign({}, this.props);
         const Page = this.props.page;
         delete atrs.page;
