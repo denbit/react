@@ -64,6 +64,14 @@
   padding: 0 30px;
   font-size: 22px;
   text-decoration: none;
+    .login {
+        background-image: url("/imgs/user.svg");
+        display: inline-block;
+        width: 25px;
+        height: 24px;
+        position: relative;
+        top: 2px;
+    }
   //
   //&:first-child {
   //  text-align: right;

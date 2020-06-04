@@ -15,6 +15,7 @@ class Nav extends Component {
 
     render() {
         const {navigateTo} = this.props;
+
         return (<nav className="menu">
             <Language.Consumer>
                 {language => (
@@ -22,7 +23,12 @@ class Nav extends Component {
                         <NavElement link="about" goTo={navigateTo} text={translate(language, "about")}/>
                         <NavElement link="calculation" goTo={navigateTo} text={translate(language, "calculation")}/>
                         <NavElement link="contacts" goTo={navigateTo} text={translate(language, "contacts")}/>
-                        {this.props.user&&<NavElement link="profile" goTo={navigateTo} text={translate(language, "profile")} />}
+                        {this.props.user
+                            ?
+                            <NavElement link="profile" goTo={navigateTo} text={translate(language, "profile")} />
+                            :
+                            <NavElement link="login" goTo={navigateTo} text={<><span className='login'/>{translate(language, "login")}</>} />
+                        }
                     </React.Fragment>)
                 }
             </Language.Consumer>
