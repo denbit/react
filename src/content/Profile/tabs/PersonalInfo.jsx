@@ -4,7 +4,7 @@ import Button from '../../../commonComponents/Button/Button';
 import style from './personalInfo.module.scss'
 import {withTranslationConsumer} from '../../../services/LanguageContext';
 import {translate} from '../../../func.list';
-import {updateUser} from '../../../services/UserContext';
+import UserService from '../../../services/userService';
 
 class PersonalInfo extends React.Component {
 
@@ -31,7 +31,7 @@ class PersonalInfo extends React.Component {
     handleSave(){
         const edit =this.state.edit;
         if (edit){
-            updateUser(this.state.user)
+            UserService.instance().updateUser(this.state.user).then(console.debug )
         }
         this.setState({edit:!edit});
     }

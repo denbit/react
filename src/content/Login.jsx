@@ -7,6 +7,8 @@ import {translate} from '../func.list';
 import {withTranslationConsumer} from '../services/LanguageContext';
 import {withRouter} from 'react-router-dom';
 import {updateUser} from '../services/UserContext';
+import UserService from '../services/userService';
+
 
 class Login extends Component {
     constructor(props) {
@@ -40,8 +42,9 @@ class Login extends Component {
         })
         .then(response => {
             console.log(response);
+
             this.setState({user:response});
-            updateUser(response);
+            UserService.instance().putUserToLocalStorage(response);
 
            this.props.history.push('/');
         })
