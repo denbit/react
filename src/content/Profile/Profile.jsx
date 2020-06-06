@@ -43,9 +43,11 @@ class Profile extends React.Component {
                              isActive={this.props.own.path === '/calculation'}
                              router={this.props.own.router} isParent>{translate(translation,'profile_component.upload_files')}</TabLink>
                     <TabLink to="/contacts" data={this.props.own.user}
-                             isActive={this.props.own.path === '/contacts'}
                              router={this.props.own.router} isParent>{translate(
                         translation, 'contacts')}</TabLink>
+                    <TabLink to="/logout"
+                             router={this.props.own.router} isParent>{translate(
+                        translation, 'logout')}</TabLink>
                 </div>
 
             </header>);

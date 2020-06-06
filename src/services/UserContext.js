@@ -6,8 +6,9 @@ const {Provider: UserProvider, Consumer: UserConsumer} = React.createContext(nul
 const userService = new UserService();
 export function withUserProvider(Component) {
     return () => {
-        const [user, setUser] = useState({});
+        const [user, setUser] = useState(null);
         UserService.setUserInState=setUser;
+        console.trace(user, 'in state');
         useEffect(() =>userService.placeUserInState(), []);
         return <UserProvider value={user}><Component/></UserProvider>;
     };

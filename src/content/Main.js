@@ -13,6 +13,7 @@ import * as config from '../config';
 import Footer from "./Footer";
 import {WrappedProfile} from './Profile/ProfileWrapper';
 import Login from './Login';
+import Logout from './Logout';
 let goTo;
 class Main extends Component {
 	constructor(props) {
@@ -120,7 +121,7 @@ class Main extends Component {
                                render={this.renderRouteComponent('login')}/>
                         {this.props.user?<Route path={'/profile'}
                                 render={this.renderRouteComponent('profile')}/>:<Redirect to='/'/> }
-
+                        {this.props.user&&<Route path={'/logout'} component={Logout} />}
 					</Switch>
 				</section>
 			<Footer contactData={data} forNav={this.goTo} info={text}/>

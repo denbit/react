@@ -15,7 +15,6 @@ class Nav extends Component {
 
     render() {
         const {navigateTo} = this.props;
-
         return (<nav className="menu">
             <Language.Consumer>
                 {language => (

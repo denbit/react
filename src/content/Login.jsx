@@ -27,35 +27,21 @@ class Login extends Component {
     }
 
     send() {
-        fetch('/login', {
-                body: new FormData(this.form.current),
-                method: 'POST',
-                headers: {'Accept': 'application/json'},
-            })
-        .then(r => {
-            if (!r.ok && r.status!==301) {
-                const resp=r.json();
-                console.info(r.status, r.statusText, resp);
-                throw resp;
-            }
-            return r.json();
-        })
+        UserService.instance().login(this.form.current)
         .then(response => {
-            console.log(response);
-
+            console.log('Login response', response);
             this.setState({user:response});
-            UserService.instance().putUserToLocalStorage(response);
-
            this.props.history.push('/');
         })
-        .catch(error => error.then(output => {
-            if ('errors' in output) {
-                this.setState({failed: true, validation: {...output}})
-            } else  {
-                this.setState({...this.state, failed: true});
-            }
-            })
-        );
+        .catch(error => {
+                if ('errors' in error) {
+                    this.setState({...this.state,failed: true, validation: {...error}})
+                    console.log(error)
+                } else  {
+                  //  console.log(error)
+                    this.setState({...this.state, failed: true});
+                }
+        });
 
     }
 
@@ -87,9 +73,10 @@ class Login extends Component {
                         {translate(translation, 'login_component.title')}
                     </h1>
                     <form ref={this.form}>
-                        <h2>{failed ? this.state.validation.message : ''}</h2>
+                        <h2>{failed ?(this.state.validation && this.state.validation.message)||'Something went wrong' : ''}</h2>
                         <SmallTextField ref={this.username} name={'username'}
                                         error={failed}
+
                                         onErrorMessage={this.handleError}
                                         className={'mail_fl'}
                                         labelClassName={styles.input}
@@ -100,6 +87,7 @@ class Login extends Component {
                         <SmallTextField ref={this.password} name={'password'}
                                         labelClassName={styles.input}
                                         error={failed}
+                                        type="password"
                                         onErrorMessage={this.handleError}
                                         labelText={translate(translation,
                                             'login_component.password')}/>
