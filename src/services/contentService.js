@@ -2,12 +2,10 @@
 import * as config from '../config';
 import IndexedDB from './indexedDB';
 
-
 function getCached(key): ?Object {
 
 	return  IndexedDB.get().openDBConnection().then((db) => {
-
-		const storeList = db.objectStoreNames;
+		const storeList:any=db.objectStoreNames;
 		if (storeList.contains('content')) {
 			let transaction = db.transaction('content', 'readonly');
 			var contentStore = transaction.objectStore('content');

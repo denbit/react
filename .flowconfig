@@ -3,7 +3,8 @@
 [include]
 
 [libs]
-
+../node_modules/flow-typed/dist/lib/
+/opt/idea/plugins/JavaScriptLanguage/jsLanguageServicesImpl/flow/indexeddb.js
 
 [lints]
 

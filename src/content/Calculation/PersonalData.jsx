@@ -1,12 +1,13 @@
 import React from 'react';
-import SmallTextField from '../../../common/SmallTextField';
-import Button from '../../../commonComponents/Button/Button';
-import style from './personalInfo.module.scss'
-import {withTranslationConsumer} from '../../../services/LanguageContext';
-import {translate} from '../../../func.list';
-import UserService from '../../../services/userService';
+import SmallTextField from '../../common/SmallTextField';
+import Button from '../../commonComponents/Button/Button';
+import style from './personalData.module.scss'
+import tabStyle from './tabs.module.scss'
+import {withTranslationConsumer} from '../../services/LanguageContext';
+import {translate} from '../../func.list';
+import UserService from '../../services/userService';
 
-class PersonalInfo extends React.Component {
+class PersonalData extends React.Component {
 
     static propTypes = {};
     static defaultProps = {};
@@ -38,7 +39,7 @@ class PersonalInfo extends React.Component {
     render() {
         const {edit, user} = this.state
         const {translation} = this.props;
-        return <>
+        return (
             <section>
                 <div className={style.edit_button_wrapper}>
                     <Button
@@ -48,7 +49,7 @@ class PersonalInfo extends React.Component {
                         onClick={this.handleSave}
                 />
                 </div>
-                <div className={style.id_label}>
+                <div className={tabStyle.id_label}>
                     <h2>{translate(translation,'personal_info.personal_title')}</h2>
                 </div>
                 <hr/>
@@ -84,9 +85,8 @@ class PersonalInfo extends React.Component {
                                     labelClassName={style.personalLabel}
                                     placeholder="Your last name"/>
                 </div>
-            </section>
-        </>;
+            </section>);
     }
 }
 
-export default withTranslationConsumer(PersonalInfo);
+export default withTranslationConsumer(PersonalData);

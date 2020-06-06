@@ -3,6 +3,7 @@ import styles from './selectCategories.module.scss'
 import Button from "../../commonComponents/Button/Button";
 import {withTranslationConsumer} from "../../services/LanguageContext";
 import {translate} from "../../func.list";
+import tabStyle from './tabs.module.scss'
 
 function MoveToSelected(props) {
 	return <Button small text={props.name} onClick={() => props.moveToSelected(props.category)}
@@ -17,8 +18,11 @@ function MoveToAvailableCategories(props) {
 function SelectCategories({stageActions: {firstStep: {selectedCategories, categories}}, methods: {moveToSelected, moveToAvailableCategories}, translation}) {
 
 	return (
-		<>
-			<div className={styles.title}>{translate(translation, 'calculation_section.select_categories')}</div>
+		<section>
+        <div className={tabStyle.id_label}>
+            <h2>{translate(translation, 'calculation_section.select_categories')}</h2>
+        </div>
+        <hr/>
 			<div className={styles['select-categories-container']}>
 				<div className={styles['block-left']}>
 					<div className={styles['category-container']}>Available categories:</div>
@@ -39,7 +43,7 @@ function SelectCategories({stageActions: {firstStep: {selectedCategories, catego
 				</div>
 			</div>
 
-		</>
+		</section>
 	)
 }
 

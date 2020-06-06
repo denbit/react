@@ -4,6 +4,7 @@ type IDBObject = {
     transaction: Object,
     keyRange: Object,
 };
+
 const getIDBCollection = (): IDBObject => ({
     factory: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB,
     transaction: window.IDBTransaction || window.webkitIDBTransaction || window.OIDBTransaction ||
@@ -19,9 +20,9 @@ class IndexedDB {
 
     constructor() {
         IndexedDB.instance = this;
-        this.createFunctions=new Set();
-        this.initiateCreate=this.initiateCreate.bind(this);
-        this.setNotify=this.setNotify.bind(this);
+        this.createFunctions=new Set();// $FlowFixMe
+        this.initiateCreate=this.initiateCreate.bind(this);// $FlowFixMe
+        this.setNotify=this.setNotify.bind(this);// $FlowFixMe
         this.getNotify=this.getNotify.bind(this);
         this.checkVersion();
 
@@ -30,13 +31,12 @@ class IndexedDB {
     static get(){
         if (!this.instance) {
             new IndexedDB();
-            console.log(this.instance);
         }
         return this.instance;
     }
     checkVersion(){
         const {factory} = getIDBCollection();
-        var DBConnection:IDBOpenDBRequest = factory.open('chemDB');
+        var DBConnection:any = factory.open('chemDB');
         DBConnection.onsuccess = () => {
             console.log(`Current version is ${DBConnection.result.version}`);
         };
@@ -60,13 +60,13 @@ class IndexedDB {
     getNotify(){
         return this.notifyIsShown;
     }
-    openDBConnection():Promise<IDBObjectStore> {
+    openDBConnection():Promise<IDBDatabase> {
         const notify = this.getNotify();
         const setNotify = this.setNotify;
         return new Promise(((resolve, reject) => {
             const {factory} = getIDBCollection();
-            var DBConnection:IDBOpenDBRequest = factory.open('chemDB', IndexedDB.version);
-            console.info('Trying to open connection');
+            var DBConnection:any = factory.open('chemDB', IndexedDB.version);
+            console.log('Trying to open connection', DBConnection);
             DBConnection.onerror = (e) => reject(e);
             DBConnection.onupgradeneeded = this.initiateCreate;
             DBConnection.onsuccess = () => {

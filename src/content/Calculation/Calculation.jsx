@@ -7,7 +7,7 @@ import {ModalContainer} from "../../commonComponents/ModalForm/ModalContanainer"
 import {ProgressBar} from "./ProgressBar";
 import {StageControl} from "./StageControl";
 import SelectCategories from "./SelectCategories";
-import FillPersonalData from "./FillPersonalData";
+import PersonalData  from "./PersonalData";
 import UploadFile from "./UploadFile";
 import SuccessModal from "./SuccessModal";
 import {fetchCategories} from "../../services/calculationService";
@@ -20,7 +20,7 @@ class Calculation extends Component {
 		this.state = {
 			isShow: false,
 			currentStep: 0,
-			steps: [SelectCategories, UploadFile, FillPersonalData, SuccessModal],
+			steps: [SelectCategories, UploadFile, PersonalData, SuccessModal],
 			stageActions: {
 				firstStep: {
 					selectedCategories: [],

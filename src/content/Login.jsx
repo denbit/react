@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import classNames from 'classnames';
 import styles from '../style/ContactForm.css';
-import SmallTextField from './ContactFormComponents/SmallTextField';
+import SmallTextField from '../common/SmallTextField';
 import Button from '../commonComponents/Button/Button';
 import {translate} from '../func.list';
 import {withTranslationConsumer} from '../services/LanguageContext';
