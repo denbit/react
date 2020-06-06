@@ -10,7 +10,7 @@ type User = {
 type State = {};
 
 export default class UserService {
-    static profileURL = new URL('http://localhost/profile');
+    static profileURL = new URL('http://192.168.1.6/profile');
     static userService: UserService;
     currentUser: User = null;
     static setUserInState;
@@ -88,7 +88,7 @@ export default class UserService {
     }
 
     login(formData) {
-        return fetch('/login', {
+        return fetch('http://192.168.1.6/login', {
             body: new FormData(formData),
             method: 'POST',
             headers: {'Accept': 'application/json'},
