@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import "./Footer.scss"
+import "./footer.scss"
 import Nav from "../Nav";
 import Copyright from '../../common/Copyright'
 

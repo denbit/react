@@ -4,7 +4,11 @@
   text-align: left;
   vertical-align: top;
 }
-
+input[readonly]{
+    background: none;
+    color: #f5f5f5;
+    cursor: default;
+}
 :local(.line) {
   padding: 10px;
 }

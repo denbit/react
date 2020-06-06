@@ -1,13 +1,17 @@
-import * as React from 'react';
+// @flow
+import React,{useEffect, useState} from 'react';
+import UserService from './userService';
 
-const initValue = null;
-const getUser = () => ({a: 1, b: 2});
-const {Provider: UserProvider, Consumer: UserConsumer} = React.createContext(
-    initValue);
-
+const {Provider: UserProvider, Consumer: UserConsumer} = React.createContext(null);
+const userService = new UserService();
 export function withUserProvider(Component) {
-    const user = getUser();
-    return () => <UserProvider value={user}><Component/></UserProvider>;
+    return () => {
+        const [user, setUser] = useState(null);
+        UserService.setUserInState=setUser;
+        console.trace(user, 'in state');
+        useEffect(() =>userService.placeUserInState(), []);
+        return <UserProvider value={user}><Component/></UserProvider>;
+    };
 }
 
 export function withUserConsumer(Component) {

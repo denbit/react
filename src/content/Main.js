@@ -11,7 +11,9 @@ import Screen from './Screen';
 import {getContentTranslation} from '../services/contentService';
 import * as config from '../config';
 import Footer from "./Footer";
-import Profile from './Profile/Profile';
+import {WrappedProfile} from './Profile/ProfileWrapper';
+import Login from './Login';
+import Logout from './Logout';
 let goTo;
 class Main extends Component {
 	constructor(props) {
@@ -23,7 +25,8 @@ class Main extends Component {
 				contacts: ContactForm,
 				start: 'null',
 				about: 'null',
-                profile:Profile,
+                profile:WrappedProfile,
+                login: Login
 			},
 			current: 'start',
 
@@ -52,7 +55,7 @@ class Main extends Component {
     }
 	 componentDidMount() {
 		this.updateContent();
-		console.log("language changed");
+		console.log("language changed", this.props.user);
 	}
 
 	async updateContent (language=''){
@@ -81,7 +84,6 @@ class Main extends Component {
 
 
 	renderRouteComponent(element) {
-
 		return (props) => <Screen
 				className={'main_screen'}
 				page={this.state.options[element]}
@@ -115,9 +117,11 @@ class Main extends Component {
 									 render={this.renderRouteComponent('calculation')}/>
 						<Route path={'/contacts'}
 									 render={this.renderRouteComponent('contacts')}/>
+                        <Route path={'/login'}
+                               render={this.renderRouteComponent('login')}/>
                         {this.props.user?<Route path={'/profile'}
-                                render={this.renderRouteComponent('profile')}/>:<Redirect to="/"/> }
-
+                                render={this.renderRouteComponent('profile')}/>:<Redirect to='/'/> }
+                        {this.props.user&&<Route path={'/logout'} component={Logout} />}
 					</Switch>
 				</section>
 			<Footer contactData={data} forNav={this.goTo} info={text}/>

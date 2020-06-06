@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './src/App';
-import {MemoryRouter as BrowserRouter} from "react-router-dom";
+import { BrowserRouter} from "react-router-dom";
 window._ = require('lodash');
 //import * as serviceWorker from './serviceWorker';
 /**
@@ -31,7 +31,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-ReactDOM.render((<BrowserRouter><App /></BrowserRouter>), document.getElementById('root'));
+ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
