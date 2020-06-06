@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Rotator from '../rotator/Rotator';
 import ContactForm from './ContactForm';
-import {Calculation} from './Calculation/Calculation';
+import Calculation from './Calculation/Calculation';
 import Blank from './Blank';
 import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import {withUserConsumer} from '../services/UserContext';
@@ -43,36 +43,45 @@ class Main extends Component {
                 this.props.language);
 
             console.log(contentLanguage);
-            this.setState(({options: prevOptions}) => ({
-                options: {
-                    ...prevOptions, [props]: contentLanguage.content,
-                },
+			this.setState(({options: prevOptions}) => ({
+				options: {
+					...prevOptions, [props]: contentLanguage.content,
+				},
 
-            }));
-        }
-        this.setState({current: props});
+			}));
+		}
+		this.setState({current: props});
 
-    }
-	 componentDidMount() {
+	}
+
+	componentWillMount() {
+		if (this.props.location.pathname.substr(1) in this.state.options) {
+			this.setState({current: this.props.location.pathname.substr(1)})
+		}
+	}
+
+	componentDidMount() {
 		this.updateContent();
 		console.log("language changed", this.props.user);
 	}
 
-	async updateContent (language=''){
-		let path;
-		if (this.props.location.pathname !== "/")
-			path = this.props.location.pathname.substr(1);
-		else
-			path = "start";
+	async updateContent(language = '') {
+		if (this.state.options[this.props.location.pathname.substr(1)] === 'null') {
+			let path;
+			if (this.props.location.pathname !== "/")
+				path = this.props.location.pathname.substr(1);
+			else
+				path = "start";
 
-		const contentLanguage = await getContentTranslation(path,
+			const contentLanguage = await getContentTranslation(path,
 				language ? language : this.props.language);
-		this.setState(({options: prevOptions}) => ({
-			options: {
-				...prevOptions, [path]: contentLanguage.content,
-			},
-			current: path,
-		}));
+			this.setState(({options: prevOptions}) => ({
+				options: {
+					...prevOptions, [path]: contentLanguage.content,
+				},
+				current: path,
+			}));
+		}
 	}
 	componentWillReceiveProps(nextProps) {
 		// You don't have to do this check first, but it can help prevent an unneeded render

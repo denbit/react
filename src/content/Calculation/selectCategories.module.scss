@@ -1,13 +1,28 @@
+.title {
+  text-align: center;
+  font-size: 22px;
+  padding: 20px 0 0;
+}
+
 .select-categories-container {
   display: flex;
 }
 
 .block-right {
-  width: 250px;
+  width: 400px;
   padding: 20px;
 }
 
 .block-left {
-  width: 250px;
+  width: 400px;
   padding: 20px;
+}
+
+.category-container {
+  padding: 10px 0;
+}
+
+.multiselect {
+  border-radius: 30px;
+  font-size: 13px;
 }
