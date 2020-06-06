@@ -11,8 +11,10 @@ import FillPersonalData from "./FillPersonalData";
 import UploadFile from "./UploadFile";
 import SuccessModal from "./SuccessModal";
 import {fetchCategories} from "../../services/calculationService";
+import {withUserConsumer} from "../../services/UserContext";
+import {setToIndexedDB} from "../../services/filesService";
 
-export class Calculation extends Component {
+class Calculation extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -34,8 +36,6 @@ export class Calculation extends Component {
 					},
 				},
 			},
-
-
 		};
 
 		this.toggleModal = this.toggleModal.bind(this);
@@ -43,9 +43,11 @@ export class Calculation extends Component {
 		this.previousStep = this.previousStep.bind(this);
 		this.moveToSelected = this.moveToSelected.bind(this);
 		this.moveToAvailableCategories = this.moveToAvailableCategories.bind(this);
+		this.checkCustomer = this.checkCustomer.bind(this);
 		this.methods = {
 			moveToSelected: this.moveToSelected,
 			moveToAvailableCategories: this.moveToAvailableCategories,
+			checkCustomer: this.checkCustomer,
 		}
 	}
 
@@ -69,6 +71,7 @@ export class Calculation extends Component {
 
 		}
 		this.setState({isShow: !this.state.isShow})
+		//TODO - uncomment this
 		// if (this.state.currentStep === this.state.steps.length - 1) {
 		// 	this.setState({currentStep: 0})
 		// }
@@ -100,9 +103,20 @@ export class Calculation extends Component {
 		newState.stageActions.firstStep.selectedCategories.map((item, index, array) => {
 			if (item.id === category.id) array.splice(index, 1)
 			else return item
-		})
+		});
 		this.setState(newState)
 	}
+
+	createRandomUserId(min, max) {
+		return Math.floor(Math.random() * (max - min) + min)
+	}
+
+	checkCustomer(input) {
+		const {user} = this.props;
+		const userId = user && user.userId || this.createRandomUserId(10e5, 10e6);
+		setToIndexedDB(input, userId)
+	}
+
 
 	render() {
 
@@ -113,7 +127,8 @@ export class Calculation extends Component {
 				<Screen page={calcTable.content}/>
 				<ModalContainer isShow={this.state.isShow} toggleModal={this.toggleModal}>
 					<ProgressBar currentStep={this.state.currentStep} steps={this.state.steps}/>
-					<StageControl steps={this.state.steps} currentStep={this.state.currentStep} methods={this.methods}
+					<StageControl randomUserId={this.createRandomUserId} steps={this.state.steps}
+								  currentStep={this.state.currentStep} methods={this.methods}
 								  nextStep={this.nextStep}
 								  previousStep={this.previousStep} stageActions={this.state.stageActions}/>
 				</ModalContainer>
@@ -121,3 +136,5 @@ export class Calculation extends Component {
 		)
 	}
 }
+
+export default withUserConsumer(Calculation)

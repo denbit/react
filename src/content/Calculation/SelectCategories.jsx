@@ -23,7 +23,8 @@ function SelectCategories({stageActions: {firstStep: {selectedCategories, catego
 				<div className={styles['block-left']}>
 					<div className={styles['category-container']}>Available categories:</div>
 					{categories && categories.map((category) => {
-						return <MoveToSelected name={category.name} id={category.id} moveToSelected={moveToSelected}
+						return <MoveToSelected key={category.id} name={category.name} id={category.id}
+											   moveToSelected={moveToSelected}
 											   category={category}/>
 
 
@@ -32,7 +33,7 @@ function SelectCategories({stageActions: {firstStep: {selectedCategories, catego
 				<div className={styles['block-right']}>
 					<div className={styles['category-container']}>Selected categories:</div>
 					{selectedCategories && selectedCategories.map((category) => {
-						return <MoveToAvailableCategories name={category.name} id={category.id}
+						return <MoveToAvailableCategories key={category.id} name={category.name} id={category.id}
 														  onSelect={moveToAvailableCategories} category={category}/>
 					})}
 				</div>

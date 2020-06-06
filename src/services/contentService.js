@@ -6,16 +6,16 @@ type IDBObject = {
 	transaction: Object,
 	keyRange: Object,
 };
-const getIDBCollection = (): IDBObject => ({
+export const getIDBCollection = (): IDBObject => ({
 	factory: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB,
-	transaction: window.IDBTransaction || window.webkitIDBTransaction,
+	transaction: window.IDBTransaction || window.webkitIDBTransaction || window.OIDBTransaction || window.msIDBTransaction,
 	keyRange: window.IDBKeyRange || window.webkitIDBKeyRange,
 });
-var dbvers = 1;
+var dbvers = 4;
 
 function getCached(key): ?Object {
 
-	return openDBConnection().then((db) => {
+	return openDBConnection(createStore).then((db) => {
 
 		const storeList = db.objectStoreNames;
 		if (storeList.contains('content')) {
@@ -45,22 +45,27 @@ var createObjectStores = function (db) {
 		const contentStore = db.createObjectStore('content');
 		console.log('Creating objectStore');
 		contentStore.createIndex('name_idx', 'name');
-
+	}
+	if (!storeList.contains('files')) {
+		const filesStore = db.createObjectStore('files');
+		console.log('Creating objectStore files');
+		filesStore.createIndex('name_idx', 'name');
 	}
 
 };
+const createStore = (event) => {
+	console.info('Creating new db');
+	createObjectStores(event.target.result);
 
-function openDBConnection() {
+};
+
+export function openDBConnection(createFunction) {
 	return new Promise(((resolve, reject) => {
 		const {factory} = getIDBCollection();
 		var DBConnection = factory.open('chemDB', dbvers);
 		console.info('Trying to open connection');
 		DBConnection.onerror = (e) => reject(e);
-		DBConnection.onupgradeneeded = (event) => {
-			console.info('Creating new db');
-			createObjectStores(event.target.result);
-
-		};
+		DBConnection.onupgradeneeded = createFunction
 		DBConnection.onsuccess = () => {
 			console.log('Getting DB');
 			resolve(DBConnection.result);
@@ -70,7 +75,7 @@ function openDBConnection() {
 }
 
 async function setToCache(key, value) {
-	return openDBConnection().then(db => {
+	return openDBConnection(createStore).then(db => {
 		db.onversionchange = function () {
 			db.close();
 			alert('Please reload page. System is updating...');

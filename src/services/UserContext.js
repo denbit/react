@@ -23,9 +23,9 @@ function init() {
     if (window.api_key && !currentUser) {
         currentUser = getUserFromServer();
     }
-    if (!window.api_key && currentUser){
-        localStorage.removeItem('user');
-    }
+    // if (!window.api_key && currentUser){
+    //     localStorage.removeItem('user');
+    // }
 
 
 }
@@ -33,7 +33,7 @@ function init() {
 const getUser = (...arg): User => {
     console.info('i was inited');
     init();
-    if (arg.length == 1) {
+    if (arg.length === 1) {
         set = arg[0];
     }
     currentUser = currentUser || JSON.parse(localStorage.getItem('user'));
@@ -49,7 +49,9 @@ const {Provider: UserProvider, Consumer: UserConsumer} = React.createContext(
 export function withUserProvider(Component) {
     return () => {
         const [user, setUser] = useState(currentUser);
-        useEffect(() => getUser(setUser), []);
+        useEffect(() => {
+            getUser(setUser)
+        }, []);
         return <UserProvider value={user}><Component/></UserProvider>;
     };
 }

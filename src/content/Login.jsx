@@ -25,11 +25,11 @@ class Login extends Component {
     }
 
     send() {
-        fetch('/login', {
-                body: new FormData(this.form.current),
-                method: 'POST',
-                headers: {'Accept': 'application/json'},
-            })
+        fetch('http://192.168.1.6/login', {
+			body: new FormData(this.form.current),
+			method: 'POST',
+			headers: {'Accept': 'application/json'},
+		})
         .then(r => {
             if (!r.ok && r.status!==301) {
                 console.info(r.status, r.statusText, r.json());

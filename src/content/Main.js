@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Rotator from '../rotator/Rotator';
 import ContactForm from './ContactForm';
-import {Calculation} from './Calculation/Calculation';
+import Calculation from './Calculation/Calculation';
 import Blank from './Blank';
 import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import {withUserConsumer} from '../services/UserContext';
@@ -13,6 +13,7 @@ import * as config from '../config';
 import Footer from "./Footer";
 import {WrappedProfile} from './Profile/ProfileWrapper';
 import Login from './Login';
+
 let goTo;
 class Main extends Component {
 	constructor(props) {

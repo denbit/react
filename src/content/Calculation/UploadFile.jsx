@@ -4,7 +4,6 @@ import {translate} from "../../func.list";
 import {withTranslationConsumer} from "../../services/LanguageContext";
 import Button from "../../commonComponents/Button/Button";
 
-
 function CategoryBtn(props) {
 	return (
 		<>
@@ -32,21 +31,20 @@ function OpenEditorBtn(props) {
 		<>
 			<div className={styles['open-editor-btn']}>
 				<Button small text='Open editor' onClick={() => {
-				}} className={styles}/>
+				}} /*className={styles}*//>
 			</div>
 		</>
 	)
 }
 
-function UploadFileBtn(props) {
+function UploadFileBtn({onUpload}) {
 	const input = React.createRef();
-	console.log(input)
 	return (
 		<>
 			<div className={styles['upload-file-btn']}>
-				<input type="file" id="input" multiple ref={input} onChange={() => console.log(input.current.files)}
+				<input type="file" id="input" multiple ref={input} onChange={() => onUpload(input)}
 					   className={styles['input-file']}/>
-				<Button small text='Upload file' onClick={() => input.current.click()} className={styles}/>
+				<Button small text='Upload file' onClick={() => input.current.click()} /*className={styles}*//>
 			</div>
 		</>
 	)
@@ -57,29 +55,27 @@ function AlreadyUploadedBtn(props) {
 		<>
 			<div className={styles['already-uploaded-btn']}>
 				<Button small text='Already uploaded' onClick={() => {
-				}} className={styles}/>
+				}} /*className={styles}*//>
 			</div>
 		</>
 	)
 }
 
-function UploadFile({translation, stageActions: {firstStep: {selectedCategories, categories}}}) {
+function UploadFile({translation, methods: {checkCustomer}, stageActions: {firstStep: {selectedCategories, categories}}}) {
 	return (
 		<>
 			<div className={styles.title}>{translate(translation, 'calculation_section.upload_file')}</div>
 			<div>
 				{selectedCategories && selectedCategories.map((category) => {
 					return (
-						<div className={styles['category-container']}>
+						<div key={category.id} className={styles['category-container']}>
 							<CategoryBtn name={category.name} id={category.id}/>
 							<CollectionUploadedFilesBtn/>
 							<OpenEditorBtn/>
-							<UploadFileBtn/>
+							<UploadFileBtn onUpload={checkCustomer}/>
 							<AlreadyUploadedBtn/>
 						</div>
 					)
-
-
 				})}
 
 			</div>
