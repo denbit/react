@@ -1,6 +1,13 @@
 //@flow
 import {getIDBCollection, openDBConnection} from "./contentService";
 
+type indexedDBEntries = {
+	name: string,
+	size: number,
+	type: string,
+	content: string,
+	userId: number,
+}
 IDBTransaction.READ_WRITE = 'readwrite';
 
 function readFiles(input) {
@@ -24,9 +31,19 @@ function readFiles(input) {
 }
 
 function prepareValuesForIndexedDB(fileMap: Map, userId: number) {
-	const arrayValues = Array.from(fileMap);
-	console.log('arrayValues', arrayValues)
-
+	const entriesValues = fileMap.entries();
+	const resultArray = [];
+	for (let [file, content] of entriesValues) {
+		const objectForIndexedDB: indexedDBEntries = {};
+		const {name, size, type} = file;
+		objectForIndexedDB.name = name;
+		objectForIndexedDB.size = size;
+		objectForIndexedDB.type = type;
+		objectForIndexedDB.content = content;
+		objectForIndexedDB.userId = userId;
+		resultArray.push(objectForIndexedDB);
+	}
+	addFileToDB(resultArray)
 }
 
 export function setToIndexedDB(input, userId) {
@@ -50,7 +67,10 @@ function addFileToDB(value) {
 		var transaction = db.transaction(["files"], IDBTransaction.READ_WRITE);
 		transaction.oncomplete = () => console.info('Opened a transaction to the database');
 		transaction.onerror = () => console.error('Aborted a transaction to the database');
-		var put = transaction.objectStore("files").add(value);
+		let idbObjectStore = transaction.objectStore("files");
+		value.forEach((item) => {
+			idbObjectStore.add(item)
+		})
 	})
 		.catch((err) => {
 			console.error('Error: ' + err)

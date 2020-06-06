@@ -12,6 +12,9 @@
 .multiselect {
   border-radius: 30px;
   font-size: 13px;
+  &.active {
+    background: #04b87f
+  }
 }
 
 .input-file {
