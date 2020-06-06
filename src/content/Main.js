@@ -61,26 +61,28 @@ class Main extends Component {
 		}
 	}
 
-	 componentDidMount() {
+	componentDidMount() {
 		this.updateContent();
 		console.log("language changed", this.props.user);
 	}
 
-	async updateContent (language=''){
-		let path;
-		if (this.props.location.pathname !== "/")
-			path = this.props.location.pathname.substr(1);
-		else
-			path = "start";
+	async updateContent(language = '') {
+		if (this.state.options[this.props.location.pathname.substr(1)] === 'null') {
+			let path;
+			if (this.props.location.pathname !== "/")
+				path = this.props.location.pathname.substr(1);
+			else
+				path = "start";
 
-		const contentLanguage = await getContentTranslation(path,
+			const contentLanguage = await getContentTranslation(path,
 				language ? language : this.props.language);
-		this.setState(({options: prevOptions}) => ({
-			options: {
-				...prevOptions, [path]: contentLanguage.content,
-			},
-			current: path,
-		}));
+			this.setState(({options: prevOptions}) => ({
+				options: {
+					...prevOptions, [path]: contentLanguage.content,
+				},
+				current: path,
+			}));
+		}
 	}
 	componentWillReceiveProps(nextProps) {
 		// You don't have to do this check first, but it can help prevent an unneeded render
