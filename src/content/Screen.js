@@ -5,7 +5,7 @@ class Screen extends Component {
     static propTypes = {
         page: PropTypes.oneOfType([
             PropTypes.string,
-            PropTypes.element
+            PropTypes.any
         ]),
         router: PropTypes.object.isRequired
     };

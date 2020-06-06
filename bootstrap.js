@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './src/App';
+import './src/services/indexedDB/migrations'
 import { BrowserRouter} from "react-router-dom";
 window._ = require('lodash');
 //import * as serviceWorker from './serviceWorker';

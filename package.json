@@ -14,11 +14,11 @@
         "babel-eslint": "10.1.0",
         "babel-jest": "^24.9.0",
         "babel-loader": "8.1.0",
-        "classnames": "2.2.6",
         "babel-plugin-named-asset-import": "^0.3.6",
         "babel-preset-react-app": "^9.1.2",
         "camelcase": "^5.3.1",
         "case-sensitive-paths-webpack-plugin": "2.3.0",
+        "classnames": "2.2.6",
         "css-loader": "3.4.2",
         "dotenv": "8.2.0",
         "dotenv-expand": "5.1.0",
@@ -138,5 +138,9 @@
             "jest-watch-typeahead/filename",
             "jest-watch-typeahead/testname"
         ]
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.10.1",
+        "flow-bin": "^0.126.1"
     }
 }

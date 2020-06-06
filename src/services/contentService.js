@@ -1,21 +1,11 @@
 // @flow
 import * as config from '../config';
+import IndexedDB from './indexedDB';
 
-type IDBObject = {
-	factory: IDBFactory,
-	transaction: Object,
-	keyRange: Object,
-};
-export const getIDBCollection = (): IDBObject => ({
-	factory: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB,
-	transaction: window.IDBTransaction || window.webkitIDBTransaction || window.OIDBTransaction || window.msIDBTransaction,
-	keyRange: window.IDBKeyRange || window.webkitIDBKeyRange,
-});
-var dbvers = 4;
 
 function getCached(key): ?Object {
 
-	return openDBConnection(createStore).then((db) => {
+	return  IndexedDB.get().openDBConnection().then((db) => {
 
 		const storeList = db.objectStoreNames;
 		if (storeList.contains('content')) {
@@ -38,57 +28,15 @@ function getCached(key): ?Object {
 	}).catch(console.debug);
 }
 
-var createObjectStores = function (db) {
-	console.error(2);
-	const storeList = db.objectStoreNames;
-	if (!storeList.contains('content')) {
-		const contentStore = db.createObjectStore('content');
-		console.log('Creating objectStore');
-		contentStore.createIndex('name_idx', 'name');
-	}
-	if (!storeList.contains('files')) {
-		const filesStore = db.createObjectStore('files');
-		console.log('Creating objectStore files');
-		filesStore.createIndex('name_idx', 'name');
-	}
-
-};
-const createStore = (event) => {
-	console.info('Creating new db');
-	createObjectStores(event.target.result);
-
-};
-
-export function openDBConnection(createFunction) {
-	return new Promise(((resolve, reject) => {
-		const {factory} = getIDBCollection();
-		var DBConnection = factory.open('chemDB', dbvers);
-		console.info('Trying to open connection');
-		DBConnection.onerror = (e) => reject(e);
-		DBConnection.onupgradeneeded = createFunction
-		DBConnection.onsuccess = () => {
-			console.log('Getting DB');
-			resolve(DBConnection.result);
-		};
-	}));
-
-}
 
 async function setToCache(key, value) {
-	return openDBConnection(createStore).then(db => {
-		db.onversionchange = function () {
-			db.close();
-			alert('Please reload page. System is updating...');
-		};
-		db.onerror = function (event) {
-			console.log('Error creating/accessing IndexedDB database');
-		};
-		if (db.setVersion && db.version !== dbvers) {
-			var setVersion = db.setVersion(dbvers);
-			setVersion.onsuccess = function () {
-				createObjectStores(db);
-			};
-		}
+	return IndexedDB.get().openDBConnection().then(db => {
+		// if (db.setVersion && db.version !== dbvers) {
+		// 	var setVersion = db.setVersion(dbvers);
+		// 	setVersion.onsuccess = function () {
+		// 		createObjectStores(db);
+		// 	};
+		// }
 		const storeList = db.objectStoreNames;
 		if (storeList.contains('content')) {
 			// Open a transaction to the database

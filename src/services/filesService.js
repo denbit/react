@@ -1,5 +1,5 @@
 //@flow
-import {getIDBCollection, openDBConnection} from "./contentService";
+import IndexedDB from './indexedDB'
 
 type indexedDBEntries = {
 	name: string,
@@ -8,7 +8,6 @@ type indexedDBEntries = {
 	content: string,
 	userId: number,
 }
-IDBTransaction.READ_WRITE = 'readwrite';
 
 function readFiles(input) {
 	return new Promise((resolve, reject) => {
@@ -30,7 +29,7 @@ function readFiles(input) {
 	});
 }
 
-function prepareValuesForIndexedDB(fileMap: Map, userId: number) {
+function prepareValuesForIndexedDB(fileMap: Map<File,string>, userId: number) {
 	const entriesValues = fileMap.entries();
 	const resultArray = [];
 	for (let [file, content] of entriesValues) {
@@ -53,18 +52,12 @@ export function setToIndexedDB(input, userId) {
 
 
 function addFileToDB(value) {
-	openDBConnection(function (event) {
-		let db = event.target.result;
-		if (!db.objectStoreNames.contains('files')) {
-			const fileStore = db.createObjectStore('files', {autoIncrement: true});
-			fileStore.createIndex('files_name', ['name', 'size'], {unique: true})
-		}
-	}).then((db) => {
-		var {transaction: IDBTransaction} = getIDBCollection();
+    console.log(value);
+    IndexedDB.get().openDBConnection().then((db) => {
 		db.onerror = function (event) {
-			console.log('Error creating/accessing IndexedDB database');
+			console.log('Error creating/accessing IndexedDB database', event);
 		};
-		var transaction = db.transaction(["files"], IDBTransaction.READ_WRITE);
+		var transaction = db.transaction(["files"], 'readwrite');
 		transaction.oncomplete = () => console.info('Opened a transaction to the database');
 		transaction.onerror = () => console.error('Aborted a transaction to the database');
 		let idbObjectStore = transaction.objectStore("files");
