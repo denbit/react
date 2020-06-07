@@ -1,11 +1,13 @@
 
 section {
     min-height: 300px;
+    margin: 0 5px;
     hr {
         border-color: aliceblue;
         border-style: solid;
     }
     .id_label {
+        padding-left: 10px;
         clear: both;
     }
 }

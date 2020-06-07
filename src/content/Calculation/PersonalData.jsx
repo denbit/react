@@ -5,12 +5,14 @@ import style from './personalData.module.scss'
 import tabStyle from './tabs.module.scss'
 import {withTranslationConsumer} from '../../services/LanguageContext';
 import {translate} from '../../func.list';
-import UserService from '../../services/userService';
+
 
 class PersonalData extends React.Component {
 
     static propTypes = {};
-    static defaultProps = {};
+    static defaultProps = {
+        user:null
+    };
 
     constructor(props) {
         super(props);
@@ -19,7 +21,6 @@ class PersonalData extends React.Component {
             user:{...this.props.user},
         };
         this.handleChange=this.handleChange.bind(this);
-        this.handleSave=this.handleSave.bind(this);
 
     }
 
@@ -31,24 +32,20 @@ class PersonalData extends React.Component {
     }
     handleSave(){
         const edit =this.state.edit;
-        if (edit){
-            UserService.instance().updateUser(this.state.user).then(console.debug )
-        }
-        this.setState({edit:!edit});
     }
     render() {
         const {edit, user} = this.state
         const {translation} = this.props;
         return (
             <section>
-                <div className={style.edit_button_wrapper}>
+                {!edit&&<div className={style.edit_button_wrapper}>
                     <Button
                         small
-                        text={!edit? translate(translation,'edit'):translate(translation,'save')}
-                        styled={style['edit_btn']}
-                        onClick={this.handleSave}
+                        text={''}
+                        styled={style['locked_btn']}
+
                 />
-                </div>
+                </div>}
                 <div className={tabStyle.id_label}>
                     <h2>{translate(translation,'personal_info.personal_title')}</h2>
                 </div>

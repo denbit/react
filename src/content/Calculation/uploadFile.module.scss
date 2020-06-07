@@ -1,30 +1,50 @@
 @import '~style/colors';
+
 .title {
-  text-align: center;
-  font-size: 22px;
-  padding: 20px 0 20px;
+    text-align: center;
+    font-size: 22px;
+    padding: 20px 0 20px;
 }
 
 .category-container {
-  display: flex;
-  justify-content: space-between;
-}
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 
-.multiselect {
-  border-radius: 30px;
-  font-size: 13px;
-  max-width: 200px;
-
-  &.active {
-    background: $btn_color;
-
-    &:hover {
-      background-color: $btn_color_text;
-      color: $btn_color;
+    .open-editor-btn {
+        background-color: $open_editor_btn;
     }
-  }
+
+    .upload-file-btn {
+        background-color: $upload_file_btn;
+    }
+
+    .already-uploaded-btn {
+        background-color: $already_uploaded_btn;
+    }
+
+    .multiselect {
+        border-radius: 30px;
+        font-size: 13px;
+        max-width: 200px;
+
+        &.active {
+            background: $btn_color;
+
+            &:hover {
+                background-color: $btn_color_text;
+                color: $btn_color;
+            }
+        }
+
+        &.file-items {
+            background-color: $btn_color_text;
+            color: $btn_bg_color;
+        }
+    }
 }
+
 
 .input-file {
-  display: none;
+    display: none;
 }

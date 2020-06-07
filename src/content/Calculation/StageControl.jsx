@@ -29,7 +29,7 @@ export function StageControl({currentStep, steps, nextStep, previousStep, stageA
 	const onlyRight = currentStep !== steps.length - 1;
 	return (!err ?
 		<div>
-			<div><CurrentComponent stageActions={stageActions} methods={methods}/></div>
+			<CurrentComponent stageActions={stageActions} methods={methods}/>
 			<div className={classNames(styles['buttons-container'], {
 				[styles['only-left']]: onlyLeft && !onlyRight,
 				[styles['only-right']]: onlyRight && !onlyLeft

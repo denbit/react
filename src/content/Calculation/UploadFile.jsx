@@ -10,7 +10,7 @@ function CategoryBtn({onClick, name, isActive}) {
         <>
             <div className={styles['category-btn']}>
                 <Button small text={name} onClick={onClick}
-                        className={[styles.multiselect, {[styles.active]: isActive}]}/>
+                        styled={[styles.multiselect, {[styles.active]: isActive}]}/>
             </div>
         </>
     );
@@ -21,10 +21,12 @@ CategoryBtn.defaultProps = {isActive: false};
 function CollectionUploadedFilesBtn(props) {
     return (
         <>
-            <div className={styles['collection-uploaded-files-btn']}>
-                <Button small text='some' onClick={() => {
-                }} className={styles.multiselect}/>
-            </div>
+            <Button small text='some'
+                    onClick={() => {
+                    }}
+                    styled={[styles['file-items'],styles.multiselect]}
+            />
+
         </>
     );
 }
@@ -32,10 +34,9 @@ function CollectionUploadedFilesBtn(props) {
 function OpenEditorBtn(props) {
     return (
         <>
-            <div className={styles['open-editor-btn']}>
-                <Button small text='Open editor' onClick={() => {
-                }} /*className={styles}*//>
-            </div>
+            <Button small text='Open editor' onClick={() => {
+            }} className={styles['open-editor-btn']}/>
+
         </>
     );
 }
@@ -44,11 +45,13 @@ function UploadFileBtn({onUpload}) {
     const input = React.createRef();
     return (
         <>
-            <div className={styles['upload-file-btn']}>
-                <input type="file" id="input" multiple ref={input} onChange={() => onUpload(input)}
-                       className={styles['input-file']}/>
-                <Button small text='Upload file' onClick={() => input.current.click()} /*className={styles}*//>
-            </div>
+            <input type="file" id="input" multiple ref={input} onChange={() => onUpload(input)}
+                   className={styles['input-file']}/>
+            <Button small text='Upload file'
+                    className={styles['upload-file-btn']}
+                    onClick={() => input.current.click()}
+            />
+
         </>
     );
 }
@@ -56,9 +59,11 @@ function UploadFileBtn({onUpload}) {
 function AlreadyUploadedBtn(props) {
     return (
         <>
-            <div className={styles['already-uploaded-btn']}>
-                <Button small text='Already uploaded' onClick={() => {
-                }} /*className={styles}*//>
+            <div>
+                <Button small text='Already uploaded'
+                        onClick={() => {}}
+                        className={styles['already-uploaded-btn']}
+                />
             </div>
         </>
     );

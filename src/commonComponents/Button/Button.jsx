@@ -11,7 +11,7 @@ Button.propTypes = {
     text: PropTypes.string.isRequired,
     className: PropTypes.string,
     small: PropTypes.bool,
-    styled: PropTypes.string,
+    styled: PropTypes.oneOfType([PropTypes.array,PropTypes.object,PropTypes.string]),
     onClick: PropTypes.func.isRequired
 };
 export default Button
