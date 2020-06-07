@@ -14,7 +14,7 @@ function PreviousButton({text, onClick}) {
 function NextButton({text, onClick}) {
 	return (
 		<div className={styles['button-right']}>
-			<Button text={text} onClick={onClick} className={styles.bg}/>
+			<Button text={text} onClick={onClick}/>
 		</div>
 	)
 }
