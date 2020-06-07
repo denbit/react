@@ -78,12 +78,19 @@ export default class UserService {
     };
 
     removeUserData(): Promise {
-        return Promise.resolve({status: 'ok'}).then((status => {
-            this.removeUserFromLocalStorage();
-            this.currentUser = null;
-            console.log(this);
-            this.placeUserInState();
-            return Promise.resolve(status);
+        return fetch('http://192.168.1.6/logout', {
+            body: '',
+            method: 'POST',
+            headers: {'Accept': 'application/json'},
+        }).then((status => {
+            if (status.ok){
+                this.removeUserFromLocalStorage();
+                this.currentUser = null;
+                console.log(this);
+                this.placeUserInState();
+                return Promise.resolve(status);
+            }
+            return  Promise.reject(status);
         }));
     }
 
