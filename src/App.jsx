@@ -41,11 +41,11 @@ class App extends Component {
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (prevProps.location.pathname !== this.props.location.pathname) {
-            this.goTo(this.props.location.pathname);
+            this.goTo(this.getPage());
             console.log('update', this.props.location.pathname);
         }
         if(prevState.contentLanguage!==this.state.contentLanguage) {
-            this.goTo(this.props.location.pathname);
+            this.goTo(this.getPage());
             console.log('language changed', this.state.contentLanguage);
         }
     }
@@ -57,13 +57,22 @@ class App extends Component {
             contentLanguage: language,
         });
     };
-
+    getPage(){
+        const path = this.props.location.pathname;
+        const strippedPath = path.substr(1);
+        if (strippedPath===''){
+            return 'start';
+        }
+        else {
+            return strippedPath;
+        }
+    }
     async componentDidMount() {
-        await this.goTo('/'+this.state.current);
+        await this.goTo(this.getPage());
     }
 
-    async goTo(path) {
-        const strippedPath = path.substr(1);
+    async goTo(strippedPath) {
+
         if (strippedPath in this.state.options && typeof this.state.options[strippedPath] === 'string') {
             await this.updateContent(strippedPath); console.log('content  changed')
         }

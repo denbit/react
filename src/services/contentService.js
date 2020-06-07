@@ -51,6 +51,7 @@ async function setToCache(key, value) {
 					    if (value.name!==key){
 					        value.name=key
                         }
+                        console.log(value,key);
 						let putRequest = contentStore.put(value,key);
 						putRequest.onsuccess = (e) => {
 							console.log('put entry');
