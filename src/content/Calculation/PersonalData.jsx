@@ -5,6 +5,7 @@ import style from './personalData.module.scss'
 import tabStyle from './tabs.module.scss'
 import {withTranslationConsumer} from '../../services/LanguageContext';
 import {translate} from '../../func.list';
+import {withUserConsumer} from '../../services/UserContext';
 
 
 class PersonalData extends React.Component {
@@ -17,35 +18,38 @@ class PersonalData extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            edit:false,
-            user:{...this.props.user},
+            edit:!this.props.user,
         };
         this.handleChange=this.handleChange.bind(this);
+        ({methods:{setPersonalData:this.setPersonalData}} =this.props)
+    }
 
+    componentDidMount() {
+       if (this.props.user)
+           this.setPersonalData({...this.props.user});
     }
 
     handleChange(e,prevValue,name){
-        const state = {...this.state};
+        const {stageActions:{thirdStep:{personalData:userData}}} = this.props;
+        const user={...userData};
         console.log(prevValue,name,e.target.value);
-        state.user[name]=e.target.value;
-         this.setState(state);
+        user[name]=e.target.value;
+        this.setPersonalData(user);
     }
-    handleSave(){
-        const edit =this.state.edit;
-    }
+
     render() {
-        const {edit, user} = this.state
-        const {translation} = this.props;
+        const {edit} = this.state
+        const {translation,stageActions:{thirdStep:{personalData:user}}} = this.props;
+        console.log(user);
         return (
             <section>
-                {!edit&&<div className={style.edit_button_wrapper}>
-                    <Button
+                <div className={style.lock_button_wrapper}>
+                    {!edit&&<Button
                         small
                         text={''}
                         styled={style['locked_btn']}
-
-                />
-                </div>}
+                />}
+                </div>
                 <div className={tabStyle.id_label}>
                     <h2>{translate(translation,'personal_info.personal_title')}</h2>
                 </div>
@@ -86,4 +90,4 @@ class PersonalData extends React.Component {
     }
 }
 
-export default withTranslationConsumer(PersonalData);
+export default withTranslationConsumer(withUserConsumer(PersonalData));

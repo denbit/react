@@ -17,12 +17,25 @@ section {
         padding: 0 5px;
         line-height: 30px;
         width: 100%;
+        &:not([disabled]){
+            border-bottom: $lang_hover_background  2px solid;
+            transition: border-bottom;
+            transition-duration: 200ms;
+            &:active,&:focus, &:hover{
+                border-bottom:$nav_menu_font_color  2px solid;
+
+            }
+            &:focus{
+                color:$nav_menu_font_color;
+            }
+        }
     }
 }
 
-.edit_button_wrapper {
+.lock_button_wrapper {
     float: right;
     padding: 5px 20px 0 20px;
+    min-height: 60px;
     .locked_btn {
         background-color: #a9a9a900;
         color: $btn_color;

@@ -32,8 +32,12 @@ class Calculation extends Component {
 				},
 				thirdStep: {
 					personalData: {
-						phone: null,
-					},
+					    username: '',
+                        email:'',
+                        last_name:'',
+                        phone:null,
+                        first_name:''
+                    },
 				},
 			},
 		};
@@ -44,10 +48,12 @@ class Calculation extends Component {
 		this.moveToSelected = this.moveToSelected.bind(this);
 		this.moveToAvailableCategories = this.moveToAvailableCategories.bind(this);
 		this.checkCustomer = this.checkCustomer.bind(this);
+		this.setPersonalData=this.setPersonalData.bind(this);
 		this.methods = {
 			moveToSelected: this.moveToSelected,
 			moveToAvailableCategories: this.moveToAvailableCategories,
 			checkCustomer: this.checkCustomer,
+            setPersonalData: this.setPersonalData
 		}
 	}
 
@@ -106,7 +112,11 @@ class Calculation extends Component {
 		});
 		this.setState(newState)
 	}
-
+    setPersonalData(personalData) {
+        const newState= {...this.state};
+        newState.stageActions.thirdStep.personalData=personalData;
+        this.setState(newState);
+    }
 	createRandomUserId(min, max) {
 		return Math.floor(Math.random() * (max - min) + min)
 	}
