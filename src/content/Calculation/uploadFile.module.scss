@@ -10,17 +10,33 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    margin: 5px 0;
 
     .open-editor-btn {
         background-color: $open_editor_btn;
+
+        &:hover {
+            background-color: $btn_color_text;
+            color: $open_editor_btn;
+        }
     }
 
     .upload-file-btn {
         background-color: $upload_file_btn;
+
+        &:hover {
+            background-color: $btn_color_text;
+            color: $upload_file_btn;
+        }
     }
 
     .already-uploaded-btn {
         background-color: $already_uploaded_btn;
+
+        &:hover {
+            background-color: $btn_color_text;
+            color: $already_uploaded_btn;
+        }
     }
 
     .multiselect {
@@ -47,4 +63,8 @@
 
 .input-file {
     display: none;
+}
+
+.wrapper {
+    padding: 20px 0;
 }

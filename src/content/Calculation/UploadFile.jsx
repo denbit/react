@@ -78,7 +78,7 @@ function UploadFile({translation, methods: {checkCustomer}, stageActions: {first
                 <h2>{translate(translation, 'calculation_section.upload_file')}</h2>
             </div>
             <hr/>
-            <div>
+            <div className={styles.wrapper}>
                 {selectedCategories && selectedCategories.map((category, index, array) => {
                     return (
                         <div key={category.id} className={styles['category-container']}>

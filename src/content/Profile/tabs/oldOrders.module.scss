@@ -1,16 +1,20 @@
+@import '~style/colors';
+
 table {
     width: 100%;
     line-height: 25px;
-    tr:first-child{
-        background-color: #04dd70;
+
+    tr:first-child {
+        background-color: $table_row;
         line-height: 40px;
         font-weight: bold;
     }
+
     tr:nth-child(2n+2) {
-        background-color: #cbeae08a;
+        background-color: $table_secondary_row;
     }
     tr:nth-child(2n+3) {
-        background-color: #04dd98;
+        background-color: $table_row;
     }
 }
 
