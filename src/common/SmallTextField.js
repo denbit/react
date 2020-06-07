@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styles from '../style/ContactForm.css';
+import styles from './smallTextField.module.scss';
 import classNames from 'classnames';
 import React, {Component, Fragment} from 'react';
 import {ErrorTooptip} from '../commonComponents/ErrorToolTip/ErrorTooltip';
