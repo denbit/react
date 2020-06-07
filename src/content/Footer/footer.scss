@@ -23,9 +23,17 @@ footer {
     line-height: 75px;
 
     .menu_item {
+      svg {
+        fill: #0fc48a;
+      }
+
       a {
         font-size: 17px;
         color: #0fc48a;
+
+        span {
+          mix-blend-mode: soft-light;
+        }
       }
     }
   }
