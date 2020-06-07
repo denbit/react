@@ -13,12 +13,17 @@ import SuccessModal from "./SuccessModal";
 import {fetchCategories} from "../../services/calculationService";
 import {withUserConsumer} from "../../services/UserContext";
 import {setToIndexedDB} from "../../services/filesService";
+import {getContentTranslation} from '../../services/contentService';
 
 class Calculation extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
 			isShow: false,
+            static:{
+			    header:calcTable.content,
+                body:calcHeader.content
+            },
 			currentStep: 0,
 			steps: [SelectCategories, UploadFile, PersonalData, SuccessModal],
 			stageActions: {
@@ -57,8 +62,25 @@ class Calculation extends Component {
 		}
 	}
 
-	toggleModal() {
+	async componentDidMount() {
+         this.load();
+    }
 
+    componentDidUpdate(prevProps: Readonly<P>) {
+        if(prevProps.language!==this.props.language) {
+            this.load();
+        }
+    }
+
+    async load() {
+        const bodyContent = getContentTranslation('calculation', this.props.language);
+        const headContent = getContentTranslation('calculationHeader', this.props.language);
+        const newState={...this.state}
+        newState.static.body=(await bodyContent).content;
+        newState.static.header=(await headContent).content
+        this.setState(newState);
+    }
+    toggleModal() {
 		if (!this.state.isShow) {
 			if (!localStorage.getItem('categories')) {
 				fetchCategories().then((res) => {
@@ -113,7 +135,7 @@ class Calculation extends Component {
 		this.setState(newState)
 	}
     setPersonalData(personalData) {
-        const newState= {...this.state};
+        const newState={...this.state};
         newState.stageActions.thirdStep.personalData=personalData;
         this.setState(newState);
     }
@@ -129,12 +151,11 @@ class Calculation extends Component {
 
 
 	render() {
-
 		return (
 			<>
-				<Screen page={calcHeader.content}/>
+				<Screen page={this.state.static.header}/>
 				<UploadButton toggleModal={this.toggleModal}/>
-				<Screen page={calcTable.content}/>
+				<Screen page={this.state.static.body}/>
 				<ModalContainer isShow={this.state.isShow} toggleModal={this.toggleModal}>
 					<ProgressBar currentStep={this.state.currentStep} steps={this.state.steps}/>
 					<StageControl randomUserId={this.createRandomUserId} steps={this.state.steps}

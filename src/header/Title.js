@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 const Title = (props) => (
     <div className="title">
-        <Link to={'/'} onClick={()=> props.goTo('start')} >
+        <Link to={'/'} >
             {config.TITLE_TEXT}
         </Link>
     </div>);

@@ -6,18 +6,12 @@ class Screen extends Component {
         page: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.any
-        ]),
-        router: PropTypes.object.isRequired
+        ])
     };
 
     constructor(props) {
         super(props);
-        this.state = {
-            page: 'main'
-        };
         this.ref = React.createRef();
-
-
     }
 
     componentDidMount() {
