@@ -69,7 +69,7 @@ function AlreadyUploadedBtn(props) {
     );
 }
 
-function UploadFile({translation, methods: {checkCustomer}, stageActions: {firstStep: {selectedCategories, categories}}}) {
+function UploadFile({translation, methods: {initUpload}, stageActions: {firstStep: {selectedCategories, categories}}}) {
     const [currentlySelected, setCurrentlySelected] = useState(0);
 
     return (
@@ -89,7 +89,7 @@ function UploadFile({translation, methods: {checkCustomer}, stageActions: {first
                             {index === currentlySelected && <>
                                 <CollectionUploadedFilesBtn/>
                                 <OpenEditorBtn/>
-                                <UploadFileBtn onUpload={checkCustomer}/>
+                                <UploadFileBtn onUpload={(input) => initUpload(input, category.type)}/>
                                 <AlreadyUploadedBtn/>
                             </>
                             }

@@ -6,7 +6,7 @@ IDB.addCreateFunction(function (db:IDBDatabase) {
     const storeList:any = db.objectStoreNames;
     if (!storeList.contains('files')) {
         const fileStore = db.createObjectStore('files', {autoIncrement: true});
-        fileStore.createIndex('files_name', ['name', 'size'], {unique: true})
+        fileStore.createIndex('files_name', ['name', 'size'], {unique: true, multiEntry: false})
     }
 });
 IDB.addCreateFunction(function (db:IDBDatabase) {

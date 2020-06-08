@@ -1,5 +1,5 @@
 //@flow
-import IndexedDB from './indexedDB'
+import IndexedDB, {CONSTRAINT_ERROR} from './indexedDB'
 
 type indexedDBEntries = {
 	name: string,
@@ -29,7 +29,7 @@ function readFiles(input) {
 	});
 }
 
-function prepareValuesForIndexedDB(fileMap: Map<File,string>, userId: number) {
+function prepareValuesForIndexedDB(fileMap: Map<File, string>, userId: number) {
 	const entriesValues = fileMap.entries();
 	const resultArray = [];
 	for (let [file, content] of entriesValues) {
@@ -42,30 +42,68 @@ function prepareValuesForIndexedDB(fileMap: Map<File,string>, userId: number) {
 		objectForIndexedDB.userId = userId;
 		resultArray.push(objectForIndexedDB);
 	}
-	addFileToDB(resultArray)
+	return resultArray;
 }
 
 export function setToIndexedDB(input, userId) {
 	const result = readFiles(input);
-	result.then((fileMap) => prepareValuesForIndexedDB(fileMap, userId)).catch(console.error);
+	return result.then((fileMap) => {
+		const preparedFiles = prepareValuesForIndexedDB(fileMap, userId);
+		return addFileToDB(preparedFiles)
+	})
 }
 
+export function readFile(item: indexedDBEntries) {
+
+	return IndexedDB.get().openDBConnection().then((db) => {
+		return new Promise((resolve, reject) => {
+			var readtransaction = db.transaction(["files"], 'readonly');
+			let readidbObjectStore = readtransaction.objectStore("files");
+			const index = readidbObjectStore.index('files_name');
+			const request = index.getKey([item.name, item.size]);
+			console.log('request', request);
+			request.onsuccess = () => resolve({id: request.result, fileName: item.name});
+			request.onerror = reject
+		})
+
+	})
+}
 
 function addFileToDB(value) {
-    console.log(value);
-    IndexedDB.get().openDBConnection().then((db) => {
+	let dbConnection = IndexedDB.get().openDBConnection();
+	return dbConnection.then((db) => {
+		// TODO - question
 		db.onerror = function (event) {
-			console.log('Error creating/accessing IndexedDB database', event);
+			console.error('Error creating/accessing IndexedDB database', event);
 		};
 		var transaction = db.transaction(["files"], 'readwrite');
 		transaction.oncomplete = () => console.info('Opened a transaction to the database');
 		transaction.onerror = () => console.error('Aborted a transaction to the database');
 		let idbObjectStore = transaction.objectStore("files");
-		value.forEach((item) => {
-			idbObjectStore.add(item)
-		})
+		const map = new Map();
+		map.set('success', new Set());
+		map.set('failed', new Set());
+		const promiseMap = [];
+		for (let item: indexedDBEntries of value) {
+			promiseMap.push(promiseForEach(item, idbObjectStore, map));
+		}
+		return Promise.allSettled(promiseMap);
 	})
-		.catch((err) => {
-			console.error('Error: ' + err)
-		})
+}
+
+function promiseForEach(item, idbObjectStore, map) {
+	return new Promise((resolve, reject) => {
+		const request = idbObjectStore.add(item);
+		request.onsuccess = () => {
+			map.get('success').add({id: request.result, fileName: item.name});
+			resolve(map)
+		}
+		request.onerror = (err) => {
+			if (err.target.error.code === CONSTRAINT_ERROR) {
+				map.get('failed').add(item);
+				err.preventDefault();
+				reject(map);
+			}
+		}
+	})
 }

@@ -16,7 +16,6 @@ class Main extends Component {
 	};
 
 	renderRouteComponent(element) {
-        console.log(this.props.language);
 		return (props) => <Screen language={this.props.language}
 				className={'main_screen'}
 				page={this.props.options[element]}
