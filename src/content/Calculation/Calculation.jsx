@@ -123,6 +123,7 @@ class Calculation extends Component {
 			if (item.id === category.id) array.splice(index, 1)
 			else return item
 		});
+
 		newState.stageActions.firstStep.categories = categories;
 		this.setState(newState)
 	}
