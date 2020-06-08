@@ -10,7 +10,7 @@ type User = {
 type State = {};
 
 export default class UserService {
-    static profileURL = new URL('http://192.168.1.6/profile');
+    static profileURL = new URL('http://192.168.1.6/user/profile');
     static userService: UserService;
     currentUser: User = null;
     static setUserInState;
@@ -77,6 +77,21 @@ export default class UserService {
         return this.currentUser;
     };
 
+    getCurrentOrders() {
+         const OrdersURL= new URL(UserService.profileURL.toString());
+        OrdersURL.pathname+='/orders'
+        return fetch(OrdersURL, {
+            method: 'GET',
+            headers: {'Accept': 'application/json'},
+        }).then(r => {
+            if (!r.ok) {
+                const resp = r.json();
+                console.info(r.status, r.statusText, resp);
+                return Promise.reject(resp);
+            }
+            return r.json();
+        }).catch(error => error.then(console.error));
+    }
     removeUserData(): Promise {
         return fetch('http://192.168.1.6/logout', {
             body: '',

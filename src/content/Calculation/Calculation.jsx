@@ -9,7 +9,7 @@ import {StageControl} from "./StageControl";
 import SelectCategories from "./SelectCategories";
 import PersonalData  from "./PersonalData";
 import UploadFile from "./UploadFile";
-import SuccessModal from "./SuccessModal";
+import SuccessModal from "./DataProcess";
 import {fetchCategories} from "../../services/calculationService";
 import {withUserConsumer} from "../../services/UserContext";
 import {setToIndexedDB} from "../../services/filesService";
@@ -54,11 +54,13 @@ class Calculation extends Component {
 		this.moveToAvailableCategories = this.moveToAvailableCategories.bind(this);
 		this.checkCustomer = this.checkCustomer.bind(this);
 		this.setPersonalData=this.setPersonalData.bind(this);
+        this.startDataProcess=this.startDataProcess.bind(this);
 		this.methods = {
 			moveToSelected: this.moveToSelected,
 			moveToAvailableCategories: this.moveToAvailableCategories,
 			checkCustomer: this.checkCustomer,
-            setPersonalData: this.setPersonalData
+            setPersonalData: this.setPersonalData,
+            startDataProcess: this.startDataProcess,
 		}
 	}
 
@@ -113,6 +115,9 @@ class Calculation extends Component {
 		this.setState({currentStep: this.state.currentStep - 1})
 	}
 
+    startDataProcess(){
+
+    }
 	moveToSelected(category) {
 		const newState = {...this.state};
 		const selected = this.state.stageActions.firstStep.selectedCategories;
