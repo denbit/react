@@ -11,10 +11,10 @@ const getIDBCollection = (): IDBObject => ({
         window.msIDBTransaction,
     keyRange: window.IDBKeyRange || window.webkitIDBKeyRange,
 });
-
+export const CONSTRAINT_ERROR = 0;
 class IndexedDB {
-    static version = 2;
-    static instance:IndexedDB;
+    static version = 3;
+    static instance: IndexedDB;
     createFunctions:Set<Function>;
     notifyIsShown:boolean=false;
 
