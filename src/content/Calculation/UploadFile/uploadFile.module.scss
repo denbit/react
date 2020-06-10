@@ -9,8 +9,14 @@
 .category-container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin: 5px 0;
+
+    .collection-container {
+        width: 200px;
+        height: 55px;
+        overflow: hidden;
+    }
 
     .open-editor-btn {
         background-color: $open_editor_btn;
@@ -43,6 +49,7 @@
         border-radius: 30px;
         font-size: 13px;
         max-width: 200px;
+        padding: 19px 24px;
 
         &.active {
             background: $btn_color;
@@ -56,6 +63,26 @@
         &.file-items {
             background-color: $btn_color_text;
             color: $btn_bg_color;
+            font-size: 11px;
+            padding: 5px 5px;
+            position: relative;
+            cursor: pointer;
+            margin: 2px;
+
+            &:after{
+                content: "";
+                background-image: url("/imgs/cancel.svg");
+                background-size: contain;
+                width: 10px;
+                height: 10px;
+                padding-left: 1px;
+                position: absolute;
+                top: -2px;
+                font-size: 10px;
+                display: inline-block;
+                background-repeat: no-repeat;
+                right: 0px;
+            }
         }
     }
 }

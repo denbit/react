@@ -5,7 +5,7 @@ import {withTranslationConsumer} from '../../services/LanguageContext';
 import style from './dataProcess.module.scss'
 
 function DataProcess({translation,stageActions,methods:{startDataProcess}}) {
-    useEffect(()=>startDataProcess())
+    useEffect(()=>startDataProcess(),[])
     const ProccessWindow = (<section>
         <div className={tabStyle.id_label}>
             <h2>{translate(translation,'calculation_section.process_tab_title')}</h2>

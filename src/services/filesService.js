@@ -53,7 +53,7 @@ export function setToIndexedDB(input, userId) {
 	})
 }
 
-export function readFile(item: indexedDBEntries) {
+export function readKey(item: indexedDBEntries) {
 
 	return IndexedDB.get().openDBConnection().then((db) => {
 		return new Promise((resolve, reject) => {
@@ -68,11 +68,28 @@ export function readFile(item: indexedDBEntries) {
 
 	})
 }
+export function readFile(item: indexedDBEntries) {
+
+	return IndexedDB.get().openDBConnection().then((db) => {
+		return new Promise((resolve, reject) => {
+			var readtransaction = db.transaction(["files"], 'readonly');
+			let readidbObjectStore = readtransaction.objectStore("files");
+			const index = readidbObjectStore.index('files_name');
+
+            const request = index.get([item.name, item.size]);
+			console.log('request', request);
+			request.onsuccess = () => resolve( request.result);
+			request.onerror = reject
+		})
+
+	})
+}
+
+
 
 function addFileToDB(value) {
 	let dbConnection = IndexedDB.get().openDBConnection();
 	return dbConnection.then((db) => {
-		// TODO - question
 		db.onerror = function (event) {
 			console.error('Error creating/accessing IndexedDB database', event);
 		};

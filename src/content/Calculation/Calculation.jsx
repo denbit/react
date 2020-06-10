@@ -8,11 +8,11 @@ import {ProgressBar} from "./ProgressBar";
 import {StageControl} from "./StageControl";
 import SelectCategories from "./SelectCategories";
 import PersonalData from "./PersonalData";
-import UploadFile from "./UploadFile";
+import UploadFile from "./UploadFile/UploadFile";
 import SuccessModal from "./DataProcess";
 import {fetchCategories} from "../../services/calculationService";
 import {withUserConsumer} from "../../services/UserContext";
-import {readFile, setToIndexedDB} from "../../services/filesService";
+import {readFile, readKey, setToIndexedDB} from '../../services/filesService';
 import {getContentTranslation} from '../../services/contentService';
 
 class Calculation extends Component {
@@ -56,12 +56,14 @@ class Calculation extends Component {
         this.startDataProcess=this.startDataProcess.bind(this);
 		this.initUpload = this.initUpload.bind(this);
 		this.setPersonalData = this.setPersonalData.bind(this);
+		this.removeFileFromState = this.removeFileFromState.bind(this);
 		this.methods = {
 			moveToSelected: this.moveToSelected,
 			moveToAvailableCategories: this.moveToAvailableCategories,
 			initUpload: this.initUpload,
 			setPersonalData: this.setPersonalData,
             startDataProcess: this.startDataProcess,
+            removeFileFromState: this.removeFileFromState,
 		}
 	}
 
@@ -117,8 +119,28 @@ class Calculation extends Component {
 		this.setState({currentStep: this.state.currentStep - 1})
 	}
 
-    startDataProcess(){
+    startDataProcess(file){
 
+	    const newState = {...this.state};
+	    const prepareData = {};
+
+	    prepareData['selectedCategories'] = newState.stageActions.firstStep.selectedCategories;
+	    prepareData['selectedFiles'] = newState.stageActions.secondStep.selectedFiles;
+        console.log('prepareData',prepareData);
+
+        var formData = new FormData();
+
+        var max = file.content;
+        var ia = new Uint8Array(max);
+        for (var i = 0; i < max; i++) {
+            ia[i] = file.content.charCodeAt(i);
+        }
+
+        var newImageFileFromCanvas = new File([ia], 'fileName.jpg', );
+        formData.append('id_3',newImageFileFromCanvas, "fl.o");
+        // var request = new XMLHttpRequest();
+        // request.open("POST", "http://192.168.1.6/api/null");
+        // request.send(formData);
     }
 	moveToSelected(category) {
 		const newState = {...this.state};
@@ -171,13 +193,21 @@ class Calculation extends Component {
 			const promiseAll = [];
 			if (resultMap.get('failed').size) {
 				for (let failed of resultMap.get('failed')) {
-					promiseAll.push(readFile(failed))
+					promiseAll.push(readKey(failed));
+                    readFile(failed).then((file)=>{
+                        this.startDataProcess(file)
+                    })
 				}
 			}
 			Promise.all(promiseAll).then((value) => {
-				console.log('value', value);
 				selectedFiles.push(...value);
-				console.log('result', selectedFiles)
+				console.log('selectedFiles', selectedFiles)
+                const newState = {...this.state};
+                const tempIds = newState.stageActions.secondStep.ids;
+                selectedFiles.forEach((item)=>{
+                    tempIds.add(item.id)
+                })
+                this.setState(newState)
 			}).finally(() => {
 				const newState = {...this.state};
 				const currentFiles = {...newState.stageActions.secondStep.selectedFiles};
@@ -197,6 +227,19 @@ class Calculation extends Component {
 		return user && user.userId || this.createRandomUserId(10e5, 10e6);
 	}
 
+    removeFileFromState(fileId, categoryType) {
+        console.log('fileId',fileId);
+        const newState = {...this.state}
+        const collectionIds = newState.stageActions.secondStep.ids;
+        let selectedFiles = newState.stageActions.secondStep.selectedFiles;
+
+        collectionIds.delete(fileId);
+        newState.stageActions.secondStep.selectedFiles[categoryType] = selectedFiles[categoryType].filter((item) => {
+            return item.id !== fileId
+        })
+        this.setState(newState)
+    }
+
 	render() {
 		return (
 			<>
@@ -214,5 +257,9 @@ class Calculation extends Component {
 		)
 	}
 }
-
+// type data = {
+//     categiroes,
+//     [categpryNmae]=array of {id,filename},
+// file
+// }
 export default withUserConsumer(Calculation)
