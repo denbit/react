@@ -12,8 +12,9 @@ import UploadFile from "./UploadFile/UploadFile";
 import SuccessModal from "./DataProcess";
 import {fetchCategories} from "../../services/calculationService";
 import {withUserConsumer} from "../../services/UserContext";
-import {readKey, setToIndexedDB} from '../../services/filesService';
+import {readFile, readKey, setToIndexedDB} from '../../services/filesService';
 import {getContentTranslation} from '../../services/contentService';
+import IndexedDB from '../../services/indexedDB'
 
 class Calculation extends Component {
 	constructor(props, context) {
@@ -121,31 +122,6 @@ class Calculation extends Component {
 		this.setState({currentStep: this.state.currentStep - 1})
 	}
 
-    startDataProcess(ids){
-
-
-	    const newState = {...this.state};
-	    const prepareData = {};
-
-	    prepareData['selectedCategories'] = newState.stageActions.firstStep.selectedCategories;
-	    prepareData['selectedFiles'] = newState.stageActions.secondStep.selectedFiles;
-	    prepareData['personalData'] = newState.stageActions.thirdStep.personalData;
-        console.log('prepareData',prepareData);
-
-        var formData = new FormData();
-        //TODO - uncomment this
-        // var max = file.content;
-        // var ia = new Uint8Array(max);
-        // for (var i = 0; i < max; i++) {
-        //     ia[i] = file.content.charCodeAt(i);
-        // }
-        //
-        // var newImageFileFromCanvas = new File([ia], 'fileName.jpg', );
-        // formData.append('id_3',newImageFileFromCanvas, "fl.o");
-        // var request = new XMLHttpRequest();
-        // request.open("POST", "http://192.168.1.6/api/null");
-        // request.send(formData);
-    }
 	moveToSelected(category) {
 		const newState = {...this.state};
 		const selected = this.state.stageActions.firstStep.selectedCategories;
@@ -184,7 +160,6 @@ class Calculation extends Component {
 	initUpload(input, categoryType) {
 		const userId = this.checkCustomer();
 		setToIndexedDB(input, userId).then(([map]) => {
-			console.log('map', map)
 			const selectedFiles = [];
 			let resultMap;
 			if (map.status === 'fulfilled') {
@@ -202,12 +177,11 @@ class Calculation extends Component {
 			}
 			Promise.all(promiseAll).then((value) => {
 				selectedFiles.push(...value);
-				console.log('selectedFiles', selectedFiles)
                 const newState = {...this.state};
                 const tempIds = newState.stageActions.secondStep.ids;
                 selectedFiles.forEach((item)=>{
                     tempIds.add(item.id)
-                })
+                });
                 this.setState(newState)
 			}).finally(() => {
 				const newState = {...this.state};
@@ -256,6 +230,46 @@ class Calculation extends Component {
 	    this.setState(newState)
     }
 
+    startDataProcess(ids){
+        const newState = {...this.state};
+        const selectedFiles = newState.stageActions.secondStep.selectedFiles;
+        let personalData = newState.stageActions.thirdStep.personalData;
+
+        const formData = new FormData();
+        const entries = Object.entries(selectedFiles);
+        let totalFiles = {};
+        for(let [key, value] of entries) {
+            totalFiles[key] = value.map((file) => {
+                return file.id
+            })
+        }
+
+        personalData = JSON.stringify(personalData);
+        totalFiles = JSON.stringify(totalFiles);
+
+        formData.append('categories', totalFiles);
+        formData.append('personalData', personalData);
+
+        readFile(ids)
+            .then((value) => {
+            value.forEach((file) => {
+                const content = file.content;
+                const typedArray = new Uint8Array(content);
+                for (let i = 0; i < content; i++) {
+                    typedArray[i] = file.content.charCodeAt(i);
+                }
+                const newFile = new File([typedArray], `${file.name}`, );
+                formData.append(`id_${file.id}`, newFile, `${file.name}`);
+            })
+        })
+            .finally(() => {
+                const request = new XMLHttpRequest();
+                request.open("POST", "/api/order");
+                request.setRequestHeader('Authorization', 'Bearer WVhCcFFHbHY=')
+                request.send(formData);
+            });
+    }
+
 	render() {
 		return (
 			<>
@@ -273,9 +287,4 @@ class Calculation extends Component {
 		)
 	}
 }
-// type data = {
-//     categiroes,
-//     [categpryNmae]=array of {id,filename},
-// file
-// }
 export default withUserConsumer(Calculation)
