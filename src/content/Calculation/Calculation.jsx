@@ -12,7 +12,7 @@ import UploadFile from "./UploadFile/UploadFile";
 import SuccessModal from "./DataProcess";
 import {fetchCategories} from "../../services/calculationService";
 import {withUserConsumer} from "../../services/UserContext";
-import {readFile, readKey, setToIndexedDB} from '../../services/filesService';
+import {readKey, setToIndexedDB} from '../../services/filesService';
 import {getContentTranslation} from '../../services/contentService';
 
 class Calculation extends Component {
@@ -57,6 +57,7 @@ class Calculation extends Component {
 		this.initUpload = this.initUpload.bind(this);
 		this.setPersonalData = this.setPersonalData.bind(this);
 		this.removeFileFromState = this.removeFileFromState.bind(this);
+		this.addFileClick = this.addFileClick.bind(this);
 		this.methods = {
 			moveToSelected: this.moveToSelected,
 			moveToAvailableCategories: this.moveToAvailableCategories,
@@ -64,6 +65,7 @@ class Calculation extends Component {
 			setPersonalData: this.setPersonalData,
             startDataProcess: this.startDataProcess,
             removeFileFromState: this.removeFileFromState,
+            addFileClick: this.addFileClick,
 		}
 	}
 
@@ -119,25 +121,27 @@ class Calculation extends Component {
 		this.setState({currentStep: this.state.currentStep - 1})
 	}
 
-    startDataProcess(file){
+    startDataProcess(ids){
+
 
 	    const newState = {...this.state};
 	    const prepareData = {};
 
 	    prepareData['selectedCategories'] = newState.stageActions.firstStep.selectedCategories;
 	    prepareData['selectedFiles'] = newState.stageActions.secondStep.selectedFiles;
+	    prepareData['personalData'] = newState.stageActions.thirdStep.personalData;
         console.log('prepareData',prepareData);
 
         var formData = new FormData();
-
-        var max = file.content;
-        var ia = new Uint8Array(max);
-        for (var i = 0; i < max; i++) {
-            ia[i] = file.content.charCodeAt(i);
-        }
-
-        var newImageFileFromCanvas = new File([ia], 'fileName.jpg', );
-        formData.append('id_3',newImageFileFromCanvas, "fl.o");
+        //TODO - uncomment this
+        // var max = file.content;
+        // var ia = new Uint8Array(max);
+        // for (var i = 0; i < max; i++) {
+        //     ia[i] = file.content.charCodeAt(i);
+        // }
+        //
+        // var newImageFileFromCanvas = new File([ia], 'fileName.jpg', );
+        // formData.append('id_3',newImageFileFromCanvas, "fl.o");
         // var request = new XMLHttpRequest();
         // request.open("POST", "http://192.168.1.6/api/null");
         // request.send(formData);
@@ -194,9 +198,6 @@ class Calculation extends Component {
 			if (resultMap.get('failed').size) {
 				for (let failed of resultMap.get('failed')) {
 					promiseAll.push(readKey(failed));
-                    readFile(failed).then((file)=>{
-                        this.startDataProcess(file)
-                    })
 				}
 			}
 			Promise.all(promiseAll).then((value) => {
@@ -238,6 +239,21 @@ class Calculation extends Component {
             return item.id !== fileId
         })
         this.setState(newState)
+    }
+
+    addFileClick(id, fileName, categoryType) {
+	    const newState = {...this.state};
+	    const selectedFiles = newState.stageActions.secondStep.selectedFiles;
+	    if(selectedFiles[categoryType]){
+	        selectedFiles[categoryType].push({id: id, fileName: fileName})
+        } else {
+            selectedFiles[categoryType] = [];
+            selectedFiles[categoryType].push({id: id, fileName: fileName})
+        }
+
+	    const ids = newState.stageActions.secondStep.ids;
+	    ids.add(id);
+	    this.setState(newState)
     }
 
 	render() {

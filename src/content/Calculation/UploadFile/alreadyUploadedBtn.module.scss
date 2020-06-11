@@ -1,0 +1,58 @@
+@import '~style/colors';
+
+.already-uploaded-container {
+    position: relative;
+    &:hover {
+        .already-uploaded-btn {
+            background-color: $btn_color_text;
+            color: $already_uploaded_btn;
+        }
+        .select {
+              background-color: $already_uploaded_btn;
+
+        .line {
+            color: $btn_color_text;
+            cursor: pointer;
+            &:hover {
+                background-color: $btn_color_text;
+                color: $already_uploaded_btn;
+            }
+        }
+          }
+    }
+    .already-uploaded-btn {
+        background-color: $already_uploaded_btn;
+    }
+
+    .select {
+        font-size: 13px;
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        background-color: $btn_color_text;
+        top: 36px;
+        left: 2px;
+        padding: {
+            top: 6px;
+            right: 0px;
+            bottom: 6px;
+            left: 0;
+        }
+        border: {
+            bottom: 1px solid $already_uploaded_btn;
+            left: 1px solid $already_uploaded_btn;
+            right: 1px solid $already_uploaded_btn;
+            top: 1px solid $btn_secondary_color;
+        }
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        .file {
+            color: $already_uploaded_btn;
+            .line {
+                padding: 3px 0 3px 3px;
+                overflow: hidden;
+            }
+        }
+    }
+}

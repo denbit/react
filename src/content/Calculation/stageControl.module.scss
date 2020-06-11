@@ -27,6 +27,7 @@
 .button-right {
   button {
     background-color: $btn_color;
+      margin-right: 7px;
 
     &:hover {
       background-color: $btn_color_text;

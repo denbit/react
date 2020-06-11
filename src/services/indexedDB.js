@@ -61,12 +61,11 @@ class IndexedDB {
         return this.notifyIsShown;
     }
     openDBConnection():Promise<IDBDatabase> {
-        const notify = this.getNotify();
-        const setNotify = this.setNotify;
+        // const notify = this.getNotify();
+        // const setNotify = this.setNotify;
         return new Promise(((resolve, reject) => {
             const {factory} = getIDBCollection();
             var DBConnection:any = factory.open('chemDB', IndexedDB.version);
-            console.log('Trying to open connection', DBConnection);
             DBConnection.onerror = (e) => reject(e);
             DBConnection.onupgradeneeded = this.initiateCreate;
             DBConnection.onsuccess = () => {

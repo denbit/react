@@ -18,11 +18,10 @@ export function CollectionUploadedFilesBtn({categoryType, removeFileFromState, s
             const tempArray=[];
             selectedFiles[categoryType].forEach((currentObj)=>{
                 tempArray.push({ fileName: currentObj.fileName.slice(0, 11) + '...', id: currentObj.id})
-                console.log('tempArray',tempArray);
             })
             setFileNames(tempArray);
         }
-    },[selectedFiles[categoryType]])
+    },[selectedFiles[categoryType] && selectedFiles[categoryType].length])
 
   return (
       <>

@@ -68,7 +68,7 @@ export function readKey(item: indexedDBEntries) {
 
 	})
 }
-export function readFile(item: indexedDBEntries) {
+export function readFile(item: number) {
 
 	return IndexedDB.get().openDBConnection().then((db) => {
 		return new Promise((resolve, reject) => {
@@ -76,7 +76,7 @@ export function readFile(item: indexedDBEntries) {
 			let readidbObjectStore = readtransaction.objectStore("files");
 			const index = readidbObjectStore.index('files_name');
 
-            const request = index.get([item.name, item.size]);
+            const request = index.get(item);
 			console.log('request', request);
 			request.onsuccess = () => resolve( request.result);
 			request.onerror = reject
@@ -123,4 +123,28 @@ function promiseForEach(item, idbObjectStore, map) {
 			}
 		}
 	})
+}
+
+export function getAll() {
+
+    return IndexedDB.get().openDBConnection().then((db) => {
+        return new Promise((resolve, reject) => {
+            const readtransaction = db.transaction(["files"], 'readonly');
+            const readidbObjectStore = readtransaction.objectStore("files");
+            const getAll = readidbObjectStore.getAll();
+            getAll.onsuccess=()=> {
+                const getAllResult = getAll.result;
+                const getAllKeys = readidbObjectStore.getAllKeys();
+                getAllKeys.onsuccess=()=> {
+                    const keysResult = getAllKeys.result
+                    const resultArray = [];
+                    for (let i = 0; i<keysResult.length; i++) {
+                        resultArray.push({id: keysResult[i], name: getAllResult[i].name})
+                    }
+                    resolve(resultArray)
+                }
+            }
+        })
+
+    })
 }

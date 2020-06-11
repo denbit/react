@@ -9,7 +9,7 @@ import {OpenEditorBtn} from './OpenEditorBtn';
 import {CollectionUploadedFilesBtn} from './CollectionUploadedFilesBtn';
 import {CategoryBtn} from './CategoryBtn';
 
-function UploadFile({translation, methods: {initUpload, removeFileFromState}, stageActions: {firstStep: {selectedCategories}, secondStep: {selectedFiles}}}) {
+function UploadFile({translation, methods: {initUpload, removeFileFromState, addFileClick}, stageActions: {firstStep: {selectedCategories}, secondStep: {selectedFiles}}}) {
     const [currentlySelected, setCurrentlySelected] = useState(0);
 
     return (
@@ -27,10 +27,12 @@ function UploadFile({translation, methods: {initUpload, removeFileFromState}, st
                             }} name={category.name}
                                          id={category.id} isActive={index === currentlySelected} />
                             {index === currentlySelected && <>
+
                                 <CollectionUploadedFilesBtn categoryType={category.type} selectedFiles={selectedFiles} removeFileFromState={removeFileFromState}/>
+                                <AlreadyUploadedBtn categoryType={category.type} selectedFiles={selectedFiles[category.type]} addFileClick={addFileClick}/>
                                 <OpenEditorBtn/>
                                 <UploadFileBtn onUpload={(input) => initUpload(input, category.type)} />
-                                <AlreadyUploadedBtn/>
+
                             </>
                             }
                         </div>

@@ -36,15 +36,6 @@
         }
     }
 
-    .already-uploaded-btn {
-        background-color: $already_uploaded_btn;
-
-        &:hover {
-            background-color: $btn_color_text;
-            color: $already_uploaded_btn;
-        }
-    }
-
     .multiselect {
         border-radius: 30px;
         font-size: 13px;

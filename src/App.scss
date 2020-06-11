@@ -2,6 +2,10 @@
 @import "style/fonts";
 @import "style/colors";
 @import url('https://fonts.googleapis.com/css?family=Nunito:200,600');
+:root{
+    scrollbar-color: #04b87f #cee7ea85;
+    scrollbar-width: thin;
+}
 html, body {
     background-color: #fff;
     color: #636b6f;
