@@ -244,7 +244,6 @@ class Calculation extends Component {
             })
         }
 
-       // personalData = JSON.stringify(personalData);
         totalFiles = JSON.stringify(totalFiles);
 
         formData.append('categories', totalFiles);
@@ -262,13 +261,17 @@ class Calculation extends Component {
                 for (let i = 0; i < content.length; i++) {
                     typedArray[i] = content.charCodeAt(i);
                 }
-                const newFile = new File([typedArray], `${file.name}`, );
+                const newFile = new File([typedArray], `${file.name}`, {
+                    type: file.type,
+                });
+                console.log(file.name);
                 formData.append(`id_${file.id}`, newFile, `${file.name}`);
             })
         })
             .finally(() => {
                 const request = new XMLHttpRequest();
-                request.open("POST", "/api/order");
+                const path = this.props.user?"/user":"/api";
+                request.open("POST", `${path}/order?t=thtft`);
                 request.setRequestHeader('Authorization', 'Bearer WVhCcFFHbHY=')
                 request.send(formData);
             });
