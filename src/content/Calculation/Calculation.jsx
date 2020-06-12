@@ -244,19 +244,23 @@ class Calculation extends Component {
             })
         }
 
-        personalData = JSON.stringify(personalData);
+       // personalData = JSON.stringify(personalData);
         totalFiles = JSON.stringify(totalFiles);
 
         formData.append('categories', totalFiles);
-        formData.append('personalData', personalData);
+        formData.append('personalData[email]', personalData.email);
+        formData.append('personalData[first_name]', personalData.first_name);
+        formData.append('personalData[last_name]', personalData.last_name);
+        formData.append('personalData[phone]', personalData.phone);
+        formData.append('personalData[username]', personalData.username);
 
         readFile(ids)
             .then((value) => {
             value.forEach((file) => {
                 const content = file.content;
                 const typedArray = new Uint8Array(content);
-                for (let i = 0; i < content; i++) {
-                    typedArray[i] = file.content.charCodeAt(i);
+                for (let i = 0; i < content.length; i++) {
+                    typedArray[i] = content.charCodeAt(i);
                 }
                 const newFile = new File([typedArray], `${file.name}`, );
                 formData.append(`id_${file.id}`, newFile, `${file.name}`);
