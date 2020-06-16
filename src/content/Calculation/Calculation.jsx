@@ -252,7 +252,7 @@ class Calculation extends Component {
             .then((value) => {
             value.forEach((file) => {
                 const content = file.content;
-                const typedArray = new Uint8Array(content);
+                const typedArray = new Uint8Array(content.length);
                 for (let i = 0; i < content.length; i++) {
                     typedArray[i] = content.charCodeAt(i);
                 }
