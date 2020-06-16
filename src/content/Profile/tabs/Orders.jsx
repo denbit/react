@@ -33,9 +33,9 @@ class Orders extends React.Component {
                 {this.state.orders.map((item) =>
                     <tr>
                         <td>{item.id}</td>
-                        <td>{new Date(item.created_at).toDateString()}</td>
+                        <td>{new Date(item.createdAt).toDateString()}</td>
                         <td>{item.paid ? 'Waiting result' : 'Unpaid'}</td>
-                        <td>{item.details_data}</td>
+                        <td>{item.inboundData}</td>
                     </tr>,
                 )}
 
