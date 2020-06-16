@@ -109,9 +109,9 @@ class Calculation extends Component {
 		}
 		this.setState({isShow: !this.state.isShow})
 		//TODO - uncomment this
-		// if (this.state.currentStep === this.state.steps.length - 1) {
-		// 	this.setState({currentStep: 0})
-		// }
+		if (this.state.currentStep === this.state.steps.length - 1) {
+			this.setState({currentStep: 0})
+		}
 	}
 
 	nextStep() {
@@ -234,7 +234,6 @@ class Calculation extends Component {
         const newState = {...this.state};
         const selectedFiles = newState.stageActions.secondStep.selectedFiles;
         let personalData = newState.stageActions.thirdStep.personalData;
-
         const formData = new FormData();
         const entries = Object.entries(selectedFiles);
         let totalFiles = {};
@@ -243,15 +242,11 @@ class Calculation extends Component {
                 return file.id
             })
         }
-
         totalFiles = JSON.stringify(totalFiles);
-
         formData.append('categories', totalFiles);
-        formData.append('personalData[email]', personalData.email);
-        formData.append('personalData[first_name]', personalData.first_name);
-        formData.append('personalData[last_name]', personalData.last_name);
-        formData.append('personalData[phone]', personalData.phone);
-        formData.append('personalData[username]', personalData.username);
+        for(let key in personalData) {
+            formData.append(`personalData[${key}]`, personalData[key]);
+        }
 
         readFile(ids)
             .then((value) => {
