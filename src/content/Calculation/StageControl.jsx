@@ -35,7 +35,7 @@ export function StageControl({currentStep, steps, nextStep, previousStep, stageA
 				[styles['only-right']]: onlyRight && !onlyLeft
 			})}>
 				{onlyLeft && <PreviousButton text='Previous' onClick={previousStep}/>}
-				{<NextButton text='Next' onClick={nextStep} />}
+				{onlyRight && <NextButton text='Next' onClick={nextStep} />}
 			</div>
 
 		</div> : err)
