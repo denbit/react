@@ -1,4 +1,6 @@
 // @flow
+import {DEFAULT_DOMAIN} from "../config";
+
 type User = {
     username: string,
     id: number,
@@ -10,7 +12,7 @@ type User = {
 type State = {};
 
 export default class UserService {
-    static profileURL = new URL('http://192.168.1.6/user/profile');
+    static profileURL = new URL(DEFAULT_DOMAIN +'/user/profile');
     static userService: UserService;
     currentUser: User = null;
     static setUserInState;
@@ -93,7 +95,7 @@ export default class UserService {
         }).catch(error => error.then(console.error));
     }
     removeUserData(): Promise {
-        return fetch('http://192.168.1.6/logout', {
+        return fetch(DEFAULT_DOMAIN+'/logout', {
             body: '',
             method: 'POST',
             headers: {'Accept': 'application/json'},
@@ -110,7 +112,7 @@ export default class UserService {
     }
 
     login(formData) {
-        return fetch('http://192.168.1.6/login', {
+        return fetch(DEFAULT_DOMAIN +'/login', {
             body: new FormData(formData),
             method: 'POST',
             headers: {'Accept': 'application/json'},

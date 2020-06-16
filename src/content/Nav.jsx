@@ -22,7 +22,7 @@ class Nav extends Component {
                         <NavElement link="about" text={translate(language, "about")}/>
                         <NavElement link="calculation"  text={translate(language, "calculation")}/>
                         <NavElement link="contacts" text={translate(language, "contacts")}/>
-                        {!this.props.user
+                        {this.props.user
                             ?
                             <NavElement link="profile" text={translate(language, "profile")} />
                             :

@@ -51,7 +51,7 @@ class Main extends Component {
 									 render={this.renderRouteComponent('contacts')}/>
                         <Route path={'/login'}
                                render={this.renderRouteComponent('login')}/>
-                        {!this.props.user?<Route path={'/profile'}
+                        {this.props.user?<Route path={'/profile'}
                                 render={this.renderRouteComponent('profile')}/>:<Redirect to='/'/> }
                         {this.props.user&&<Route path={'/logout'} component={Logout} />}
 					</Switch>
