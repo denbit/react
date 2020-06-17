@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './orders.module.scss';
 import UserService from '../../../services/userService';
 import {readFile} from "../../../services/filesService";
+import InboundData from "./commonComponents/InboundData";
+import OutboundData from "./commonComponents/OutboundData";
 
 export default class OldOrders extends React.Component {
     static state = {};
@@ -10,45 +12,19 @@ export default class OldOrders extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            oldOrders: [
-                {
-                    orderId: 1,
-                    created_at: new Date(),
-                    made_at: new Date(),
-                    sentFiles: [
-                        {id: 1, fileName: 'file_1.txt'},
-                        {id: 2, fileName: 'file_2.txt'},
-                       ],
-
-                    resultFiles: [
-                        {fileName: 'file_Result_1.txt', content: 'ArrayBuffer', type: 'application'},
-                        {fileName: 'file_Result_2.txt', content: 'ArrayBuffer', type: 'application'},
-                    ],
-                },
-                {
-                    orderId: 2,
-                    created_at: new Date(),
-                    made_at: new Date(),
-                    sentFiles: [
-                        {id: 3, fileName: 'file_1.txt'},
-                        {id: 4, fileName: 'file_2.txt'},
-                    ],
-
-                    resultFiles: [
-                        {fileName: 'file_Result_1.txt', content: 'ArrayBuffer', type: 'application'},
-                        {fileName: 'file_Result_2.txt', content: 'ArrayBuffer', type: 'application'},
-                    ],
-                }
-            ],
+            oldOrders: [],
         }
     }
 
     componentDidMount() {
-        UserService.instance().getOldOrders().then(r => {
-            console.log('............r..............',r);
-
+        UserService.instance().getOldOrders().then(response => {
+            const newState = {...this.state}
+            response.forEach((item) => {
+                newState.oldOrders.push(item)
+            });
+           this.setState(newState)
         }).catch(console.error);
-        this.readOldOrders()
+        // this.readOldOrders()
     }
 
 
@@ -57,15 +33,16 @@ export default class OldOrders extends React.Component {
         const newState = {...this.state}
         const ids = new Set();
         newState.oldOrders.forEach((item,index,array) => {
-            item.sentFiles.forEach((file) => {
+            item.inboundData.forEach((file) => {
                 ids.add(file.id)
             })
         })
         newState.ids = ids;
-        // this.setState(newState)
+        this.setState(newState)
         readFile(ids).then(res=>{
-            console.log('reeeeeeeees',res)})
+            // console.log('reeeeeeeees',res)})
         // console.log('newState',newState)
+    })
     }
 
     saveData() {
@@ -74,7 +51,7 @@ export default class OldOrders extends React.Component {
         // a.style = "display: none";
 
             window.URL.revokeObjectURL(url);
-    };
+    }
 
 
     render() {
@@ -89,40 +66,14 @@ export default class OldOrders extends React.Component {
                     <th>Sent files</th>
                     <th>Result files</th>
                 </tr>
-                {this.state.oldOrders.map((collection, index) => {
+                {this.state.oldOrders.length && this.state.oldOrders.map((collection, index) => {
                     return (
                         <tr key={index}>
-                            <td>{collection.orderId}</td>
-                            <td>{collection.created_at.toDateString()}</td>
-                            <td>{collection.made_at.toDateString()}</td>
-                            <td>{collection.sentFiles.map((file) => {
-                                const data = {x: 123, s: "hello, world123", d: new Date()},
-                                fileName = "my-download.json";
-                                var json = JSON.stringify(data),
-                                    blob = new File([json], fileName, {type: "octet/stream"}),
-                                    url = window.URL.createObjectURL(blob);
-                                console.log('blob',blob)
-                                console.log('url',url)
-
-                                return (
-                                    <div key={file.id}>
-                                        <a id='link' href={url} className={styles['sent-files']} onClick={() => {
-                                            this.saveData
-                                        }}>{file.fileName}</a>
-                                    </div>
-                                )
-                            })}
-                            </td>
-                            <td>{collection.resultFiles.map((file, index) => {
-                                return (
-                                    <div key={index}>
-                                        <div className={styles['sent-files']} onClick={() => {
-                                            console.log('preview');
-                                        }}>{file.fileName}</div>
-                                    </div>
-                                )
-                            })}
-                            </td>
+                            <td>{collection.id}</td>
+                            <td>{collection.createdAt}</td>
+                            <td>{collection.madeAt}</td>
+                            <InboundData collection={collection}/>
+                            <OutboundData collection={collection}/>
                         </tr>
                     )
                 })}
