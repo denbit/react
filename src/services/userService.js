@@ -81,7 +81,7 @@ export default class UserService {
 
     getCurrentOrders() {
          const OrdersURL= new URL(UserService.profileURL.toString());
-        OrdersURL.pathname+='/orders'
+        OrdersURL.pathname+='/orders';
         return fetch(OrdersURL, {
             method: 'GET',
             headers: {'Accept': 'application/json'},
@@ -96,9 +96,8 @@ export default class UserService {
     }
 
     getOldOrders() {
-        console.log('////////////////////////////////////');
         const OrdersURL= new URL(UserService.profileURL.toString());
-        OrdersURL.pathname+='/old-orders'
+        OrdersURL.pathname+='/old-orders';
         return fetch(OrdersURL, {
             method: 'GET',
             headers: {'Accept': 'application/json'},
