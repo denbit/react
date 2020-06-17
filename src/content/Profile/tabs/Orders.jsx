@@ -35,7 +35,7 @@ class Orders extends React.Component {
                         <td>{item.id}</td>
                         <td>{new Date(item.createdAt).toDateString()}</td>
                         <td>{item.paid ? 'Waiting result' : 'Unpaid'}</td>
-                        <td>{item.inboundData}</td>
+                        <td>{item.inboundData&&'data'}</td>
                     </tr>,
                 )}
 

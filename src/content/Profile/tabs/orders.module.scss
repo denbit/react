@@ -16,6 +16,10 @@ table {
     tr:nth-child(2n+3) {
         background-color: $table_row;
     }
+    td .sent-files {
+        cursor: pointer;
+    }
 }
+
 
 

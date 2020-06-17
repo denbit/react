@@ -94,6 +94,24 @@ export default class UserService {
             return r.json();
         }).catch(error => error.then(console.error));
     }
+
+    getOldOrders() {
+        console.log('////////////////////////////////////');
+        const OrdersURL= new URL(UserService.profileURL.toString());
+        OrdersURL.pathname+='/old-orders'
+        return fetch(OrdersURL, {
+            method: 'GET',
+            headers: {'Accept': 'application/json'},
+        }).then(r => {
+            if (!r.ok) {
+                const resp = r.json();
+                console.info(r.status, r.statusText, resp);
+                return Promise.reject(resp);
+            }
+            return r.json();
+        }).catch(console.error);
+    }
+
     removeUserData(): Promise {
         return fetch(DEFAULT_DOMAIN+'/logout', {
             body: '',
