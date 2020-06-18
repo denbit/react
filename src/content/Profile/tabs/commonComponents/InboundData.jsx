@@ -1,24 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "../orders.module.scss";
+import {readFile} from "../../../../services/filesService";
 
-export default function InboundData({collection}) {
+export default function InboundData({inboundData, ids}) {
+            const [url, setUrl] =useState({});
+            useEffect(()=> {
+                const files={};
+                readFile(ids)
+                    .then((value) => {
+                        value.forEach((fileIDB) => {
+                            const content = fileIDB.content;
+                            const typedArray = new Uint8Array(content.length);
+                            for (let i = 0; i < content.length; i++) {
+                                typedArray[i] = content.charCodeAt(i);
+                            }
+                            const newFile = new File([typedArray], `${fileIDB.name}`, {
+                                type: fileIDB.type,
+                            });
+                            const item = inboundData.find((item)=>item.fileName===fileIDB.name);
+                            files[item.id]=window.URL.createObjectURL(newFile);
+                            console.log('file_1');
+                            setUrl(files);
+                            console.log(files);
+                        })
+                    })
 
-        return    <td>{collection.inboundData.map((file) => {
-            const data = {x: 123, s: "hello, world123", d: new Date()},
-                fileName = "my-download.json";
-            var json = JSON.stringify(data),
-                blob = new File([json], fileName, {type: "octet/stream"}),
-                url = window.URL.createObjectURL(blob);
-            console.log('blob',blob)
-            console.log('url',url)
 
-            return (
-                <div key={file.id}>
-                    <a id='link' href={url} className={styles['sent-files']} onClick={() => {
-                        this.saveData()
+
+            },[]);
+
+    return(   inboundData.map((file) => {
+
+            return ( <span key={file.id}>
+                {console.log('url_2',url, file.id in url && url[file.id])}
+                    <a id='link' href={file.id in url && url[file.id]} className={styles['sent-files']} download={file.fileName}  target="_blank" onClick={() => {
+                        console.log('file_3',file)
+                        // TODO this.saveData()
                     }}>{file.fileName}</a>
-                </div>
+                </span>
             )
-        })}
-        </td>
+        })
+        )
 }

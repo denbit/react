@@ -12,6 +12,7 @@ export default class OldOrders extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            ids: new Set(),
             oldOrders: [],
         }
     }
@@ -22,28 +23,23 @@ export default class OldOrders extends React.Component {
             response.forEach((item) => {
                 newState.oldOrders.push(item)
             });
-           this.setState(newState)
+            this.setState(newState)
+            this.createIds()
         }).catch(console.error);
-        // this.readOldOrders()
+
     }
 
-
-
-    readOldOrders(){
+    createIds(){
         const newState = {...this.state}
-        const ids = new Set();
         newState.oldOrders.forEach((item,index,array) => {
             item.inboundData.forEach((file) => {
-                ids.add(file.id)
+                newState.ids.add(file.id)
             })
         })
-        newState.ids = ids;
-        this.setState(newState)
-        readFile(ids).then(res=>{
-            // console.log('reeeeeeeees',res)})
-        // console.log('newState',newState)
-    })
+        this.setState(newState);
     }
+
+
 
     saveData() {
         // var a = document.createElement("a");
@@ -55,7 +51,6 @@ export default class OldOrders extends React.Component {
 
 
     render() {
-
         return <>
             <h2>Previous orders</h2>
             <table cellPadding='0' cellSpacing='0'>
@@ -70,10 +65,12 @@ export default class OldOrders extends React.Component {
                     return (
                         <tr key={index}>
                             <td>{collection.id}</td>
-                            <td>{collection.createdAt}</td>
-                            <td>{collection.madeAt}</td>
-                            <InboundData collection={collection}/>
-                            <OutboundData collection={collection}/>
+                            <td>{ new Date(collection.createdAt).toDateString()}</td>
+                            <td>{ new Date(collection.madeAt).toDateString()}</td>
+                            <td>
+                                <InboundData inboundData={collection.inboundData} ids={this.state.ids}/>
+                            </td>
+                            { this.state.ids.size && <OutboundData collection={collection} />}
                         </tr>
                     )
                 })}

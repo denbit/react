@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './orders.module.scss';
 import UserService from '../../../services/userService';
+import InboundData from "./commonComponents/InboundData";
 
 class Orders extends React.Component {
 
@@ -11,13 +12,25 @@ class Orders extends React.Component {
         super(props);
         this.state = {
             orders: [],
+            ids: new Set(),
         };
     }
 
     componentDidMount() {
         UserService.instance().getCurrentOrders().then(orders => {
             this.setState({orders});
+            this.createIds()
         });
+    }
+
+    createIds(){
+        const newState = {...this.state}
+        newState.orders.forEach((item,index,array) => {
+            item.inboundData.forEach((file) => {
+                newState.ids.add(file.id)
+            })
+        })
+        this.setState(newState);
     }
 
     render() {
@@ -35,7 +48,7 @@ class Orders extends React.Component {
                         <td>{item.id}</td>
                         <td>{new Date(item.createdAt).toDateString()}</td>
                         <td>{item.paid ? 'Waiting result' : 'Unpaid'}</td>
-                        <td>{item.inboundData&&'data'}</td>
+                        <td> <InboundData inboundData={item.inboundData} ids={this.state.ids}/></td>
                     </tr>,
                 )}
 
