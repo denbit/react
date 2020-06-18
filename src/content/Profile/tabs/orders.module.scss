@@ -16,8 +16,13 @@ table {
     tr:nth-child(2n+3) {
         background-color: $table_row;
     }
-    td .sent-files {
+    td .sent-files{
         cursor: pointer;
+        text-decoration: none;
+        color: white;
+        &:hover {
+            color: #069ebd;
+        }
     }
 }
 

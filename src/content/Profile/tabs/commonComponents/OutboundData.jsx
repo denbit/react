@@ -1,14 +1,24 @@
-import React from 'react';
-import styles from "../orders.module.scss";
+import React, {useState} from 'react';
+import styles from '../orders.module.scss';
+import {ModalContainer} from '../../../../commonComponents/ModalForm/ModalContanainer';
+import Preview from './Preview';
 
-export default function OutboundData({collection}) {
+export default function OutboundData({outboundData}) {
 
-    return collection.outboundData.map((file, index) => {
-        return ( <td key={index}>
-                <div className={styles['sent-files']} onClick={() => {
-                    console.log('preview');
-                }}>{file.fileName}</div>
-            </td>
-        )
-    })
+    const [isShow, setIsShow] = useState(false);
+
+    return outboundData.map((file, index) => {
+        return (<>
+            <div key={index} className={styles['sent-files']} onClick={() => {
+                setIsShow(!isShow);
+            }}>{file.fileName}</div>
+            {
+                isShow && <ModalContainer isShow={isShow} toggleModal={() => {
+                    setIsShow(!isShow);
+                }}>
+                    <Preview outboundFile={file} index={index}/>
+                </ModalContainer>
+            }
+        </>);
+    });
 }

@@ -108,7 +108,6 @@ class Calculation extends Component {
 
 		}
 		this.setState({isShow: !this.state.isShow})
-		//TODO - uncomment this
 		if (this.state.currentStep === this.state.steps.length - 1) {
 			this.setState({currentStep: 0})
 		}

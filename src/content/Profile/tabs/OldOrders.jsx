@@ -1,7 +1,5 @@
 import React from 'react';
-import styles from './orders.module.scss';
 import UserService from '../../../services/userService';
-import {readFile} from "../../../services/filesService";
 import InboundData from "./commonComponents/InboundData";
 import OutboundData from "./commonComponents/OutboundData";
 
@@ -39,17 +37,6 @@ export default class OldOrders extends React.Component {
         this.setState(newState);
     }
 
-
-
-    saveData() {
-        // var a = document.createElement("a");
-        // document.body.appendChild(a);
-        // a.style = "display: none";
-
-            window.URL.revokeObjectURL(url);
-    }
-
-
     render() {
         return <>
             <h2>Previous orders</h2>
@@ -60,6 +47,7 @@ export default class OldOrders extends React.Component {
                     <th>Result date</th>
                     <th>Sent files</th>
                     <th>Result files</th>
+                    <th>Total paid</th>
                 </tr>
                 {this.state.oldOrders.length && this.state.oldOrders.map((collection, index) => {
                     return (
@@ -70,7 +58,10 @@ export default class OldOrders extends React.Component {
                             <td>
                                 <InboundData inboundData={collection.inboundData} ids={this.state.ids}/>
                             </td>
-                            { this.state.ids.size && <OutboundData collection={collection} />}
+                            <td>
+                                <OutboundData outboundData={collection.outboundData} />
+                            </td>
+                            <td>{collection.total}</td>
                         </tr>
                     )
                 })}
