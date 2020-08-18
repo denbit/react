@@ -14,7 +14,7 @@ export default function InboundData({inboundData, ids}) {
                     typedArray[i] = content.charCodeAt(i);
                 }
                 const newFile = new File([typedArray], `${fileIDB.name}`, {
-                    type: fileIDB.type,
+                    type: fileIDB.type||'application/octet-stream',
                 });
                 const item = inboundData.find((item) => item.fileName === fileIDB.name);
                 files[item.id] = window.URL.createObjectURL(newFile);
@@ -26,11 +26,11 @@ export default function InboundData({inboundData, ids}) {
 
     return (inboundData.map((file) => {
 
-            return (
+            return (<>
                 <a key={file.id} id='link' href={file.id in url && url[file.id]} className={styles['sent-files']}
                    download={file.fileName} target="_blank" onClick={() => {
-                    window.URL.revokeObjectURL(url[file.id]);
-                }}>{file.fileName}</a>
+                  //  window.URL.revokeObjectURL(url[file.id]);
+                }}>{file.fileName}</a> </>
             );
         })
     );

@@ -264,10 +264,15 @@ class Calculation extends Component {
         })
             .finally(() => {
                 const request = new XMLHttpRequest();
-                const path = this.props.user?"/user":"/api";
-                request.open("POST", `${path}/order?t=thtft`);
-                request.setRequestHeader('Authorization', 'Bearer WVhCcFFHbHY=')
-                request.send(formData);
+                const path = this.props.user?"/user/order?t="+window.api_key:"/api/order";
+                fetch(`${path}`, {body:formData, method:'POST'}).then((answer)=> {
+                    console.log(answer);
+                    window.api_key=answer.api_key|| window.api_key;
+                })
+              //  request.open("POST", `${path}/order`);
+
+              //  request.setRequestHeader('Authorization', 'Bearer WVhCcFFHbHY=')
+             //   request.send(formData);
             });
     }
 
