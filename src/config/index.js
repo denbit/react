@@ -26,3 +26,5 @@ export const TITLE_TEXT = "Chemistry CODE";
 export const COOCKIE_EXPIRES = 30;
 
 export const DEFAULT_LANGUAGE = 'ua';
+
+export const DEFAULT_DOMAIN = 'http://192.168.1.6';

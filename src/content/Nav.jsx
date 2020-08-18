@@ -19,14 +19,14 @@ class Nav extends Component {
             <Language.Consumer>
                 {language => (
                     <React.Fragment>
-                        <NavElement link="about" goTo={navigateTo} text={translate(language, "about")}/>
-                        <NavElement link="calculation" goTo={navigateTo} text={translate(language, "calculation")}/>
-                        <NavElement link="contacts" goTo={navigateTo} text={translate(language, "contacts")}/>
+                        <NavElement link="about" text={translate(language, "about")}/>
+                        <NavElement link="calculation"  text={translate(language, "calculation")}/>
+                        <NavElement link="contacts" text={translate(language, "contacts")}/>
                         {this.props.user
                             ?
-                            <NavElement link="profile" goTo={navigateTo} text={translate(language, "profile")} />
+                            <NavElement link="profile" text={translate(language, "profile")} />
                             :
-                            <NavElement link="login" goTo={navigateTo} text={<><span className='login'/>{translate(language, "login")}</>} />
+                            <NavElement link="login" text={<><span className='login'/>{translate(language, "login")}</>} />
                         }
                     </React.Fragment>)
                 }

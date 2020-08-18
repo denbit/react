@@ -1,0 +1,41 @@
+@import "~style/colors";
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+
+  &.only-right {
+    justify-content: flex-end;
+  }
+
+  &.only-left {
+    justify-content: flex-start;
+  }
+}
+
+.button-left {
+  button {
+    background-color: $btn_secondary_color;
+
+    &:hover {
+      background-color: $btn_color_text;
+      color: $btn_secondary_color;
+    }
+  }
+}
+
+.button-right {
+  button {
+    background-color: $btn_color;
+      margin-right: 7px;
+
+    &:hover {
+      background-color: $btn_color_text;
+      color: $btn_color;
+    }
+  }
+}
+
+
+
+

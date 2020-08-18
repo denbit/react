@@ -1,0 +1,55 @@
+@import "~style/colors";
+$btn_color: #069ebd;
+
+section {
+.input_group {
+    text-align: left;
+    margin: 30px 80px 40px;
+
+    .personalLabel {
+        display: inline-block;
+        min-width: 100px;
+        text-align: left;
+    }
+
+    .personalField {
+        padding: 0 5px;
+        line-height: 30px;
+        width: 100%;
+        &:not([disabled]){
+            border-bottom: $lang_hover_background  2px solid;
+            transition: border-bottom;
+            transition-duration: 200ms;
+            &:active,&:focus, &:hover{
+                border-bottom:$nav_menu_font_color  2px solid;
+
+            }
+            &:focus{
+                color:$nav_menu_font_color;
+            }
+        }
+    }
+}
+
+.lock_button_wrapper {
+    float: right;
+    padding: 5px 20px 0 20px;
+    min-height: 60px;
+    .locked_btn {
+        background-color: #a9a9a900;
+        color: $btn_color;
+        cursor: default;
+        &:before{
+            content: '';
+            background-image: url("/imgs/lock.svg");
+            background-size: cover;
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+        }
+    }
+
+}
+
+}
+

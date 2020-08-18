@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './style/index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
+import './services/indexedDB/migrations'
 //import * as serviceWorker from './serviceWorker';
 
 

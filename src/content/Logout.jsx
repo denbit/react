@@ -1,14 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Redirect} from 'react-router-dom';
 import UserService from '../services/userService';
+import {withUserConsumer} from '../services/UserContext';
 
-function Logout(props) {
-    let logedOut=false;
-    UserService.instance().removeUserData().then(()=>logedOut=true);
-    return <>{logedOut&&<Redirect to={"/"}/>}</>;
+function Logout({user}) {
+    const [loggedOut, setLoggedOut] = useState(false);
+    useEffect(() => {
+        if (user) {
+            UserService.instance().removeUserData().then((r) => {
+                console.log(r);
+                setLoggedOut(true);
+            });
+        }
+    },[]);
+
+    return <>{loggedOut && <Redirect to={'/'}/>}</>;
 }
 
-Logout.defaultProps = {}
+Logout.defaultProps = {};
 
-
-export default Logout;
+export default withUserConsumer(Logout);

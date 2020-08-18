@@ -1,23 +1,11 @@
 // @flow
 import * as config from '../config';
-
-type IDBObject = {
-	factory: IDBFactory,
-	transaction: Object,
-	keyRange: Object,
-};
-const getIDBCollection = (): IDBObject => ({
-	factory: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB,
-	transaction: window.IDBTransaction || window.webkitIDBTransaction,
-	keyRange: window.IDBKeyRange || window.webkitIDBKeyRange,
-});
-var dbvers = 1;
+import IndexedDB from './indexedDB';
 
 function getCached(key): ?Object {
 
-	return openDBConnection().then((db) => {
-
-		const storeList = db.objectStoreNames;
+	return  IndexedDB.get().openDBConnection().then((db) => {
+		const storeList:any=db.objectStoreNames;
 		if (storeList.contains('content')) {
 			let transaction = db.transaction('content', 'readonly');
 			var contentStore = transaction.objectStore('content');
@@ -38,52 +26,15 @@ function getCached(key): ?Object {
 	}).catch(console.debug);
 }
 
-var createObjectStores = function (db) {
-	console.error(2);
-	const storeList = db.objectStoreNames;
-	if (!storeList.contains('content')) {
-		const contentStore = db.createObjectStore('content');
-		console.log('Creating objectStore');
-		contentStore.createIndex('name_idx', 'name');
-
-	}
-
-};
-
-function openDBConnection() {
-	return new Promise(((resolve, reject) => {
-		const {factory} = getIDBCollection();
-		var DBConnection = factory.open('chemDB', dbvers);
-		console.info('Trying to open connection');
-		DBConnection.onerror = (e) => reject(e);
-		DBConnection.onupgradeneeded = (event) => {
-			console.info('Creating new db');
-			createObjectStores(event.target.result);
-
-		};
-		DBConnection.onsuccess = () => {
-			console.log('Getting DB');
-			resolve(DBConnection.result);
-		};
-	}));
-
-}
 
 async function setToCache(key, value) {
-	return openDBConnection().then(db => {
-		db.onversionchange = function () {
-			db.close();
-			alert('Please reload page. System is updating...');
-		};
-		db.onerror = function (event) {
-			console.log('Error creating/accessing IndexedDB database');
-		};
-		if (db.setVersion && db.version !== dbvers) {
-			var setVersion = db.setVersion(dbvers);
-			setVersion.onsuccess = function () {
-				createObjectStores(db);
-			};
-		}
+	return IndexedDB.get().openDBConnection().then(db => {
+		// if (db.setVersion && db.version !== dbvers) {
+		// 	var setVersion = db.setVersion(dbvers);
+		// 	setVersion.onsuccess = function () {
+		// 		createObjectStores(db);
+		// 	};
+		// }
 		const storeList = db.objectStoreNames;
 		if (storeList.contains('content')) {
 			// Open a transaction to the database
@@ -100,6 +51,7 @@ async function setToCache(key, value) {
 					    if (value.name!==key){
 					        value.name=key
                         }
+                        console.log(value,key);
 						let putRequest = contentStore.put(value,key);
 						putRequest.onsuccess = (e) => {
 							console.log('put entry');
@@ -123,7 +75,7 @@ export const getContentTranslation = async (
 	let content = await getCached(section + '_' + language + '.html');
 	console.log('cached', section, language);
 	if (content === null) {
-		const token = window.token || 'WVhCcFFHbHY=';
+		const token = window.token;
 		const options = {
 			'headers':
 				{

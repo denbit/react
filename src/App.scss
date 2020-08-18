@@ -1,7 +1,19 @@
 @import "style/constants";
 @import "style/fonts";
 @import "style/colors";
-
+@import url('https://fonts.googleapis.com/css?family=Nunito:200,600');
+:root{
+    scrollbar-color: #04b87f #cee7ea85;
+    scrollbar-width: thin;
+}
+html, body {
+    background-color: #fff;
+    color: #636b6f;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 200;
+    height: 100vh;
+    margin: 0;
+}
 .App {
   text-align: center;
   font-family: $local-font;

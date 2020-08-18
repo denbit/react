@@ -1,5 +1,5 @@
 import React from 'react';
-import SmallTextField from '../../ContactFormComponents/SmallTextField';
+import SmallTextField from '../../../common/SmallTextField';
 import Button from '../../../commonComponents/Button/Button';
 import style from './personalInfo.module.scss'
 import {withTranslationConsumer} from '../../../services/LanguageContext';

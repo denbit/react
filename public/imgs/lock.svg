@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+     width="16" height="16"
+     viewBox="0 0 172 172"
+     style=" fill:#000000;">
+    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
+       stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+       font-size="none"  style="mix-blend-mode: normal">
+        <path d="M0,172v-172h172v172z" fill="none"></path>
+        <g fill="#ffffff">
+            <path style="fill:#069ebd"
+                d="M86,10.75c-23.68359,0 -43,19.31641 -43,43v10.75h-5.375c-8.86035,0 -16.125,7.26465 -16.125,16.125v53.75c0,8.86035 7.26465,16.125 16.125,16.125h96.75c8.86035,0 16.125,-7.26465 16.125,-16.125v-53.75c0,-8.86035 -7.26465,-16.125 -16.125,-16.125h-5.375v-10.75c0,-23.68359 -19.31641,-43 -43,-43zM86,21.5c17.88868,0 32.25,14.36133 32.25,32.25v10.75h-64.5v-10.75c0,-17.88867 14.36133,-32.25 32.25,-32.25zM37.625,75.25h96.75c3.02344,0 5.375,2.35156 5.375,5.375v53.75c0,3.02344 -2.35156,5.375 -5.375,5.375h-96.75c-3.02344,0 -5.375,-2.35156 -5.375,-5.375v-53.75c0,-3.02344 2.35156,-5.375 5.375,-5.375z"></path>
+        </g>
+    </g>
+</svg>
