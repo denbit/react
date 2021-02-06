@@ -1,0 +1,38 @@
+@import "~style/colors";
+
+.progress-bar-container {
+  width: 70%;
+  height: 18px;
+  border-radius: 10px;
+  border: 1px solid $btn_bg_color;
+
+  .bar {
+    background: $ssl_font_color;
+    height: 18px;
+    position: absolute;
+    border-radius: 10px;
+    transition: 1s;
+
+    &.step-0 {
+      width: 16.25%;
+    }
+
+    &.step-1 {
+      width: 32.5%;
+    }
+
+    &.step-2 {
+      width: 48.75%;
+    }
+
+    &.step-3 {
+      width: 65%;
+    }
+  }
+
+}
+
+.align {
+  text-align: center;
+  text-align: -webkit-center;
+}

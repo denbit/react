@@ -1,3 +1,3 @@
-import * as ModalForm from './ModalForm'
+import ModalForm from './ModalForm'
 
 export default ModalForm

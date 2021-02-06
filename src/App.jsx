@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import style from './App.scss';
 import {LanguageList} from './Languages';
-import Header from './header/Header';
-import Main from './content/Main';
+import Header from './header/Header'
+import Main from './content/Main'
 import Blank from "./content/Blank"
 import * as Cookies from "js-cookie";
 import * as config from './config';
+import {withUserProvider} from './services/UserContext';
+import {Language, LanguageCache} from './services/LanguageContext';
 
-export const Language = React.createContext({filler: {}, slides: {}});
-// eslint-disable-next-line no-array-constructor
-const LanguageCache = {};
+
+
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -53,17 +54,16 @@ class App extends Component {
 	}
 
 	render() {
-
 		return (
 			<Language.Provider value={this.state.language}>
-				<div  className={'App'}>
+				<div className={'App'}>
 					<Blank text="head"/>
 					<Header languageSwitcher={this.changeLang}/>
 					<Main language={this.state.contentLanguage}/>
-
+					<div id="rootModal"></div>
 				</div>
 			</Language.Provider>
 		);
 	}
 }
-export default App;
+export default withUserProvider(App);

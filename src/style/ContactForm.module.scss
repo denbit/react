@@ -1,28 +1,32 @@
-.input {
+:local(.input) {
   width: 250px;
   display: inline-block;
   text-align: left;
   vertical-align: top;
 }
-
-.line {
+input[readonly]{
+    background: none;
+    color: #f5f5f5;
+    cursor: default;
+}
+:local(.line) {
   padding: 10px;
 }
 
-.field {
+:local(.field) {
   width: 300px;
   border: none;
   line-height: 25px;
 }
 
-.container {
+:local(.container) {
   padding: 20px;
   margin: auto;
   right: 100px;
   width: 70%;
 }
 
-.title {
+:local(.title) {
   font-family: "Agency FB";
 }
 

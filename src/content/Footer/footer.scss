@@ -1,0 +1,32 @@
+footer {
+  font-family: Agency FB;
+
+  h3.title {
+    text-align: center;
+    color: #0fc48a;
+    font-size: 35px;
+    padding: 25px 100px 10px 100px;
+    margin-bottom: 0;
+  }
+
+  .data {
+    text-align: justify;
+    padding: 0 30px 10px;
+    text-indent: 30px;
+    color: white;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .menu {
+    background-color: #000000cf;
+    line-height: 75px;
+
+    .menu_item {
+      a {
+        font-size: 17px;
+        color: #0fc48a;
+      }
+    }
+  }
+}

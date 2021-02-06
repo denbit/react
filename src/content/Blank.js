@@ -1,6 +1,6 @@
 import {translate} from "../func.list";
 import React, {Component} from "react";
-import {Language} from "../App";
+import {Language} from '../services/LanguageContext';
 
 class Blank extends Component {
 	static defaultProps = {

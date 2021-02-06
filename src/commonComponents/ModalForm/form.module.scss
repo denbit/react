@@ -1,0 +1,23 @@
+@import '~style/colors';
+
+.container {
+  width: 100%;
+  height: 100%;
+  background: $main_screen_bg_color;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: auto;
+  vertical-align: middle;
+
+  .modal {
+    width: 500px;
+    height: 400px;
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-250px, -50%);
+    padding: 20px;
+  }
+}

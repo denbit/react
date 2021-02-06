@@ -56,22 +56,30 @@
 }
 
 .menu_item {
-  width: calc(90% / 3);
+  //width: calc(90% / 3);
   margin-top: 5px;
   display: inline-block;
   cursor: pointer;
   color: $menu_item_font_color;
-  padding: 0 10px;
+  padding: 0 30px;
   font-size: 22px;
   text-decoration: none;
-
-  &:first-child {
-    text-align: right;
-  }
-
-  &:last-child {
-    text-align: left;
-  }
+    .login {
+        background-image: url("/imgs/user.svg");
+        display: inline-block;
+        width: 25px;
+        height: 24px;
+        position: relative;
+        top: 2px;
+    }
+  //
+  //&:first-child {
+  //  text-align: right;
+  //}
+  //
+  //&:last-child {
+  //  text-align: left;
+  //}
 
   a {
     cursor: pointer;

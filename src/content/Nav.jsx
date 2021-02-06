@@ -1,13 +1,17 @@
 import PropTypes from "prop-types";
-import {Language} from "../App";
 import NavElement from "./NavElement";
 import {translate} from "../func.list";
 import React, {Component} from 'react';
+import {withUserConsumer} from '../services/UserContext';
+import {Language} from '../services/LanguageContext';
 
 class Nav extends Component {
     static propTypes = {
-        navigateTo: PropTypes.func.isRequired
+        navigateTo: PropTypes.func.isRequired,
+        user: PropTypes.object,
     };
+
+    static defaultProps = {user: null}
 
     render() {
         const {navigateTo} = this.props;
@@ -18,6 +22,12 @@ class Nav extends Component {
                         <NavElement link="about" goTo={navigateTo} text={translate(language, "about")}/>
                         <NavElement link="calculation" goTo={navigateTo} text={translate(language, "calculation")}/>
                         <NavElement link="contacts" goTo={navigateTo} text={translate(language, "contacts")}/>
+                        {this.props.user
+                            ?
+                            <NavElement link="profile" goTo={navigateTo} text={translate(language, "profile")} />
+                            :
+                            <NavElement link="login" goTo={navigateTo} text={<><span className='login'/>{translate(language, "login")}</>} />
+                        }
                     </React.Fragment>)
                 }
             </Language.Consumer>
@@ -25,4 +35,4 @@ class Nav extends Component {
     }
 }
 
-export default Nav
+export default withUserConsumer(Nav)

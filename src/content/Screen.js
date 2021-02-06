@@ -6,7 +6,8 @@ class Screen extends Component {
         page: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.element
-        ])
+        ]),
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -15,6 +16,7 @@ class Screen extends Component {
             page: 'main'
         };
         this.ref = React.createRef();
+
 
     }
 
@@ -33,7 +35,7 @@ class Screen extends Component {
 
     renderString = (attrs) => (<div ref={this.ref} className={attrs.className}></div>);
 
-    renderComponent = (Component, attrs) => (<div className={attrs.className}><Component/></div>);
+    renderComponent = (Component, attrs) => (<div className={attrs.className}><Component {...attrs}/></div>);
 
     render() {
         const atrs = Object.assign({}, this.props);

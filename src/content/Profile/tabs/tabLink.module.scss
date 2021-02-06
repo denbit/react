@@ -1,0 +1,16 @@
+@import '~style/colors';
+.link{
+    padding: 5px 10px;
+    line-height: 40px;
+    color: $link_font_color;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+        color: #f0f0f0;
+    }
+    &.link__active {
+        text-decoration: underline;
+        color:$link_font_color;
+    }
+
+}
